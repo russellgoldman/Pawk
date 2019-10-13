@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+  postgres:
+    container_name: postgres
+    restart: always
+    image: postgres
+    build:
+      context: ./postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgraphile
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    networks:
+      - default
+    ports:
+      - 5432:5432
+
+  graphql:
+    container_name: graphql
+    restart: always
+    image: graphile/postgraphile
+    build:
+      context: ./graphql
+    environment:
+      DATABASE_URL: postgres://postgres:password@postgres:5432/postgraphile
+    depends_on:
+      - postgres
+    networks:
+      - default
+    ports:
+      - 5433:5433
+    command: [
+      "postgraphile",
+      "--connection", "postgres://postgres:password@postgres:5432/postgraphile",
+      "--port", "5433",
+      "--append-plugins", "postgraphile-plugin-connection-filter"
+    ]
+
+volumes:
+  db:
