@@ -13,7 +13,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     networks:
-      - default
+      - private
     ports:
       - 5432:5432
 
@@ -27,16 +27,30 @@ services:
       DATABASE_URL: postgres://postgres:password@postgres:5432/postgraphile
     depends_on:
       - postgres
+      - flyway
     networks:
-      - default
+      - private
     ports:
       - 5433:5433
     command: [
       "postgraphile",
       "--connection", "postgres://postgres:password@postgres:5432/postgraphile",
+      "--schema", "pawk",
       "--port", "5433",
       "--append-plugins", "postgraphile-plugin-connection-filter"
     ]
+  
+  flyway:
+    image: flyway/flyway
+    command: migrate
+    depends_on:
+      - postgres
+    volumes:
+      - ./postgres/migrations/:/flyway/sql
+      - ./postgres/config:/flyway/conf
+
+networks:
+  private:
 
 volumes:
   db:

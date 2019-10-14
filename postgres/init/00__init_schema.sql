@@ -1,12 +1,13 @@
 \connect postgraphile;
 
-CREATE TABLE courses (
+CREATE SCHEMA pawk;
+CREATE TABLE pawk.courses (
     code TEXT UNIQUE NOT NULL PRIMARY KEY,
     name TEXT NOT NULL,
-    credits DECIMAL NOT NULL,
+    credits FLOAT NOT NULL,
     term TEXT[],
-    lecture_hours DECIMAL,
-    lab_hours DECIMAL,
+    lecture_hours FLOAT,
+    lab_hours FLOAT,
     description TEXT,
     prerequisite_description TEXT,
     prerequisite_courses TEXT[],
@@ -16,13 +17,13 @@ CREATE TABLE courses (
     exclusions_courses TEXT[]
 );
 
-COMMENT ON TABLE courses IS
+COMMENT ON TABLE pawk.courses IS
 'All course data from the Academic Calendar';
 
-CREATE TABLE programs (
+CREATE TABLE pawk.programs (
     name TEXT UNIQUE NOT NULL PRIMARY KEY,
     description TEXT,
-    years INTEGER,
+    years INT,
     required_courses TEXT[][],
     elective_credits TEXT[],
     coop_count INTEGER,
@@ -30,5 +31,5 @@ CREATE TABLE programs (
     progression_requirements TEXT[]
 );
 
-COMMENT ON TABLE programs IS
+COMMENT ON TABLE pawk.programs IS
 'All program data from the Academic Calendar';

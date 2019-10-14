@@ -1,6 +1,6 @@
 \connect postgraphile;
 
-INSERT INTO courses (
+INSERT INTO pawk.courses (
     code,
     name,
     credits,
@@ -37,7 +37,7 @@ INSERT INTO courses (
     NULL
 );
 
-INSERT INTO programs (
+INSERT INTO pawk.programs (
     name,
     description,
     years,
