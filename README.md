@@ -21,3 +21,7 @@ Mockups designed in Figma and translated into a functioning mobile application.
 
 ### Android Frontend
 Accesses the backend ecosystem to serve data to our frontend Android application.
+
+## References
+### Docker + Postgraphile Setup
+https://github.com/alexisrolland/docker-postgresql-postgraphile/wiki
