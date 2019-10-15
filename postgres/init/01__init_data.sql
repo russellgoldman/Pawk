@@ -22,13 +22,7 @@ INSERT INTO pawk.courses (
     '{"Fall"}',
     3.0,
     1.0,
-    'Design and construction of computational systems that interact     \
-        with the physical world for applications such as home or        \
-        experiment automation. Basics of electrical circuits,           \
-        reading from analog and digital sensors, controlling analog and \
-        digital actuators, single board computers such as Arduino or    \
-        Raspberry PI, analog components including diodes, transistors   \
-        and operational amplifiers.(Cross-listed as PC320.)',
+    'Design and construction of computational systems that interact with the physical world for applications such as home or experiment automation. Basics of electrical circuits, reading from analog and digital sensors, controlling analog and digital actuators, single board computers such as Arduino or Raspberry PI, analog components including diodes, transistors and operational amplifiers.(Cross-listed as PC320.)',
     'CP164 (or CP114), CP220/PC220 (or CP120/PC120).',
     ARRAY['CP164', 'CP220/PC220'],
     NULL,
