@@ -35,6 +35,21 @@ INSERT INTO pawk.courses (
     NULL,
     'CP300/PC300.',
     NULL
+),
+(
+    'CP104',
+    'Introduction to Programming',
+    0.5,
+    '{"Fall", "Winter", "Spring"}',
+    3.0,
+    2.5,
+    'An introductory course designed to familiarize the student with modern software development techniques. Emphasis is on problem-solving and structured program design methodologies. Programming projects are implemented in a widely used high-level language',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 );
 
 INSERT INTO pawk.programs (

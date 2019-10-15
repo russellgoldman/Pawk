@@ -18,7 +18,7 @@ CREATE TABLE pawk.courses (
 );
 
 COMMENT ON TABLE pawk.courses IS
-'All course data from the Academic Calendar';
+'Data that makes up a Laurier course';
 
 CREATE TABLE pawk.programs (
     name TEXT UNIQUE NOT NULL PRIMARY KEY,
@@ -32,4 +32,4 @@ CREATE TABLE pawk.programs (
 );
 
 COMMENT ON TABLE pawk.programs IS
-'All program data from the Academic Calendar';
+'Data that makes up a Laurier program';

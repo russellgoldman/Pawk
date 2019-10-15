@@ -17,6 +17,16 @@ services:
     ports:
       - 5432:5432
 
+  flyway:
+    container_name: flyway
+    image: flyway/flyway
+    command: migrate
+    depends_on:
+      - postgres
+    volumes:
+      - ./postgres/migrations/:/flyway/sql
+      - ./postgres/config:/flyway/conf
+
   graphql:
     container_name: graphql
     restart: always
@@ -39,15 +49,6 @@ services:
       "--port", "5433",
       "--append-plugins", "postgraphile-plugin-connection-filter"
     ]
-  
-  flyway:
-    image: flyway/flyway
-    command: migrate
-    depends_on:
-      - postgres
-    volumes:
-      - ./postgres/migrations/:/flyway/sql
-      - ./postgres/config:/flyway/conf
 
 networks:
   private:
