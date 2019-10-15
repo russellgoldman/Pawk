@@ -3,9 +3,9 @@ INSERT INTO pawk.course_offerings (
     crn,
     section,
     credits,
-    startTime,
-    endTime,
-    weekDays,
+    start_time,
+    end_time,
+    week_days,
     campus,
     instructor
 ) VALUES
@@ -14,8 +14,8 @@ INSERT INTO pawk.course_offerings (
     '2936',
     '1A',
     0.5,
-    '7PM',
-    '9PM',
+    '19:00:00 EST',
+    '21:00:00 EST',
     '{"THURSDAY"}',
     'Brantford',
     'Richard Norman Hildred'
@@ -25,8 +25,8 @@ INSERT INTO pawk.course_offerings (
     '60',
     'A',
     0.5,
-    '1:30PM',
-    '2:20PM',
+    '13:30:00 EST',
+    '14:20:00 EST',
     '{"MONDAY", "WEDNESDAY", "FRIDAY"}',
     'Waterloo',
     'Habib-ur Rehman'
@@ -36,8 +36,8 @@ INSERT INTO pawk.course_offerings (
     '28',
     'L1',
     0.5,
-    '2:30PM',
-    '4:50PM',
+    '14:30:00 EST',
+    '16:50:00 EST',
     '{"MONDAY"}',
     'Waterloo',
     'David B. Brown'
