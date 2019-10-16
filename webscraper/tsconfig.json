@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "strictNullChecks": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "outDir": "./.build/",
+    },
+    "exclude": [
+        "node_modules",
+    ],
+    "types" : ["node", "lodash", "express"]
+}
