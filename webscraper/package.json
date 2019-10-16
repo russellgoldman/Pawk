@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "tsc && node ./build/main.js"
+    "start": "tsc && node ./.build/main.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
