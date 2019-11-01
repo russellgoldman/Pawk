@@ -13,4 +13,4 @@ const potusParse = function(url) {
     });
 };
 
-module.exports = potusParse;
+module.exports = potusParse; 
