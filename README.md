@@ -1,11 +1,11 @@
 # Pawk
 
 ## Team Members
-- Russell Goldman (160136650)
-- Ralph Suyat (160516270)
-- Michelle Wong (150652580)
-- Brian Hane (150571750)
-- Pirajeev Prabaharan (150646270)
+- Russell Goldman
+- Ralph Suyat
+- Michelle Wong
+- Brian Hane
+- Pirajeev Prabaharan
 
 ## Backend
 ### Webscraper
