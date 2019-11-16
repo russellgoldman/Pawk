@@ -17,11 +17,6 @@ var lecturehours;
 var labhours;
 var description;
 var reqs;
-var courses;
-var preCourses;
-var coCourses;
-var exCourses;
-
 
 rp(url)
   .then(function(html) {
@@ -58,66 +53,62 @@ rp(url)
     console.log(description);
     reqs = $('dt',".reqs",html).text().split(/(?=[A-Z])/);
     console.log(reqs);
-// part of the old way
- // courses = $('dd',".reqs",html).text().split(".");
-  //courses = $('.reqs .required',html);
+    length = $('dt', '.reqs', html).children().length
+    header = $('dt', '.reqs', html).first()
 
-   console.log(courses);
+    prerequisiteDescription = null
+    prerequisiteCourses = null
+    corequisiteDescription = null
+    corequisiteCourses = null
+    exclusionsDescription = null
+    exclusionCourses = null
+    notes = null
 
-$('.reqs .required',html).children().each(
-  function(index, element) {
-    $(element).each(function(i,elm){
-      console.log( $(elm).text());
-    });
-  if (element == 'a'){
-  
-  } 
-})
-   /* Old Setup that wasent ideal
-    if (reqs.length == 3){
-        preCourses = courses[0];
-        coCourses = courses[1];
-        exCourses = courses[2];     
-    }else if (reqs.length == 2){
-      if(reqs[0].substring(0,2)=="Pr"){
-        preCourses = courses[0]
-        if(reqs[1].substring(0,2)=="Co"){
-          coCourses = courses[1];
-          exCourses = null;
-        }else{
-          coCourses = null;
-          exCourses = courses[1];
-        }
-      }else if(reqs[1].substring(0,2)=="Co"){
-        coCourses = courses[0]
-        preCourses = null;
-        exCourses = courses[1];
+    for (i = 0; i < length * 2; i++) {
+      headerCourses = header.next()
+
+      switch (header.text()) {
+        case "Prerequisites":
+          prerequisiteDescription = headerCourses.text()
+          prerequisiteCourses = []
+          headerCourses.children('a').each(function(i, elem) {
+            prerequisiteCourses.push($(this).text());
+          })
+          
+          console.log(prerequisiteDescription)
+          console.log(prerequisiteCourses)
+          break
+        case "Co-requisites":
+          corequisiteDescription = headerCourses.text()
+          corequisiteCourses = []
+          headerCourses.children('a').each(function(i, elem) {
+            corequisiteCourses.push($(this).text());
+          })
+          
+          console.log(corequisiteDescription)
+          console.log(corequisiteCourses)
+          break
+        case "Exclusions":
+          exclusionsDescription = headerCourses.text()
+          exclusionCourses = []
+          headerCourses.children('a').each(function(i, elem) {
+            exclusionCourses.push($(this).text());
+          })
+
+          console.log(exclusionsDescription)
+          console.log(exclusionCourses)
+          break
+        case "Notes":
+          notes = headerCourses.text()
+
+          console.log(notes)
+          break
       }
-    }else if (reqs.length ==1){
-      if(reqs[0].substring(0,2)=="Pr"){
-        preCourses = courses[0];
-        coCourses = null;
-        exCourses = null;
-      }else if(reqs[0].substring(0,2)=="Co"){
-        coCourses = courses[0];
-        preCourses = null;
-        exCourses = null;
-      }else{
-        exCourses = courses[0];
-        coCourses = null;
-        preCourses = null;
-      }
-    }else{
-      exCourses = null;
-      coCourses = null;
-      preCourses = null;
+      
+      header = headerCourses.next()
     }
-    
-    console.log(preCourses);
-    console.log(coCourses);
-    console.log(exCourses);
-    */
-
+    description += notes;
+    console.log(description);
   })
   .catch(function(err) {
     //handle error
