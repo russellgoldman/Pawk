@@ -2,12 +2,12 @@ const rp = require('request-promise');
 const $ = require('cheerio');
 const url = 'https://academic-calendar.wlu.ca/section.php?cal=1&s=939&y=79';
 var links;
-
+const help = []
 
 rp(url)
   .then(function(html){
     //success!
-    var wikiUrls = [];
+    const wikiUrls = [];
     var length = $('tbody td > a',"#postermain", html).length;
     console.log(length);
     for (let i = 0; i < length; i++) {
@@ -16,29 +16,43 @@ rp(url)
                 wikiUrls.push($('tbody td > a',"#postermain", html)[i].attribs.href);
             }
     }
-   runner(wikiUrls);
+  help =  runner(wikiUrls);
+  console.log(help.values());   
+
   })
   .catch(function(err){
     //handle error
   });
 function runner(items){
-    var courses = [];
+   var len = items.length;
     var select;
-    for (let i = 0; i < 2; i++) {
+    const courses = [];
+    for (let i = 0; i < len; i++) {
+
         newurl = "https://academic-calendar.wlu.ca" + items[i];
-        console.log(newurl);
+    
         rp(newurl)
         .then(function(html){
             select = $('caption', html).text();
             if(select =="Course Offerings"){
-                select = $('td>a',".zebra",html).length;
-                console.log(select);
-
+                len = $('td>a',".zebra",html).length;
+                for(let i = 0; i < len;i++){
+                   // select1 = $('td>a',".zebra",html)[i].attribs.href;
+                    select2 =$('td>a',html)[i].attribs.href;
+                   // console.log
+                    if(!courses.includes("https://academic-calendar.wlu.ca/" + select2) && select2.charAt(0)=="c"){
+                        //console.log("https://academic-calendar.wlu.ca/" + select2)
+                        courses.push("https://academic-calendar.wlu.ca/" + select2);
+                    }
+                }
+      
+              
+               
             }
 
         }).catch(function(err){
 
         });
     }
-    
-}
+    console.log(courses.length);
+    }
