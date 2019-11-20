@@ -1,58 +1,71 @@
 const rp = require('request-promise');
 const $ = require('cheerio');
+const courseParse = require('./justCourses.js');
 const url = 'https://academic-calendar.wlu.ca/section.php?cal=1&s=939&y=79';
 var links;
 const help = []
 
 rp(url)
-  .then(function(html){
+.then(function(html) {
     //success!
-    const wikiUrls = [];
+    var wikiUrls = [];
     var length = $('tbody td > a',"#postermain", html).length;
-    console.log(length);
+    //console.log(length);
     for (let i = 0; i < length; i++) {
-        links=$('tbody td > a',"#postermain", html)[i].attribs.href;
-            if(links.charAt(0)=="/" && links.substring(0,2)!="/g"){
-                wikiUrls.push($('tbody td > a',"#postermain", html)[i].attribs.href);
-            }
+        links = $('tbody td > a',"#postermain", html)[i].attribs.href;
+        if (links.charAt(0)=="/" && links.substring(0,2)!="/g") {
+            wikiUrls.push($('tbody td > a',"#postermain", html)[i].attribs.href);
+        }
     }
-  help =  runner(wikiUrls);
-  console.log(help.values());   
 
-  })
-  .catch(function(err){
-    //handle error
-  });
-function runner(items){
-   var len = items.length;
+    // predefined callback function
+    const afterCourseLinksRetrived = (courses) => {
+        console.log("Course Links successly retrieved")
+        console.log(courses.length);
+
+        courses.forEach((el, index) => {
+            //console.log(el);
+            courseParse(el);
+        })
+    }
+
+    getCourseLinks(wikiUrls, afterCourseLinksRetrived)
+})
+
+function getCourseLinks(items, callback) {
+    var itemsLength = items.length;
     var select;
-    const courses = [];
-    for (let i = 0; i < len; i++) {
+    var courses = []
+    var requests = 0;
 
+    for (var i = 0; i < itemsLength; i++) {
         newurl = "https://academic-calendar.wlu.ca" + items[i];
     
         rp(newurl)
-        .then(function(html){
+        .then(function(html) {
+            requests++
+            
             select = $('caption', html).text();
-            if(select =="Course Offerings"){
+            if (select =="Course Offerings") {
                 len = $('td>a',".zebra",html).length;
-                for(let i = 0; i < len;i++){
+                for(let i = 0; i < len; i++){
                    // select1 = $('td>a',".zebra",html)[i].attribs.href;
                     select2 =$('td>a',html)[i].attribs.href;
-                   // console.log
-                    if(!courses.includes("https://academic-calendar.wlu.ca/" + select2) && select2.charAt(0)=="c"){
+                    if (!courses.includes("https://academic-calendar.wlu.ca/" + select2) && select2.charAt(0)=="c"){
                         //console.log("https://academic-calendar.wlu.ca/" + select2)
                         courses.push("https://academic-calendar.wlu.ca/" + select2);
                     }
-                }
-      
-              
-               
+                }         
             }
-
-        }).catch(function(err){
+            
+            // once all the requests are done, initiate the callback function
+            if (requests === itemsLength-1) {
+                console.log(requests);
+                console.log(courses.length)
+                callback(courses)
+            }
+        }).catch(function(err) {
 
         });
     }
-    console.log(courses.length);
-    }
+}
