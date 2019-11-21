@@ -28,6 +28,7 @@
         android:layout_weight="1"
         android:background="@drawable/rounded_button"
         android:text="Learn More"
-        android:textColor="#F9F9F9" />
+        android:textColor="#F9F9F9"
+        />
 
 </LinearLayout>

@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
+import android.util.Log;
+
+import androidx.appcompat.app.AlertDialog;
 
 /*
     This is for the exploreProgram area
@@ -21,6 +24,8 @@ public class ProgramListAdapter extends ArrayAdapter {
 
     //stores program description
     private final String[] infoArray;
+
+    private String ACTIVITY_NAME = "programListAdapter";
 
     /*
            Constructor
@@ -49,6 +54,13 @@ public class ProgramListAdapter extends ArrayAdapter {
         // sets values of the objects to values from array
         nameTextField.setText(nameArray[position]);
         infoTextField.setText(infoArray[position]);
+
+        learnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(ACTIVITY_NAME,"is it here?");
+            }
+        });
 
         return rowView;
     };
