@@ -1,11 +1,13 @@
 package com.example.cp470_group_project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Button;
 import android.util.Log;
@@ -59,6 +61,9 @@ public class ProgramListAdapter extends ArrayAdapter {
             @Override
             public void onClick(View view) {
                 Log.i(ACTIVITY_NAME,"is it here?");
+//                Intent intent = new Intent(ProgramListAdapter.this,exploreProgram.class);
+//                startActivity(intent);
+
             }
         });
 
