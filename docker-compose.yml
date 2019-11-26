@@ -43,7 +43,6 @@ services:
     ports:
       - 5433:5433
     command: [
-      "postgraphile",
       "--connection", "postgres://postgres:password@postgres:5432/postgraphile",
       "--schema", "pawk",
       "--port", "5433",
