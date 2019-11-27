@@ -17,18 +17,21 @@
         android:layout_width="@dimen/rating_star_width"
         android:layout_alignStart="@id/star1"
         android:layout_marginStart="@dimen/rating_star_width" />
+
     <ImageView
         android:id="@+id/star3"
         android:layout_height="@dimen/rating_star_height"
         android:layout_width="@dimen/rating_star_width"
         android:layout_alignStart="@id/star2"
         android:layout_marginStart="@dimen/rating_star_width" />
+
     <ImageView
         android:id="@+id/star4"
         android:layout_height="@dimen/rating_star_height"
         android:layout_width="@dimen/rating_star_width"
         android:layout_alignStart="@id/star3"
         android:layout_marginStart="@dimen/rating_star_width" />
+
     <ImageView
         android:id="@+id/star5"
         android:layout_height="@dimen/rating_star_height"

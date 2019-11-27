@@ -114,9 +114,7 @@
             android:layout_alignStart="@id/students_enrolled"
             android:layout_below="@id/students_enrolled"
             android:layout_marginTop="35dp"
-            android:orientation="vertical"
-            android:divider="@drawable/divider"
-            android:showDividers="end" >
+            android:orientation="vertical" >
 
             <FrameLayout
                 android:id="@+id/course_prerequisites"

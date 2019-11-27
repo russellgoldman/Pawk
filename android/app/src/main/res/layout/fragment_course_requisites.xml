@@ -5,11 +5,11 @@
     android:layout_height="wrap_content"
     tools:context=".CourseRequisitesFragment" >
 
-    <ImageView
+    <View
         android:id="@+id/top_divider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/divider" />
+        android:layout_width="320dp"
+        android:layout_height="1dp"
+        android:background="#E6E6E6"/>
 
     <RelativeLayout
         android:id="@+id/title_content_layout"
@@ -28,6 +28,12 @@
             android:textStyle="bold" />
 
         <!-- TODO: ListView with all courses -->
+        <ListView
+            android:id="@+id/requisite_courses"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_below="@id/requisite_title"
+            android:layout_marginTop="9dp" />
 
     </RelativeLayout>
 
