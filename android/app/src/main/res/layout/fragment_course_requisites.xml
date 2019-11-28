@@ -27,13 +27,27 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <!-- TODO: ListView with all courses -->
+        <TextView
+            android:id="@+id/requisite_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="18dp"
+            android:text="#"
+            android:textColor="#8F8F8F"
+            android:textSize="14dp"
+            android:textStyle="normal" />
+
         <ListView
             android:id="@+id/requisite_courses"
             android:layout_width="wrap_content"
-            android:layout_height="75dp"
+            android:layout_height="95dp"
             android:layout_below="@id/requisite_title"
-            android:layout_marginTop="9dp" />
+            android:layout_marginTop="9dp"
+            android:divider="#000"
+            android:nestedScrollingEnabled="true" />
 
     </RelativeLayout>
 
