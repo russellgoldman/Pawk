@@ -32,7 +32,7 @@
 
         <RelativeLayout
             android:id="@+id/star_rating_group"
-            android:layout_width="44dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@id/purple_bkg"
             android:layout_centerInParent="true" >
