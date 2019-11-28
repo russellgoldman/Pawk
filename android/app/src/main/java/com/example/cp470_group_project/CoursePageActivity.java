@@ -8,11 +8,16 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class CoursePageActivity extends AppCompatActivity {
     final String ACTIVITY_NAME = "CoursePageActivity";
+    public String code = "CP212";
+    public int rating = 4;
 
     public class Course implements Parcelable {
         public String code;
@@ -57,6 +62,24 @@ public class CoursePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_page);
 
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            code = extras.getString("code");
+            rating = extras.getInt("rating");
+            TextView codeView = findViewById(R.id.title_code);
+            codeView.setText(code);
+        }
+
+        ImageButton backButton = findViewById(R.id.course_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        /* TODO - replace with GraphQL requisite data based on course code */
         // prerequisites
         ArrayList<Course> coursePrerequisites = new ArrayList<Course>();
         coursePrerequisites.add(new Course("CP102", 4));
@@ -76,6 +99,10 @@ public class CoursePageActivity extends AppCompatActivity {
         Fragment courseRatings = new CourseAcquiredRatingFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
+        Bundle data = new Bundle();
+        data.putInt("rating", rating);
+        courseRatings.setArguments(data);
+
         transaction.replace(R.id.course_acquired_rating_fragment, courseRatings);
         transaction.commit();
 
@@ -84,7 +111,7 @@ public class CoursePageActivity extends AppCompatActivity {
 
         if (coursePrerequisites.size() > 0) {
             Fragment prerequisites = new CourseRequisitesFragment();
-            Bundle data = new Bundle();
+            data = new Bundle();
 
             data.putString("id", "prerequisites");
             data.putString("title", "Prerequisites");
@@ -97,7 +124,7 @@ public class CoursePageActivity extends AppCompatActivity {
             Log.i(ACTIVITY_NAME, "coreqs");
 
             Fragment corequisites = new CourseRequisitesFragment();
-            Bundle data = new Bundle();
+            data = new Bundle();
 
             data.putString("id", "corequisites");
             data.putString("title", "Corequisites");
@@ -110,7 +137,7 @@ public class CoursePageActivity extends AppCompatActivity {
             Log.i(ACTIVITY_NAME, "exclusions");
 
             Fragment exclusions = new CourseRequisitesFragment();
-            Bundle data = new Bundle();
+            data = new Bundle();
 
             data.putString("id", "exclusions");
             data.putString("title", "Exclusions");

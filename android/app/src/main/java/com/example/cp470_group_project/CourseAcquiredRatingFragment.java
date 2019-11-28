@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 public class CourseAcquiredRatingFragment extends Fragment {
-    private final int ratings = 4;
-    private final int maxRatings = 5;
+    private int rating = 0;
+    private final int maxRating = 5;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,9 @@ public class CourseAcquiredRatingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // get rating from bundle
+        rating = getArguments().getInt("rating");
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_course_acquired_rating, container, false);
     }
@@ -33,8 +36,8 @@ public class CourseAcquiredRatingFragment extends Fragment {
 
         final int[] starViewGroups = {R.id.star1, R.id.star2, R.id.star3, R.id.star4, R.id.star5};
 
-        for (int i = 0; i < maxRatings; i++) {
-            int star = (i < ratings) ? R.drawable.course_rating_acquired : R.drawable.course_rating_unacquired;
+        for (int i = 0; i < maxRating; i++) {
+            int star = (i < rating) ? R.drawable.course_rating_acquired : R.drawable.course_rating_unacquired;
 
             ImageView starViewGroup = getView().findViewById(starViewGroups[i]);
             starViewGroup.setImageResource(star);

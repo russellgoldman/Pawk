@@ -26,7 +26,7 @@
                 android:src="@drawable/course_back_button" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -39,10 +39,10 @@
                 android:text="Courses" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/title_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView4"
+                android:layout_below="@+id/header"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="30dp"
@@ -55,27 +55,27 @@
                 android:id="@+id/editText5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView5"
+                android:layout_below="@+id/title_code"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="38dp"
+                android:layout_marginEnd="40dp"
                 android:background="@null"
                 android:inputType="textMultiLine|textNoSuggestions"
                 android:textSize="14dp"
                 android:textColor="#838383"
                 android:lineHeight="22dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus dignissim sodales tortor, a luctus est. Pellentesque sed orci dolor. Orci varius natoque penatibus et." />
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus dignissim sodales tortor, a luctus est. Pellentesque sed orci dolor. Orci varius natoque penatibus et" />
 
             <ImageView
                 android:id="@+id/course_rating_bkg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView4"
+                android:layout_below="@+id/header"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="33dp"
-                android:layout_marginEnd="44dp"
+                android:layout_marginEnd="40dp"
                 android:src="@drawable/course_rating_bkg" />
 
             <RelativeLayout

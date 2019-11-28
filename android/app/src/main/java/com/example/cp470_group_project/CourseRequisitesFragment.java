@@ -2,6 +2,7 @@ package com.example.cp470_group_project;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,8 +55,19 @@ public class CourseRequisitesFragment extends Fragment {
 
         // create ListView adapter
         CourseRequisiteAdapter adapter = new CourseRequisiteAdapter(getActivity(), courseRequisites);
-        ListView requisiteListView = getView().findViewById(R.id.requisite_courses);
+        final ListView requisiteListView = getView().findViewById(R.id.requisite_courses);
         requisiteListView.setAdapter(adapter);
+
+        requisiteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CoursePageActivity.Course course = (CoursePageActivity.Course) requisiteListView.getItemAtPosition(position);
+                Intent intent = new Intent(getActivity(), CoursePageActivity.class);
+                intent.putExtra("code", course.code);
+                intent.putExtra("rating", course.rating);
+                startActivity(intent);
+            }
+        });
     }
 
     /*
@@ -77,7 +91,7 @@ public class CourseRequisitesFragment extends Fragment {
             TextView rating = convertView.findViewById(R.id.rating);
 
             code.setText(course.code);
-            //rating.setText(course.rating);
+            rating.setText(Integer.toString(course.rating));
 
             return convertView;
         }
