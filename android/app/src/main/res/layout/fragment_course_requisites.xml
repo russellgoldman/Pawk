@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".CourseRequisitesFragment" >
+
+    <View
+        android:id="@+id/top_divider"
+        android:layout_width="320dp"
+        android:layout_height="1dp"
+        android:background="#E6E6E6"/>
+
+    <RelativeLayout
+        android:id="@+id/title_content_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/top_divider"
+        android:layout_marginTop="17dp" >
+
+        <TextView
+            android:id="@+id/requisite_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Requisite Title"
+            android:textColor="#3A3A3A"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/requisite_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="18dp"
+            android:text="#"
+            android:textColor="#8F8F8F"
+            android:textSize="14dp"
+            android:textStyle="normal" />
+
+        <ListView
+            android:id="@+id/requisite_courses"
+            android:layout_width="wrap_content"
+            android:layout_height="95dp"
+            android:layout_below="@id/requisite_title"
+            android:layout_marginTop="9dp"
+            android:divider="#000"
+            android:nestedScrollingEnabled="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_content_layout"
+        android:layout_marginTop="17dp" />
+
+</RelativeLayout>
