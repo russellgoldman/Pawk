@@ -1,31 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
     tools:context=".programPage">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+    <ImageButton
+        android:id="@+id/course_back_button"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="31dp"
+        android:layout_marginTop="54dp"
+        android:background="@null"
+        android:src="@drawable/course_back_button" />
 
-        <TextView
-            android:id="@+id/programNameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Program Name"
-            android:visibility="visible" />
+    <TextView
+        android:id="@+id/programHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="40dp"
+        android:layout="@+id/course_back_button"
+        android:text="Courses"
+        android:textColor="#522180"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/programBlurbTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="blurb"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/programNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/programHeader"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="42dp"
+        android:text="Program Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/programBlurbTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/programNameTextView"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:text="blurb"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/programHighlightHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/programBlurbTextView"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="42dp"
+        android:text="Highlights"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/programHighlightDetails"
+        android:layout_width="332dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/programHighlightHeader"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:text="blurb"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/programRequirements"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/programHighlightDetails"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="42dp"
+        android:text="Requirements"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/programRequirementsDetail"
+        android:layout_width="332dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/programRequirements"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:text="blurb"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-</RelativeLayout>
+        <LinearLayout
+            android:id="@+id/SampleCourses"
+            android:layout_width="331dp"
+            android:layout_height="366dp"
+            android:layout_below="@+id/programRequirementsDetail"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginRight="42dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteY="379dp">
+
+            <FrameLayout
+                android:id="@+id/sampleCourseFrame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

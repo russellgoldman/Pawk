@@ -1,34 +1,34 @@
 package com.example.cp470_group_project;
 
+import android.content.ClipData;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import java.util.List;
 import java.util.ArrayList;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import androidx.appcompat.widget.Toolbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-
-public class exploreProgram2 extends AppCompatActivity {
+public class exploreProgram2 extends AppCompatActivity{
 
     String[] programArray = {"Computer Science","Math","English","Sociology"};
     String[] infoArray={"this is computer scie","tis is math","this is eng", "this is soc"};
-    ListView listView;
 
     public boolean isButtonVisible = true;
     public boolean isTextViewVisible= false;
@@ -36,11 +36,17 @@ public class exploreProgram2 extends AppCompatActivity {
 
     Button learnMore;
 
-    private String ACTIVITY_NAME = "exploreProgram";
+    private String ACTIVITY_NAME = "exploreProgram2";
 
     private Toolbar toolbar2;
 
     programAdapter  adapter;
+
+    BottomNavigationView bottomNav;
+
+    MenuItem programNav;
+
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,29 +61,55 @@ public class exploreProgram2 extends AppCompatActivity {
             programList.add(new programData(programArray[i],infoArray[i]));
         }
 
-        adapter = new programAdapter(programList);
-        RecyclerView recyclerView = findViewById(R.id.recview);
-
-        //((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-
-
+        recyclerView = findViewById(R.id.recview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
+
+        // PROBABLY HAVE TO DELETE THIS LINE..
+        adapter = new programAdapter(programList, this, new OnNoteListener() {
+            @Override
+            public void OnNoteClick(View view, int position) {
+//                Log.i(ACTIVITY_NAME,"how bout hre?");
+//                Log.i(ACTIVITY_NAME,"onNoteClicked: " + position);
+//
+//                // added this last minute
+//                adapter.notifyDataSetChanged();
+
+            }
+        });
+
         recyclerView.setAdapter(adapter);
 
-        toolbar2 = (Toolbar)findViewById(R.id.toolbar);
+
+        toolbar2 = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar2);
         getSupportActionBar().setTitle("Programs");
 
-
     }
+
+
+//    @Override
+//    public void OnNoteClick(View view, int position){
+//        Log.i(ACTIVITY_NAME,"how bout hre?");
+//        Log.i(ACTIVITY_NAME,"onNoteClicked: " + position);
+//        Bundle data = new Bundle();
+//        data.putString("programName",);
+//        data.putString("programDesc",);
+//        Log.i(ACTIVITY_NAME,"programName: " + data.get("programName"));
+//        Log.i(ACTIVITY_NAME,"programDesc: " + data.get("programDesc"));
+//        Log.i(ACTIVITY_NAME,"in OnNoteClick");
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        programFragment programFragment = new programFragment();
+//        programFragment.setArguments(data);
+//        ft.replace(R.id.programDetailsEmptyFrame,programFragment);
+// }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_nav, menu);
 
-        Log.i(ACTIVITY_NAME,"I'm here");
+        Log.i(ACTIVITY_NAME,"In onCreateOptionsMenu");
 
         return true;
     }
