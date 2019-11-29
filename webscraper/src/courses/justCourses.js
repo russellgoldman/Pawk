@@ -28,11 +28,25 @@ var corequisiteCourses = null
 var exclusionsDescription = null
 var exclusionCourses = null
 var notes = null
-const courseParse = function(url){
-  
+
+
+const courseParse = function(url) {
   try {
-    rp(url)
+    var options = {
+      method: 'GET',
+      url: url,
+      json: true,
+      headers: {
+          'Connection': 'keep-alive',
+          'Accept-Encoding': '',
+          'Accept-Language': 'en-US,en;q=0.8'
+      }
+    };
+
+    console.log(url)
+    rp(options)
       .then(function(html) {
+        console.log("hey")
         code = $('h1',"#postercontent",html).html().split("<br>");
         realcode = code[0];
       // console.log(realcode)
@@ -53,10 +67,10 @@ const courseParse = function(url){
             labhours = null;
           }
 
-        }else if(initialhours.substring(0,3)==("Lab")){
+        } else if(initialhours.substring(0,3)==("Lab")){
           lecturehours = null;
           labhours = lecturehours.split(" ")[2]
-        }else{
+        } else{
           lecturehours = null;
           labhours = null;
         }

@@ -1,6 +1,8 @@
 const rp = require('request-promise');
 const $ = require('cheerio');
 const courseParse = require('./justCourses.js');
+const Promise = require('bluebird');
+
 const url = 'https://academic-calendar.wlu.ca/section.php?cal=1&s=939&y=79';
 var links;
 const help = [];
@@ -25,10 +27,18 @@ rp(url)
         console.log("Course Links successly retrieved")
         console.log(courses.length);
 
-        courses.forEach((el, index) => {
-            
-            courseParse(el);
+        Promise.mapSeries(courses, async function(course, index, length) {
+            await sleep(1000)
+            courseParse(course)
+        }).then(function(result) {
+            console.log("Done all mutations");
         })
+
+        function sleep(ms){
+            return new Promise(resolve => {
+                setTimeout(resolve, ms)
+            })
+        }
     }
 
     getCourseLinks(wikiUrls, afterCourseLinksRetrived)
@@ -63,7 +73,6 @@ function getCourseLinks(items, callback) {
             }
             // once all the requests are done, initiate the callback function
             if (requests === 122) {
-  
                 callback(courses)
             }
         }).catch(function(err) {
