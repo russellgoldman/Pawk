@@ -28,15 +28,15 @@ rp(url)
         console.log(courses.length);
 
         Promise.mapSeries(courses, async function(course, index, length) {
-            await sleep(1000)
+            await sleep(500)
             courseParse(course)
         }).then(function(result) {
             console.log("Done all mutations");
         })
 
-        function sleep(ms){
+        function sleep(delay) {
             return new Promise(resolve => {
-                setTimeout(resolve, ms)
+                setTimeout(resolve, delay)
             })
         }
     }

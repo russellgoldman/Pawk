@@ -43,10 +43,8 @@ const courseParse = function(url) {
       }
     };
 
-    console.log(url)
     rp(options)
       .then(function(html) {
-        console.log("hey")
         code = $('h1',"#postercontent",html).html().split("<br>");
         realcode = code[0];
       // console.log(realcode)
