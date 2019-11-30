@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="297dp"
+    android:layout_height="232dp"
+    android:background="@drawable/rounded_button"
+    android:backgroundTint="#00FFFFFF"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/rateCourseTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:padding="10dp"
+        android:text="Taken this course before? How would you rate it?"
+        android:textAlignment="center" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:id="@+id/ratingBar"
+        android:numStars="5"
+        android:stepSize="1"/>
+
+    <Button
+        android:id="@+id/submitCourseRatingButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/rounded_button"
+        android:text="Submit Rating"
+        android:textColor="#F9F9F9" />
+
+</LinearLayout>
