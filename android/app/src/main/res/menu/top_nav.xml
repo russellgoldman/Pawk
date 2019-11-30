@@ -6,7 +6,9 @@
     <item android:id="@+id/search"
         android:title="search"
         android:icon="@drawable/search"
-        compat:showAsAction="always"/>
+        compat:actionViewClass="androidx.appcompat.widget.SearchView"
+        compat:showAsAction="always"
+    />
 
     <item
         android:id="@+id/navigation_settings"

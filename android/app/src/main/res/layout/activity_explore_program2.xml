@@ -18,7 +18,8 @@
         app:titleMargin="4dp"
         app:titleMarginStart="42dp"
         app:titleMarginTop="12dp"
-        app:titleTextColor="#471B73" />
+        app:titleTextColor="#471B73"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recview"

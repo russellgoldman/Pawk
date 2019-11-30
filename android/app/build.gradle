@@ -41,7 +41,7 @@ dependencies {
 
     // apollo
     implementation 'com.apollographql.apollo:apollo-runtime:1.2.1'
-
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
 
 
 }

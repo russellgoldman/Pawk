@@ -4,17 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filterable;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.List;
 import android.widget.Button;
 import android.util.Log;
 import android.content.Intent;
 import android.content.Context;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 
-public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewHolder> {
-    private List<programData> programList;
+public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewHolder> implements Filterable {
+    ArrayList<programData> programList, programListFull;
+    //FilterList is a copy of programList for the filter..
     TextView desc;
 
     private OnNoteListener MOnNoteListener;
@@ -25,10 +31,14 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
 
 
 
-    public programAdapter(List<programData> programList, Context context, OnNoteListener MOnNoteListener) {
+
+
+    public programAdapter(ArrayList<programData> programList, Context context, OnNoteListener MOnNoteListener) {
         this.programList = programList;
         this.mContext = context;
         this.MOnNoteListener = MOnNoteListener;
+        // makes copy of list for the search thing
+        programListFull = new ArrayList<>(programList);
     }
 
 
@@ -65,6 +75,50 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
         return programList == null ? 0 : programList.size();
     }
 
+    //RETURN FILTER OBJ
+    @Override
+    public Filter getFilter() {
+        return programFilter;
+    }
+
+    private Filter programFilter = new Filter(){
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            // return filter results
+            List<programData> filteredList = new ArrayList<>();
+
+            // if constraints emptyu, show all the results.. b/c no filter
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(programListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (programData item : programListFull) {
+                    if (item.getProgramName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results){
+            // clear recycle view
+            programList.clear();
+
+            // add filtered results to our recycleview list
+            programList.addAll((List)results.values);
+
+            //update
+            notifyDataSetChanged();
+        }
+    };
+
+
 
     public class RecViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -97,6 +151,9 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
                             data.putString("programName",p.getProgramName());
                             data.putString("programDesc",p.getProgramBlurb());
                             data.putInt("programID",getAdapterPosition());
+                            data.putStringArray("programHighlights",p.getProgramHighlights());
+                            data.putStringArray("programRequirements",p.getProgramRequirements());
+//                            data.putParcelableArrayList("sampleCourses",p.getSampleCourses());
                             intent.putExtras(data);
                             context.startActivity(intent);
                         } else {
@@ -118,6 +175,10 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
                 title.setText(program.getProgramName());
                 desc.setText(program.getProgramBlurb());
             }
+    }
+
+    public interface OnNoteListener{
+        void OnNoteClick(View view, int position);
     }
 
 }

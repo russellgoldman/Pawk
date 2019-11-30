@@ -2,6 +2,7 @@ package com.example.cp470_group_project;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
@@ -52,5 +53,14 @@ public class programPage extends AppCompatActivity {
 
         TextView programDesc = findViewById(R.id.programBlurbTextView);
         programDesc.setText(data.getString("programDesc"));
+
+        programFragment newFragment = new programFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.replace(R.id.sampleCourseFrame, newFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
     }
 }
