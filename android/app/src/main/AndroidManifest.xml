@@ -12,6 +12,7 @@
         <activity android:name=".programPage"></activity>
         <activity android:name=".programFilter"></activity>
         <activity android:name=".exploreProgram2">
+        <activity android:name=".CoursePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
