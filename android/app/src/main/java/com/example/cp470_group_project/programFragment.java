@@ -37,7 +37,8 @@ public class programFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.sample_course_fragment, container, false);
         GridView gridView = (GridView) v.findViewById(R.id.gridview);
-        int[] books = {1,2,3,4,5};
+
+        int[] books = {1,2,3,4};
 
         gridView.setAdapter(new sampleCourseFragmentAdapter(v.getContext(),books,getFragmentManager()));
 

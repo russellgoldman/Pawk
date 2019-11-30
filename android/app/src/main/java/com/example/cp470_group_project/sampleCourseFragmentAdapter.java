@@ -14,12 +14,14 @@ public class sampleCourseFragmentAdapter extends BaseAdapter {
 
     private final Context mContext;
     private final int[] books;
+//    Course course;
     FragmentManager fragManager;
     private static final String ACTIVITY_NAME = "sampleCourseFragAdapter";
 
     // 1
     public sampleCourseFragmentAdapter(Context context, int[] books, FragmentManager fragManager) {
         this.mContext = context;
+//        this.course = course;
         this.books = books;
         this.fragManager = fragManager;
     }

@@ -3,6 +3,7 @@ package com.example.cp470_group_project;
 import android.app.SearchManager;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -67,7 +68,7 @@ public class exploreProgram2 extends AppCompatActivity{
         Course requiredCourse3 = new Course("su103",4);
         Course requiredCourse4 = new Course("cp233",3);
 
-        ArrayList<Course> sampleCourses = new ArrayList<>();
+        ArrayList<Course> sampleCourses = new ArrayList<Course>();
 
         sampleCourses.add(requiredCourse);
         sampleCourses.add(requiredCourse1);
@@ -129,6 +130,11 @@ public class exploreProgram2 extends AppCompatActivity{
             //SEARCH
         }
 
+        if (id == R.id.navigation_settings){
+            Intent intent = new Intent(this, programFilter.class );
+            startActivity(intent);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -158,7 +164,6 @@ public class exploreProgram2 extends AppCompatActivity{
         });
 
         Log.i(ACTIVITY_NAME,"In onCreateOptionsMenu");
-
 
         return true;
     }

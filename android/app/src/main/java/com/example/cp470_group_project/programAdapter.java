@@ -153,7 +153,8 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
                             data.putInt("programID",getAdapterPosition());
                             data.putStringArray("programHighlights",p.getProgramHighlights());
                             data.putStringArray("programRequirements",p.getProgramRequirements());
-//                            data.putParcelableArrayList("sampleCourses",p.getSampleCourses());
+                          // data.putParcelableArrayList("sampleCourses",p.getSampleCourses());
+                         //   intent.putExtra("sampleCourses",p.getSampleCourses());
                             intent.putExtras(data);
                             context.startActivity(intent);
                         } else {

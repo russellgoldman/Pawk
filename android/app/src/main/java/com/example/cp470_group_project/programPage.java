@@ -61,6 +61,5 @@ public class programPage extends AppCompatActivity {
         fragmentTransaction.replace(R.id.sampleCourseFrame, newFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
     }
 }
