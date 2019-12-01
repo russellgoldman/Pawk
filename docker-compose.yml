@@ -21,6 +21,7 @@ services:
     container_name: flyway
     image: flyway/flyway
     command: migrate
+    restart: on-failure
     depends_on:
       - postgres
     volumes:
@@ -48,6 +49,17 @@ services:
       "--port", "5433",
       "--append-plugins", "postgraphile-plugin-connection-filter"
     ]
+
+  # webscraper:
+  #   container_name: webscraper
+  #   restart: always
+  #   image: node
+  #   build:
+  #     context: ./webscraper
+  #   depends_on:
+  #     - graphql
+  #   networks:
+  #     - private
 
 networks:
   private:
