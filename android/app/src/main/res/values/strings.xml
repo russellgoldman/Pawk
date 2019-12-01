@@ -5,4 +5,7 @@
     <string name="registerText">Register</string>
     <string name="emailText">Email</string>
     <string name="passwordText">Password</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
