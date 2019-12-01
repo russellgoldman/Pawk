@@ -1,0 +1,10 @@
+query exploreCourses{
+  allCourses(
+    orderBy: [CODE_ASC]
+  ) {
+    nodes {
+      code,
+      description
+    }
+  }
+}
