@@ -1,4 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.apollographql.android'
+
+repositories {
+    jcenter()
+}
 
 android {
     compileSdkVersion 28
@@ -41,6 +46,8 @@ dependencies {
     // apollo
     implementation 'com.apollographql.apollo:apollo-runtime:1.2.1'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    compileOnly("org.jetbrains:annotations:13.0")
+    testCompileOnly("org.jetbrains:annotations:13.0")
 
 
 }
