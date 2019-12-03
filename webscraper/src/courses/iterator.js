@@ -46,6 +46,7 @@ rp(url)
             await sleep(500)
             courseParse(course)
         }).then(async function(result) {
+            await sleep(1000)
             console.log("Done all mutations");
         })
     }
