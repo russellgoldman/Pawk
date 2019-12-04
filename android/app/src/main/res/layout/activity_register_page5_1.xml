@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/F1"
         android:layout_width="361dp"
         android:layout_height="49dp"
         android:layout_marginTop="16dp"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/F2"
         android:layout_width="361dp"
         android:layout_height="49dp"
         android:layout_marginTop="84dp"
@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/F4"
         android:layout_width="361dp"
         android:layout_height="49dp"
         android:layout_marginTop="220dp"
@@ -108,7 +108,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/nextbttn"
         android:layout_width="361dp"
         android:layout_height="49dp"
         android:layout_marginTop="288dp"
@@ -161,7 +161,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/F3"
         android:layout_width="361dp"
         android:layout_height="49dp"
         android:layout_marginTop="152dp"
