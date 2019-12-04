@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Handler;
@@ -40,11 +41,11 @@ public class ExploreCoursesActivity extends AppCompatActivity implements Explore
         protected String description;
 
         public Course(
-                String code,
-                String description
+            String code,
+            String description
         ) {
-                this.code = code;
-                this.description = description;
+            this.code = code;
+            this.description = description;
         }
     }
 
@@ -80,8 +81,6 @@ public class ExploreCoursesActivity extends AppCompatActivity implements Explore
                     @Override public void run() {
                         Log.i(ACTIVITY_NAME, "GraphQL fetch complete");
                         adapter.notifyDataSetChanged();
-//                        TextView txtResponse = (TextView) findViewById(R.id.txtResponse);
-//                        txtResponse.setText(buffer.toString());
                     }
                 });
 
@@ -97,6 +96,11 @@ public class ExploreCoursesActivity extends AppCompatActivity implements Explore
 
     @Override
     public void onItemClick(View view, int position) {
+        Intent intent = new Intent(ExploreCoursesActivity.this, CoursePageActivity.class);
+        intent.putExtra("code", adapter.getItem(position).code);
+        intent.putExtra("description", adapter.getItem(position).description);
+        startActivity(intent);
+
         Toast.makeText(this, "You clicked " + adapter.getItem(position).code + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 }
