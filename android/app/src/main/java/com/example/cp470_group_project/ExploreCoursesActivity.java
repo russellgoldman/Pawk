@@ -1,13 +1,19 @@
 package com.example.cp470_group_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.ApolloClient;
@@ -18,12 +24,15 @@ import com.sample.ExploreCoursesQuery;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ExploreCoursesActivity extends AppCompatActivity {
+public class ExploreCoursesActivity extends AppCompatActivity implements ExploreCoursesRecyclerAdapter.ItemClickListener {
     final String ACTIVITY_NAME = "ExploreCoursesActivity";
+    final com.example.cp470_group_project.ExploreCoursesActivity ctx = this;
+    ExploreCoursesRecyclerAdapter adapter;
     public static ApolloClient client;
 
     public class Course {
@@ -46,6 +55,12 @@ public class ExploreCoursesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore_courses);
 
+        RecyclerView recyclerView = findViewById(R.id.explore_course_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
+        adapter = new ExploreCoursesRecyclerAdapter(ctx, courses);
+        adapter.setClickListener(ctx);
+        recyclerView.setAdapter(adapter);
+
         client = new GraphQLClient().getClient();
         ExploreCoursesQuery exploreCoursesQuery = ExploreCoursesQuery.builder().build();
 
@@ -64,6 +79,7 @@ public class ExploreCoursesActivity extends AppCompatActivity {
                 ExploreCoursesActivity.this.runOnUiThread(new Runnable() {
                     @Override public void run() {
                         Log.i(ACTIVITY_NAME, "GraphQL fetch complete");
+                        adapter.notifyDataSetChanged();
 //                        TextView txtResponse = (TextView) findViewById(R.id.txtResponse);
 //                        txtResponse.setText(buffer.toString());
                     }
@@ -77,5 +93,10 @@ public class ExploreCoursesActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(this, "You clicked " + adapter.getItem(position).code + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 }
