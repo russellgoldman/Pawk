@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,7 +23,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import com.apollographql.apollo.ApolloCall;
+import com.apollographql.apollo.ApolloClient;
+import com.apollographql.apollo.api.Response;
+import com.apollographql.apollo.exception.ApolloException;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.sample.ExploreProgramsQuery;
+
+import org.jetbrains.annotations.NotNull;
 
 
 public class exploreProgram2 extends AppCompatActivity{
@@ -48,74 +56,97 @@ public class exploreProgram2 extends AppCompatActivity{
 
     SearchView searchView;
 
+    public static ApolloClient client;
+
+    Intent intent;
+
+    final public ArrayList<programData> programList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore_program2);
 
-        /* TODO THIS IS THE TESTING BLOCK SO YOU SHOULD REPLACE WITH DATABSE STUFF HERE */
+        client = new GraphQLClient().getClient();
+        ExploreProgramsQuery exploreProgramQuery = ExploreProgramsQuery.builder().build();
 
-        ArrayList<programData> programList = new ArrayList<>();
+        client.query(exploreProgramQuery).enqueue(new ApolloCall.Callback<ExploreProgramsQuery.Data>() {
+            @Override public void onResponse(@NotNull Response<ExploreProgramsQuery.Data> dataResponse) {
+                Log.i(ACTIVITY_NAME, dataResponse.data().toString());
 
-        String[] programArray = {"Computer Science","Math","English","Sociology"};
-        String[] infoArray={"this is computer scie","tis is math","this is eng", "this is soc"};
+                for (ExploreProgramsQuery.Node node: dataResponse.data().allPrograms().nodes()) {
+                    programData pData = new programData(
+                            node.name(),
+                            node.description(),
+                            node.description(),
+                            node.description(),
+                            node.requiredCourses()
+                    );
+                    programList.add(pData);
+                }
 
-        String[] highlightsArray={"You can make experience","you are cool","i am cool"};
-        String[] requirementsArray={"highschol","preeschool","meschool"};
-        Course requiredCourse = new Course("cp103",5);
-        Course requiredCourse1 = new Course("cp104",3);
-        Course requiredCourse2 = new Course("cp123",1);
-        Course requiredCourse3 = new Course("su103",4);
-        Course requiredCourse4 = new Course("cp233",3);
+                Log.i(ACTIVITY_NAME,"size: "+ programList.size());
 
-        ArrayList<Course> sampleCourses = new ArrayList<Course>();
+                exploreProgram2.this.runOnUiThread(new Runnable() {
+                    @Override public void run() {
+                        Log.i(ACTIVITY_NAME, "GraphQL fetch complete");
+                    }
+                });
 
-        sampleCourses.add(requiredCourse);
-        sampleCourses.add(requiredCourse1);
-        sampleCourses.add(requiredCourse2);
-        sampleCourses.add(requiredCourse3);
-        sampleCourses.add(requiredCourse4);
+            }
 
+            // SEARCH FILTER DOESN'T WORK BECAUSE LIST SI EMPTY OUTSIDE OF THE FUNCTION
 
-        programData comsci = new programData(programArray[0],infoArray[0],highlightsArray,requirementsArray,sampleCourses);
-        programList.add(comsci);
+            @Override
+            public void onFailure(@NotNull ApolloException e) {
+                Log.e(ACTIVITY_NAME, e.getMessage(), e);
+            }
+        });
 
-        programData math = new programData(programArray[1],infoArray[1],highlightsArray,requirementsArray,sampleCourses);
-        programList.add(math);
-
-        programData eng = new programData(programArray[2],infoArray[2],highlightsArray,requirementsArray,sampleCourses);
-        programList.add(eng);
-
-        programData soc = new programData(programArray[3],infoArray[3],highlightsArray,requirementsArray,sampleCourses);
-        programList.add(soc);
-
-
-        /* TODO TESTING STUFF IS ABOVE THIS TO DO... DELETE LATER */
 
         recyclerView = findViewById(R.id.recview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
         // PROBABLY HAVE TO DELETE THIS LINE..
+        Log.i(ACTIVITY_NAME,"size before adapter code: "+programList.size());
+
+
         adapter = new programAdapter(programList, this, new programAdapter.OnNoteListener() {
             @Override
             public void OnNoteClick(View view, int position) {
-//                Log.i(ACTIVITY_NAME,"how bout hre?");
-//                Log.i(ACTIVITY_NAME,"onNoteClicked: " + position);
-//
-//                // added this last minute
-//                adapter.notifyDataSetChanged();
+                Log.i(ACTIVITY_NAME,"how bout hre?");
+                Log.i(ACTIVITY_NAME,"onNoteClicked: " + position);
+
+                // added this last minute
+                adapter.notifyDataSetChanged();
             }
         });
 
         recyclerView.setAdapter(adapter);
 
-
-
         toolbar2 = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar2);
         getSupportActionBar().setTitle("Programs");
         searchView = (SearchView)findViewById(R.id.search);
+
+        bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_courses:
+                        intent = new Intent(exploreProgram2.this, CoursePageActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.navigation_settings:
+//                        intent = new Intent(exploreProgram2.this, CourseReg.class);
+//                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+        });
 
 
     }
@@ -140,7 +171,6 @@ public class exploreProgram2 extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_nav, menu);
 

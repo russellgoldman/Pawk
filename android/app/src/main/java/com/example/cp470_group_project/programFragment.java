@@ -11,12 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
 
@@ -36,13 +38,6 @@ public class programFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.sample_course_fragment, container, false);
-        GridView gridView = (GridView) v.findViewById(R.id.gridview);
-
-        int[] books = {1,2,3,4};
-
-        gridView.setAdapter(new sampleCourseFragmentAdapter(v.getContext(),books,getFragmentManager()));
-
-        Log.i(ACTIVITY_NAME, "In onCreateView");
         return v;
     }
 
@@ -50,23 +45,73 @@ public class programFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
+        Bundle data = getActivity().getIntent().getExtras();
+        Log.i(ACTIVITY_NAME + " onV","sampleCourses: " + data.getStringArray("sampleCourses"));
+        Log.i(ACTIVITY_NAME,"programName: " + data.getString("programName"));
 
-//        final Bundle data = this.getArguments();
-//        Log.i(ACTIVITY_NAME, "Bundle: " + data.isEmpty() + "");
-//        Log.i(ACTIVITY_NAME, "Program Name: " + data.getString("programName"));
-//        Log.i(ACTIVITY_NAME, "Program Desc: " + data.getString("programDesc"));
+
+        String[] sampleCourses = data.getStringArray("sampleCourses");
+        //gridView.setAdapter(new sampleCourseFragmentAdapter(view.getContext(),sampleCourses,getFragmentManager()));
+
+        sampleCourseFragmentAdapter adapter = new sampleCourseFragmentAdapter(getActivity(), sampleCourses);
+        final GridView gridView = (GridView) view.findViewById(R.id.gridview);
+        gridView.setAdapter(adapter);
+
+
+        Log.i(ACTIVITY_NAME, "In onCreateView");
+
+    }
+public class sampleCourseFragmentAdapter extends BaseAdapter {
+
+    private final Context mContext;
+    // private final int[] books;
+    private final String[] courses;
+    //    Course course;
+    FragmentManager fragManager;
+    private static final String ACTIVITY_NAME = "sampleCourseFragAdapter";
+
+    // 1
+    public sampleCourseFragmentAdapter(Context context, String[] courses) {
+        this.mContext = context;
+        this.courses = courses;
     }
 
-    public class sampleCourseAdapter extends ArrayAdapter<programData>{
-        public sampleCourseAdapter(Context context, ArrayList<programData> programs){
-            super(context, 0, programs);
-        }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent){
-
-            return convertView;
-        }
+    // 2
+    @Override
+    public int getCount() {
+        return courses.length;
     }
+
+    // 3
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    // 4
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    // 5
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+        convertView = layoutInflater.inflate(R.layout.sample_course_item, null);
+
+        TextView titleView = convertView.findViewById(R.id.sampleCourseCode);
+        Log.i(ACTIVITY_NAME, "sampleCourse: " + courses[position]);
+        titleView.setText(courses[position]);
+
+
+        return convertView;
+    }
+
+}
+
+
+
 
 }

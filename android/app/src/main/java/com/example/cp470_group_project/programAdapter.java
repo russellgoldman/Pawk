@@ -31,8 +31,6 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
 
 
 
-
-
     public programAdapter(ArrayList<programData> programList, Context context, OnNoteListener MOnNoteListener) {
         this.programList = programList;
         this.mContext = context;
@@ -87,14 +85,19 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
             // return filter results
             List<programData> filteredList = new ArrayList<>();
 
+
             // if constraints emptyu, show all the results.. b/c no filter
             if (constraint == null || constraint.length() == 0) {
+                Log.i("programFilter","search not implemeneted");
                 filteredList.addAll(programListFull);
             } else {
+                Log.i("programFilter","size: " + programListFull.size());
                 String filterPattern = constraint.toString().toLowerCase().trim();
-
+                Log.i("programFilter",constraint.toString());
                 for (programData item : programListFull) {
+                    Log.i("programFilter","item: " + item);
                     if (item.getProgramName().toLowerCase().contains(filterPattern)) {
+                        Log.i("programFilter","Found a matching");
                         filteredList.add(item);
                     }
                 }
@@ -140,6 +143,7 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
                     @Override
                     public void onClick(View view) {
                         if(onNoteListener!=null) {
+                            Log.i(ACTIVITY_NAME,"did i get here?");
                             Log.i(ACTIVITY_NAME,"I'm in this onClick");
                             Log.i(ACTIVITY_NAME, "Position: " + getAdapterPosition());
 
@@ -151,10 +155,11 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
                             data.putString("programName",p.getProgramName());
                             data.putString("programDesc",p.getProgramBlurb());
                             data.putInt("programID",getAdapterPosition());
-                            data.putStringArray("programHighlights",p.getProgramHighlights());
-                            data.putStringArray("programRequirements",p.getProgramRequirements());
-                          // data.putParcelableArrayList("sampleCourses",p.getSampleCourses());
-                         //   intent.putExtra("sampleCourses",p.getSampleCourses());
+                            data.putString("programHighlights",p.getProgramHighlights());
+                            data.putString("programRequirements",p.getProgramRequirements());
+                            List<String> courses = p.getSampleCourses();
+                            String[] courseList = courses.toArray(new String[0]);
+                            data.putStringArray("sampleCourses",courseList);
                             intent.putExtras(data);
                             context.startActivity(intent);
                         } else {

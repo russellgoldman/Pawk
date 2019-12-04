@@ -9,11 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -87,8 +85,8 @@ public class CourseRequisitesFragment extends Fragment {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.course_requisite_item, parent, false);
             }
 
-            TextView code = convertView.findViewById(R.id.code);
-            TextView rating = convertView.findViewById(R.id.rating);
+            TextView code = convertView.findViewById(R.id.sampleCourseCode);
+            TextView rating = convertView.findViewById(R.id.sampleCourseRating);
 
             code.setText(course.code);
             rating.setText(Integer.toString(course.rating));

@@ -4,16 +4,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.app.Activity;
-import android.view.LayoutInflater;
-import android.widget.ArrayAdapter;
-import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Button;
 import android.util.Log;
 
 
@@ -33,9 +26,13 @@ public class programPage extends AppCompatActivity {
             String programName = data.getString("programName");
             String programDesc = data.getString("programDesc");
 
-            Log.i(ACTIVITY_NAME, "Bundle: " + data.isEmpty() + "");
+            Log.i(ACTIVITY_NAME, "Bundle Empty: " + data.isEmpty() + "");
             Log.i(ACTIVITY_NAME, "Program Name: " + data.getString("programName"));
             Log.i(ACTIVITY_NAME, "Program Desc: " + data.getString("programDesc"));
+
+            String[] o = data.getStringArray("sampleCourses");
+
+            Log.i(ACTIVITY_NAME, "SampleCourse: " + o[0]);
         } else {
             Log.i(ACTIVITY_NAME, "Bundle is null");
         }
