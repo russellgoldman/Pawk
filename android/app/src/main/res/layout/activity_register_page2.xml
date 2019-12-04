@@ -56,16 +56,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/F1"
         android:layout_width="361dp"
         android:layout_height="49dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/user_input"
         android:ems="10"
         android:fontFamily="sans-serif-light"
+        android:hint="Year"
         android:inputType="textPersonName"
         android:paddingLeft="15dip"
-        android:text="Year"
         android:textColor="#522180"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,16 +73,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/F2"
         android:layout_width="361dp"
         android:layout_height="49dp"
         android:layout_marginTop="104dp"
         android:background="@drawable/user_input"
         android:ems="10"
         android:fontFamily="sans-serif-light"
+        android:hint="Program"
         android:inputType="textPersonName"
         android:paddingLeft="15dip"
-        android:text="Program"
         android:textColor="#522180"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,16 +90,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/F4"
         android:layout_width="361dp"
         android:layout_height="49dp"
         android:layout_marginTop="272dp"
         android:background="@drawable/user_input"
         android:ems="10"
         android:fontFamily="sans-serif-light"
+        android:hint="Campus"
         android:inputType="textPersonName"
         android:paddingLeft="15dip"
-        android:text="Campus"
         android:textColor="#522180"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -107,16 +107,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/F3"
         android:layout_width="361dp"
         android:layout_height="49dp"
         android:layout_marginTop="188dp"
         android:background="@drawable/user_input"
         android:ems="10"
         android:fontFamily="sans-serif-light"
+        android:hint="Minor/Option (Optional)"
         android:inputType="textPersonName"
         android:paddingLeft="15dip"
-        android:text="Minor/Option"
         android:textColor="#522180"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,7 +124,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/nextbttn"
         android:layout_width="254dp"
         android:layout_height="39dp"
         android:layout_marginTop="48dp"
@@ -135,7 +135,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@id/F4" />
 
     <Button
         android:id="@+id/button5"
@@ -165,7 +165,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="139dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/reg_pg_neu"
+        android:background="@drawable/reg_pg_complete"
         android:text=""
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/reg_bttn" />
