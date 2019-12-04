@@ -8,7 +8,7 @@
     tools:context=".registerPage2">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/reg_bttn"
         android:layout_width="410dp"
         android:layout_height="85dp"
         android:background="#F6F6F6"

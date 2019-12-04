@@ -53,9 +53,9 @@
         android:background="@drawable/rounded_button"
         android:text="@string/loginText"
         android:textColor="#F7F7F8"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@id/reg_bttn"
         app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@id/reg_bttn"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <EditText
@@ -77,7 +77,7 @@
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/reg_bttn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
