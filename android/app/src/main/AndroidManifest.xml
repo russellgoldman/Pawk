@@ -30,7 +30,7 @@
         <activity android:name=".launchActivity" />
         <activity android:name=".Regs_comp_pg1" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Dashboards"/>
+        <activity android:name=".Dashboard"/>
         <activity android:name=".CourseReg"/>
 
     </application>
