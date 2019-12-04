@@ -1,0 +1,12 @@
+query exploreCourseOffers{
+  allCourseOfferings(
+    orderBy: [COURSE_CODE_ASC]
+  ) {
+    nodes {
+      courseCode
+      startTime
+      endTime
+      weekDays
+    }
+  }
+}
