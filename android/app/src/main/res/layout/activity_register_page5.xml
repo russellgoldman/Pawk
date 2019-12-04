@@ -7,17 +7,6 @@
     android:background="@drawable/bg_gradient"
     tools:context=".registerPage5">
 
-    <Button
-        android:id="@+id/button9"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/reg_pg_neu"
-        android:text=""
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="410dp"

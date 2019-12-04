@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
-    tools:context=".registerPage4">
+    tools:context=".registerPage4_1">
 
     <TextView
         android:id="@+id/textView"
@@ -35,7 +35,7 @@
         android:textColor="#522180"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +51,7 @@
         android:textColor="#522180"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
+        app:layout_constraintHorizontal_bias="0.073"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -76,7 +76,7 @@
         android:id="@+id/editText4"
         android:layout_width="361dp"
         android:layout_height="49dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="84dp"
         android:background="@drawable/user_input"
         android:ems="10"
         android:fontFamily="sans-serif-light"
@@ -86,6 +86,7 @@
         android:textColor="#522180"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -93,7 +94,7 @@
         android:id="@+id/editText2"
         android:layout_width="361dp"
         android:layout_height="49dp"
-        android:layout_marginTop="272dp"
+        android:layout_marginTop="220dp"
         android:background="@drawable/user_input"
         android:ems="10"
         android:fontFamily="sans-serif-light"
@@ -103,6 +104,7 @@
         android:textColor="#522180"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -110,7 +112,25 @@
         android:id="@+id/editText5"
         android:layout_width="361dp"
         android:layout_height="49dp"
-        android:layout_marginTop="356dp"
+        android:layout_marginTop="288dp"
+        android:background="@drawable/user_input"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:inputType="textPersonName"
+        android:paddingLeft="15dip"
+        android:text="Course 5"
+        android:textColor="#522180"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/editText6"
+        android:layout_width="361dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="360dp"
         android:background="@drawable/user_input"
         android:ems="10"
         android:fontFamily="sans-serif-light"
@@ -124,10 +144,28 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
+        android:id="@+id/editText7"
+        android:layout_width="361dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="428dp"
+        android:background="@drawable/user_input"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:inputType="textPersonName"
+        android:paddingLeft="15dip"
+        android:text="Course 5"
+        android:textColor="#522180"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
         android:id="@+id/editText3"
         android:layout_width="361dp"
         android:layout_height="49dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginTop="152dp"
         android:background="@drawable/user_input"
         android:ems="10"
         android:fontFamily="sans-serif-light"
@@ -137,6 +175,7 @@
         android:textColor="#522180"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -144,7 +183,7 @@
         android:id="@+id/button4"
         android:layout_width="254dp"
         android:layout_height="39dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="224dp"
         android:background="@drawable/buttons"
         android:fontFamily="sans-serif-medium"
         android:text="Next"

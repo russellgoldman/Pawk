@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".registerPage5"></activity>
+        <activity android:name=".registerPage5_1"></activity>
+        <activity android:name=".registerPage4_1" />
+        <activity android:name=".registerPage3_1" />
+        <activity android:name=".registerPage5" />
         <activity android:name=".registerPage4" />
         <activity android:name=".registerPage3" />
         <activity android:name=".registerPage2" />
