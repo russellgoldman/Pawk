@@ -57,16 +57,16 @@ function getCourseLinks(items, callback) {
         .then(function(html) {
             requests++
 
+            department = $('div[style="padding: 0px 20px;"]', html).children().first().text();
+            console.log(department);
             select = $('caption', html).text();
           
             if (select =="Course Offerings") {
                 len = $('td>a',".zebra",html).length;
-                for(let i = 0; i < len; i++){
-                   // select1 = $('td>a',".zebra",html)[i].attribs.href;
-                    select2 =$('td>a',html)[i].attribs.href;
-                    //console.log(select2);
+                for (let i = 0; i < len; i++) {
+                    select2 = $('td>a',html)[i].attribs.href;
+
                     if (!courses.includes("https://academic-calendar.wlu.ca/" + select2) && select2.charAt(0)=="c"){
-                        //console.log("https://academic-calendar.wlu.ca/" + select2)
                         courses.push("https://academic-calendar.wlu.ca/" + select2);
                     }
                 }         

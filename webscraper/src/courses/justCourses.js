@@ -142,6 +142,7 @@ const courseParse = function(url) {
           exc_courses: exclusionCourses
         };
 
+        //console.log(course)
         mutator.createCourse(course)
       //  console.log(description);
       })

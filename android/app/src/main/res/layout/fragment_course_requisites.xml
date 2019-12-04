@@ -43,7 +43,7 @@
         <ListView
             android:id="@+id/requisite_courses"
             android:layout_width="wrap_content"
-            android:layout_height="95dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/requisite_title"
             android:layout_marginTop="9dp"
             android:divider="#000"

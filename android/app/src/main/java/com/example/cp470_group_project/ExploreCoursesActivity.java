@@ -101,6 +101,6 @@ public class ExploreCoursesActivity extends AppCompatActivity implements Explore
         intent.putExtra("description", adapter.getItem(position).description);
         startActivity(intent);
 
-        Toast.makeText(this, "You clicked " + adapter.getItem(position).code + " on row number " + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "You clicked " + adapter.getItem(position).code, Toast.LENGTH_SHORT).show();
     }
 }

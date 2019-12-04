@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.ApolloClient;
@@ -139,98 +140,112 @@ public class CoursePageActivity extends AppCompatActivity {
                 Log.i(ACTIVITY_NAME, dataResponse.data().toString());
 
                 CourseQuery.CourseByCode data = dataResponse.data().courseByCode();
-                course = new CoursePageActivity.Course(
-                    data.code(),
-                    data.name(),
-                    data.credits(),
-                    data.lectureHours(),
-                    data.labHours(),
-                    data.description(),
-                    data.prerequisiteDescription(),
-                    data.prerequisiteCourses(),
-                    data.corequisiteDescription(),
-                    data.corequisiteCourses(),
-                    data.exclusionsDescription(),
-                    data.exclusionsCourses()
-                );
+
+                // account for null courses (webscraper errors)
+                if (data == null) {
+                    Log.i(ACTIVITY_NAME, "Data is null");
+                    course = null;
+                } else {
+                    course = new CoursePageActivity.Course(
+                        data.code(),
+                        data.name(),
+                        data.credits(),
+                        data.lectureHours(),
+                        data.labHours(),
+                        data.description(),
+                        data.prerequisiteDescription(),
+                        data.prerequisiteCourses(),
+                        data.corequisiteDescription(),
+                        data.corequisiteCourses(),
+                        data.exclusionsDescription(),
+                        data.exclusionsCourses()
+                    );
+                }
 
                 CoursePageActivity.this.runOnUiThread(new Runnable() {
                     @Override public void run() {
-                        Log.i(ACTIVITY_NAME, "GraphQL fetch complete");
+                        if (course == null) {
+                            invalidCourse();
+                        } else {
+                            Log.i(ACTIVITY_NAME, "GraphQL fetch complete");
 
-                        // prerequisites
-                        ArrayList<Requisite> coursePrerequisites = new ArrayList<>();
-                        if (course.prerequisiteCourses != null) {
-                            for (String requisite : course.prerequisiteCourses) {
-                                coursePrerequisites.add(new Requisite(requisite, 5));
+                            TextView descriptionView = findViewById(R.id.course_description);
+                            descriptionView.setText(course.description);
+
+                            // prerequisites
+                            ArrayList<Requisite> coursePrerequisites = new ArrayList<>();
+                            if (course.prerequisiteCourses != null) {
+                                for (String requisite : course.prerequisiteCourses) {
+                                    coursePrerequisites.add(new Requisite(requisite, 5));
+                                }
                             }
-                        }
 
-                        // corequisites
-                        ArrayList<Requisite> courseCorequisites = new ArrayList<>();
-                        if (course.corequisiteCourses != null) {
-                            for (String requisite : course.corequisiteCourses) {
-                                courseCorequisites.add(new Requisite(requisite, 5));
+                            // corequisites
+                            ArrayList<Requisite> courseCorequisites = new ArrayList<>();
+                            if (course.corequisiteCourses != null) {
+                                for (String requisite : course.corequisiteCourses) {
+                                    courseCorequisites.add(new Requisite(requisite, 5));
+                                }
                             }
-                        }
 
-                        // exclusions
-                        ArrayList<Requisite> courseExclusions = new ArrayList<>();
-                        if (course.exclusionsCourses != null) {
-                            for (String requisite : course.exclusionsCourses) {
-                                courseExclusions.add(new Requisite(requisite, 5));
+                            // exclusions
+                            ArrayList<Requisite> courseExclusions = new ArrayList<>();
+                            if (course.exclusionsCourses != null) {
+                                for (String requisite : course.exclusionsCourses) {
+                                    courseExclusions.add(new Requisite(requisite, 5));
+                                }
                             }
+
+                            // add CourseAcquiredRatingFragment
+                            Fragment courseRatings = new CourseAcquiredRatingFragment();
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+                            Bundle data = new Bundle();
+                            data.putInt("rating", rating);
+                            courseRatings.setArguments(data);
+
+                            transaction.replace(R.id.course_acquired_rating_fragment, courseRatings);
+                            transaction.commit();
+
+                            // add CourseRequisitesFragment
+                            transaction = getSupportFragmentManager().beginTransaction();
+
+                            if (coursePrerequisites.size() > 0) {
+                                Fragment prerequisites = new CourseRequisitesFragment();
+                                data = new Bundle();
+
+                                data.putString("id", "prerequisites");
+                                data.putString("title", "Prerequisites");
+                                data.putParcelableArrayList("prerequisites", coursePrerequisites);
+                                prerequisites.setArguments(data);
+
+                                transaction.replace(R.id.course_prerequisites, prerequisites);
+                            }
+                            if (courseCorequisites.size() > 0) {
+                                Fragment corequisites = new CourseRequisitesFragment();
+                                data = new Bundle();
+
+                                data.putString("id", "corequisites");
+                                data.putString("title", "Corequisites");
+                                data.putParcelableArrayList("corequisites", courseCorequisites);
+                                corequisites.setArguments(data);
+
+                                transaction.replace(R.id.course_corequisites, corequisites);
+                            }
+                            if (courseExclusions.size() > 0) {
+                                Fragment exclusions = new CourseRequisitesFragment();
+                                data = new Bundle();
+
+                                data.putString("id", "exclusions");
+                                data.putString("title", "Exclusions");
+                                data.putParcelableArrayList("exclusions", courseExclusions);
+                                exclusions.setArguments(data);
+
+                                transaction.replace(R.id.course_exclusions, exclusions);
+                            }
+
+                            transaction.commit();
                         }
-
-                        // add CourseAcquiredRatingFragment
-                        Fragment courseRatings = new CourseAcquiredRatingFragment();
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-                        Bundle data = new Bundle();
-                        data.putInt("rating", rating);
-                        courseRatings.setArguments(data);
-
-                        transaction.replace(R.id.course_acquired_rating_fragment, courseRatings);
-                        transaction.commit();
-
-                        // add CourseRequisitesFragment
-                        transaction = getSupportFragmentManager().beginTransaction();
-
-                        if (coursePrerequisites.size() > 0) {
-                            Fragment prerequisites = new CourseRequisitesFragment();
-                            data = new Bundle();
-
-                            data.putString("id", "prerequisites");
-                            data.putString("title", "Prerequisites");
-                            data.putParcelableArrayList("prerequisites", coursePrerequisites);
-                            prerequisites.setArguments(data);
-
-                            transaction.replace(R.id.course_prerequisites, prerequisites);
-                        }
-                        if (courseCorequisites.size() > 0) {
-                            Fragment corequisites = new CourseRequisitesFragment();
-                            data = new Bundle();
-
-                            data.putString("id", "corequisites");
-                            data.putString("title", "Corequisites");
-                            data.putParcelableArrayList("corequisites", courseCorequisites);
-                            corequisites.setArguments(data);
-
-                            transaction.replace(R.id.course_corequisites, corequisites);
-                        }
-                        if (courseExclusions.size() > 0) {
-                            Fragment exclusions = new CourseRequisitesFragment();
-                            data = new Bundle();
-
-                            data.putString("id", "exclusions");
-                            data.putString("title", "Exclusions");
-                            data.putParcelableArrayList("exclusions", courseExclusions);
-                            exclusions.setArguments(data);
-
-                            transaction.replace(R.id.course_exclusions, exclusions);
-                        }
-
-                        transaction.commit();
                     }
                 });
 
@@ -249,5 +264,10 @@ public class CoursePageActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void invalidCourse() {
+        finish();
+        Toast.makeText(getApplicationContext(), "Invalid course, cannot display", Toast.LENGTH_LONG).show();
     }
 }
