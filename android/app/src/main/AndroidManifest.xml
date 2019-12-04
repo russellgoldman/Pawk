@@ -5,15 +5,19 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="GraphQLClient"
+        android:name=".GraphQLClient"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:usesCleartextTraffic="true">
+        <activity android:name=".registerPage5"></activity>
+        <activity android:name=".registerPage4" />
+        <activity android:name=".registerPage3" />
+        <activity android:name=".registerPage2" />
         <activity android:name=".ExploreCoursesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,11 +28,10 @@
         <activity android:name=".programPage" />
         <activity android:name=".programFilter" />
         <activity android:name=".exploreProgram2" />
-        <activity android:name=".CoursePageActivity">
-        </activity>
+        <activity android:name=".CoursePageActivity" />
         <activity android:name=".loginActivity" />
         <activity android:name=".launchActivity" />
-        <activity android:name=".Regs_comp_pg1" />
+        <activity android:name=".registerPage1" />
         <activity android:name=".MainActivity" />
     </application>
 
