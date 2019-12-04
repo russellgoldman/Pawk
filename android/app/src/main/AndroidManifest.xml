@@ -19,17 +19,18 @@
         <activity android:name=".registerPage3" />
         <activity android:name=".registerPage2" />
         <activity android:name=".ExploreCoursesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".programPage" />
         <activity android:name=".programFilter" />
         <activity android:name=".exploreProgram2" />
         <activity android:name=".CoursePageActivity" />
-        <activity android:name=".loginActivity" />
+        <activity android:name=".loginActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".launchActivity" />
         <activity android:name=".registerPage1" />
         <activity android:name=".MainActivity" />

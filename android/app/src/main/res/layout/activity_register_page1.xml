@@ -35,7 +35,7 @@
         android:textColor="#522180"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.312"
+        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -151,7 +151,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/nextbttn"
         android:layout_width="254dp"
         android:layout_height="39dp"
         android:layout_marginTop="40dp"

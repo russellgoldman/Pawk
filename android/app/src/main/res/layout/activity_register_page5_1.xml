@@ -179,7 +179,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/nextbttn"
         android:layout_width="254dp"
         android:layout_height="39dp"
         android:layout_marginTop="224dp"
@@ -196,45 +196,45 @@
         android:id="@+id/button5"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="11dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/reg_pg_neu"
         android:text=""
         app:layout_constraintStart_toEndOf="@+id/button8"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@id/reg_bttn" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="127dp"
+        android:layout_marginStart="139dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/reg_pg_neu"
         android:text=""
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@id/reg_bttn" />
 
     <Button
         android:id="@+id/button7"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/reg_pg_neu"
         android:text=""
         app:layout_constraintStart_toEndOf="@+id/button6"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@id/reg_bttn" />
 
     <Button
         android:id="@+id/button8"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="13dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/reg_pg_neu"
         android:text=""
         app:layout_constraintStart_toEndOf="@+id/button7"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@id/reg_bttn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
