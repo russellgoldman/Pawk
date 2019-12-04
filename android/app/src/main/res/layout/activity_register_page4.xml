@@ -171,7 +171,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/reg_pg_neu"
+        android:background="@drawable/reg_pg_complete"
         android:text=""
         app:layout_constraintStart_toEndOf="@+id/button24"
         app:layout_constraintTop_toBottomOf="@+id/reg_bttn" />
@@ -182,7 +182,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="139dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/reg_pg_neu"
+        android:background="@drawable/reg_pg_complete"
         android:text=""
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/reg_bttn" />
@@ -193,7 +193,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/reg_pg_neu"
+        android:background="@drawable/reg_pg_complete"
         android:text=""
         app:layout_constraintStart_toEndOf="@+id/button20"
         app:layout_constraintTop_toBottomOf="@+id/reg_bttn" />

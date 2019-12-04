@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -89,7 +90,7 @@ public class registerPage1 extends AppCompatActivity {
         F3 = findViewById(R.id.F3);
         String inputF3 = F3.getText().toString();
 
-        if(inputF4 != inputF3){
+        if(!(inputF4 != inputF3)){
             F4.setError("Password does not match");
             return false;
         }
