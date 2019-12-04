@@ -45,7 +45,7 @@ public class CourseRequisitesFragment extends Fragment {
         title = extras.getString("title");
 
         // get requisites array
-        ArrayList<CoursePageActivity.Course> courseRequisites = extras.getParcelableArrayList(id);
+        ArrayList<CoursePageActivity.Requisite> courseRequisites = extras.getParcelableArrayList(id);
 
         TextView titleView = getView().findViewById(R.id.requisite_title);
         titleView.setText(title);
@@ -61,10 +61,9 @@ public class CourseRequisitesFragment extends Fragment {
         requisiteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CoursePageActivity.Course course = (CoursePageActivity.Course) requisiteListView.getItemAtPosition(position);
+                CoursePageActivity.Requisite course = (CoursePageActivity.Requisite) requisiteListView.getItemAtPosition(position);
                 Intent intent = new Intent(getActivity(), CoursePageActivity.class);
                 intent.putExtra("code", course.code);
-                intent.putExtra("rating", course.rating);
                 startActivity(intent);
             }
         });
@@ -74,14 +73,14 @@ public class CourseRequisitesFragment extends Fragment {
         Reference
         https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView
     */
-    public class CourseRequisiteAdapter extends ArrayAdapter<CoursePageActivity.Course> {
-        public CourseRequisiteAdapter(Context context, ArrayList<CoursePageActivity.Course> courses) {
+    public class CourseRequisiteAdapter extends ArrayAdapter<CoursePageActivity.Requisite> {
+        public CourseRequisiteAdapter(Context context, ArrayList<CoursePageActivity.Requisite> courses) {
             super(context, 0, courses);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            CoursePageActivity.Course course = getItem(position);
+            CoursePageActivity.Requisite course = getItem(position);
 
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.course_requisite_item, parent, false);

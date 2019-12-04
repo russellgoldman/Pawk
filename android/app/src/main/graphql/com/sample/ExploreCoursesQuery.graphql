@@ -1,9 +1,7 @@
-query exploreCourses{
-  allCourses(
-    orderBy: [CODE_ASC]
-  ) {
+query exploreCourses {
+  allCourses(orderBy: [CODE_ASC]) {
     nodes {
-      code,
+      code
       description
     }
   }

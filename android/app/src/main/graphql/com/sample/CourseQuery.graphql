@@ -1,0 +1,16 @@
+query courseQuery($code: String!) {
+  courseByCode(code: $code) {
+    code
+    name
+    credits
+    lectureHours
+    labHours
+    description
+    prerequisiteDescription
+    prerequisiteCourses
+    corequisiteDescription
+    corequisiteCourses
+    exclusionsDescription
+    exclusionsCourses
+  }
+}

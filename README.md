@@ -1,6 +1,6 @@
 # Pawk
 
-## Team Members
+## Team Members (CP470 Final Project)
 - Russell Goldman
 - Ralph Suyat
 - Michelle Wong
