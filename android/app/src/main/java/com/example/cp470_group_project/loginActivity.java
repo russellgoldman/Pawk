@@ -19,6 +19,7 @@ public class loginActivity extends AppCompatActivity {
     private String ACTIVITY_NAME = "loginActivity";
 
     Button loginButton;
+    TextView register;
 
     Context context = this;
 
@@ -56,5 +57,14 @@ public class loginActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        register = findViewById(R.id.reg_bttn);
+        register.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+            }
+        });
+
     }
 }
