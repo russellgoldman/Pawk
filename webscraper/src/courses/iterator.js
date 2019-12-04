@@ -6,11 +6,17 @@ const Promise = require('bluebird');
 const url = 'https://academic-calendar.wlu.ca/section.php?cal=1&s=939&y=79';
 var links;
 const help = [];
+
 rp(url)
 .then(function(html) {
     //success!
     var wikiUrls = [];
+    var data = {
+        courses: [],
+        departmentsFounds: 0
+    };
     var length = $('tbody td > a',"#postermain", html).length;
+
     for (let i = 0; i < length; i++) {
         links = $('tbody td > a',"#postermain", html)[i].attribs.href;
      
@@ -22,61 +28,69 @@ rp(url)
         }
     }
 
+    Promise.mapSeries(wikiUrls, async function(url, index, length) {
+        getCourseLink(url, data)
+        await sleep(200)
+    }).then(async function(result) {
+        await sleep(1000)
+        console.log("\nGot all course links");
+        afterCourseLinksRetrived(data["courses"])
+    })
+
     // predefined callback function
     const afterCourseLinksRetrived = (courses) => {
         console.log("Course Links successly retrieved")
-        console.log(courses.length);
+        console.log(courses.length + "\n");
 
         Promise.mapSeries(courses, async function(course, index, length) {
             await sleep(500)
             courseParse(course)
-        }).then(function(result) {
+        }).then(async function(result) {
+            await sleep(1000)
             console.log("Done all mutations");
         })
-
-        function sleep(delay) {
-            return new Promise(resolve => {
-                setTimeout(resolve, delay)
-            })
-        }
     }
-
-    getCourseLinks(wikiUrls, afterCourseLinksRetrived)
 })
 
-function getCourseLinks(items, callback) {
-    var itemsLength = items.length;
+function getCourseLink(url, data) {
     var select;
-    var courses = []
-    var requests = 0;    
+    var first = true
 
-    for (var i = 0; i < itemsLength; i++) {
-        newurl = items[i];
-     
-        rp(newurl)
-        .then(function(html) {
-            requests++
+    rp(url)
+    .then(function(html) {
+        select = $('caption', html).text();
+        
+        if (select == "Course Offerings") {
+            len = $('td>a',".zebra",html).length;
 
-            department = $('div[style="padding: 0px 20px;"]', html).children().first().text();
-            console.log(department);
-            select = $('caption', html).text();
-          
-            if (select =="Course Offerings") {
-                len = $('td>a',".zebra",html).length;
-                for (let i = 0; i < len; i++) {
-                    select2 = $('td>a',html)[i].attribs.href;
-
-                    if (!courses.includes("https://academic-calendar.wlu.ca/" + select2) && select2.charAt(0)=="c"){
-                        courses.push("https://academic-calendar.wlu.ca/" + select2);
+            for (let i = 0; i < len; i++){
+                // select1 = $('td>a',".zebra",html)[i].attribs.href;
+                select2 =$('td>a',html)[i].attribs.href;
+                //console.log(select2);
+                if (
+                    !data["courses"].includes("https://academic-calendar.wlu.ca/" + select2)
+                    && 
+                    select2.charAt(0)=="c"
+                ) {
+                    if (first) {
+                        console.log(`\nDepartment ${data["departmentsFounds"] + 1}`)
+                        data["departmentsFounds"] += 1
+                        first = false
                     }
-                }         
-            }
-            // once all the requests are done, initiate the callback function
-            if (requests === 122) {
-                callback(courses)
-            }
-        }).catch(function(err) {
-            console.log(err)
-        });
-    }
+
+                    courseLink = "https://academic-calendar.wlu.ca/" + select2
+                    data["courses"].push(courseLink);
+                    console.log(courseLink)
+                }
+            }         
+        }
+    }).catch(function(err) {
+        console.log(err)
+    });
+}
+
+function sleep(delay) {
+    return new Promise(resolve => {
+        setTimeout(resolve, delay)
+    })
 }
