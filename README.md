@@ -25,6 +25,7 @@ scale from frontend clients.
 ## Frontend
 ### Figma
 Mockups designed in Figma and translated into a functioning mobile application.
+https://www.figma.com/file/B03C0QA1loWb7f0XSgVc3g/Pawk-Version-2?node-id=403%3A2
 
 ### Android Frontend
 Accesses the backend ecosystem to serve data to our frontend Android application.
