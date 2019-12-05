@@ -21,7 +21,7 @@ INSERT INTO pawk.course_offerings (
     'Richard Norman Hildred'
 ),
 (
-    'CP320',
+    'CP320/PC320',
     '60',
     'A',
     0.5,
@@ -30,15 +30,4 @@ INSERT INTO pawk.course_offerings (
     '{"MONDAY", "WEDNESDAY", "FRIDAY"}',
     'Waterloo',
     'Habib-ur Rehman'
-),
-(
-    'CP414',
-    '28',
-    'L1',
-    0.5,
-    '14:30:00 EST',
-    '16:50:00 EST',
-    '{"MONDAY"}',
-    'Waterloo',
-    'David B. Brown'
 );
