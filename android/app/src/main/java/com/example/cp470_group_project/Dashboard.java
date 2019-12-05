@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,6 +63,10 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
+                    case R.id.navigation_dashboard:
+                        // since already on programs page, not need to implement intent
+                        Toast.makeText(getApplicationContext(),"Already on Dashboard page", Toast.LENGTH_LONG).show();
+                        break;
                     case R.id.navigation_courses:
                         intent = new Intent(Dashboard.this, ExploreCoursesActivity.class);
                         startActivity(intent);
