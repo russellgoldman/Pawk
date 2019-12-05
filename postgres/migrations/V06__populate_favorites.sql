@@ -1,0 +1,27 @@
+INSERT INTO pawk.favorites(
+    course
+)VALUES
+(
+    'CP333'  
+),
+(
+    'SY201'
+),
+(
+    'SY203'
+),
+(
+    'HI128'
+),
+(
+    'PS108'
+),
+(
+    'RE103'
+),
+(
+    'CP414'
+),
+(
+    'CP470'
+);
