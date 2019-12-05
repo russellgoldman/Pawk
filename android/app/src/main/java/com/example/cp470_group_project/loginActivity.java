@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.util.Log;
 import android.app.Dialog;
 import android.content.Context;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -22,6 +23,14 @@ public class loginActivity extends AppCompatActivity {
     Button loginButton;
     TextView register;
 
+    EditText email;
+    EditText password;
+
+    String user = "Mawl4700@mylaurier.ca";
+    String pass = "pawkCP470*";
+
+
+
     Context context = this;
 
     @Override
@@ -30,14 +39,14 @@ public class loginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        // REMOVE THIS FROM LOGIN AFTER COURSE PAGES + RATING STUFF ARE IMPLEMENTED
-        /* just to check if my dialog stuff works for RATING COURSE DIALOG*/
         loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(loginActivity.this,Dashboard.class);
-                startActivity(intent);
+                if(validateUser()){
+                    Intent intent = new Intent(loginActivity.this,Dashboard.class);
+                    startActivity(intent);
+                }
 //                Log.i(ACTIVITY_NAME,"Clicked Log In Button");
 //                final Dialog dialog = new Dialog(context);
 //                dialog.setContentView(R.layout.rate_course_dialog);
@@ -71,4 +80,25 @@ public class loginActivity extends AppCompatActivity {
         });
 
     }
+
+    private boolean validateUser(){
+        email = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+
+        String userInput = String.valueOf(email.getText());
+        String passwordInput = String.valueOf(password.getText());
+
+
+        if((!userInput.equals(user)) || (!passwordInput.equals(pass))){
+            email.setError("Wrong Email");
+            password.setError("Incorrect Password");
+            return false;
+        }
+        else{
+            email.setError(null);
+            password.setError(null);
+            return true;
+        }
+    }
+
 }
