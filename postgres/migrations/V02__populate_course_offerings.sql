@@ -21,7 +21,7 @@ INSERT INTO pawk.course_offerings (
     'Richard Norman Hildred'
 ),
 (
-    'CP104',
+    'CP320',
     '60',
     'A',
     0.5,
@@ -32,7 +32,7 @@ INSERT INTO pawk.course_offerings (
     'Habib-ur Rehman'
 ),
 (
-    'CP104',
+    'CP414',
     '28',
     'L1',
     0.5,

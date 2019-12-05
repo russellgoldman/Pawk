@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/coursereg_layout"
+    tools:context=".CourseReg">
+
+
+    <!-- Course Registration -->
+
+    <TextView
+        android:id="@+id/course_regi"
+        android:layout_width="213dp"
+        android:layout_height="36dp"
+
+
+        android:text="@string/course_regi"
+        android:textAppearance="@style/course_regi"
+        android:layout_toEndOf="@id/backButton" />
+
+    <TextView
+        android:id="@+id/ongoing"
+        android:layout_width="92dp"
+        android:layout_height="32dp"
+
+        android:text="@string/ongoing"
+        android:textAppearance="@style/ongoing"
+        android:layout_below="@id/course_regi"
+        android:clickable="true"/>
+    <!-- Completed -->
+    <TextView
+        android:id="@+id/completed"
+        android:layout_width="113dp"
+        android:layout_height="32dp"
+        android:text="@string/completed"
+        android:textAppearance="@style/completed"
+        android:layout_below="@id/course_regi"
+        android:layout_toEndOf="@id/ongoing"
+        android:clickable="true"/>
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="89dp"
+        android:layout_height="35dp"
+        android:backgroundTint="#F9F9F9"
+
+        android:src="@drawable/arrow"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="30dp" />
+
+    <ImageButton
+        android:id="@+id/editCourseRegiButton"
+        android:layout_width="74dp"
+        android:layout_height="39dp"
+        android:layout_toEndOf="@id/course_regi"
+        android:backgroundTint="#F9F9F9"
+        android:src="@drawable/editpencil" />
+    <ListView
+        android:id="@+id/ongoingCourses"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ongoing"
+        />
+
+</RelativeLayout>

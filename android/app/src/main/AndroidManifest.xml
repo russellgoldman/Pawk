@@ -34,6 +34,9 @@
         <activity android:name=".launchActivity" />
         <activity android:name=".registerPage1" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".Dashboard"/>
+        <activity android:name=".CourseReg"/>
+
     </application>
 
 </manifest>
