@@ -108,8 +108,8 @@ public class exploreProgram2 extends AppCompatActivity{
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_dashboard:
-//                        intent = new Intent(exploreProgram2.this, Dashboard.class);
-//                        startActivity(intent);
+                        intent = new Intent(exploreProgram2.this, Dashboard.class);
+                        startActivity(intent);
                         break;
                     case R.id.navigation_courses:
                         intent = new Intent(exploreProgram2.this, ExploreCoursesActivity.class);
