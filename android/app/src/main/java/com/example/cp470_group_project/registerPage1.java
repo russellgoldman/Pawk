@@ -9,8 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+
+/**
+ **/
 
 public class registerPage1 extends AppCompatActivity {
 
@@ -34,6 +38,8 @@ public class registerPage1 extends AppCompatActivity {
                 validatePass();
                 confirmPass();
                 if (validateStringInput() && validateEmail() && validatePass() && confirmPass()){
+                    Toast toast = Toast.makeText(registerPage1.this, "Success!", Toast.LENGTH_LONG);
+                    toast.show();
                     Intent intent = new Intent(registerPage1.this,registerPage2.class);
                     startActivity(intent);
 

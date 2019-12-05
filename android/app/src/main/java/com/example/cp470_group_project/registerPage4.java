@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class registerPage4 extends AppCompatActivity {
 
@@ -26,6 +27,8 @@ public class registerPage4 extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                Toast toast = Toast.makeText(registerPage4.this, "Success!", Toast.LENGTH_LONG);
+                toast.show();
                 Intent intent = new Intent(registerPage4.this,registerPage5.class);
                 startActivity(intent);
             }
