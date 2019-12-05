@@ -7,7 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
+/**<h1>Register Page 5</h1>
+ * <p>
+ *     <b>Description: </b>User's Spring Term
+ * </p>
+ * <p>
+ *     <b>Use Case: </b>User can enter up to 5 courses they are taking in that term which will be inserted into a JSON object for personalization.
+ * </p>
+ **/
 public class registerPage5 extends AppCompatActivity {
 
     Button nextButton;
@@ -30,3 +37,11 @@ public class registerPage5 extends AppCompatActivity {
 
     }
 }
+/**<h1>Register Page 1</h1>
+ * <p>
+ *     <b>Description: </b>
+ * </p>
+ * <p>
+ *     <b>Use Case: </b>
+ * </p>
+ **/
