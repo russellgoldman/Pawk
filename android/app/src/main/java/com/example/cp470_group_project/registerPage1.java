@@ -13,7 +13,13 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-/**
+/**<h1>Register Page 1</h1>
+ * <p>
+ *     <b>Description: </b>User's Login Info
+ * </p>
+ * <p>
+ *     <b>Use Case: </b>User enters their Name, Laurier Email, and Password which will be inserted into a JSON object for user validation.
+ * </p>
  **/
 
 public class registerPage1 extends AppCompatActivity {

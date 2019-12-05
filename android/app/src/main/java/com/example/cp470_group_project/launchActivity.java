@@ -7,7 +7,14 @@ import android.widget.Button;
 import android.content.Intent;
 
 import android.os.Bundle;
-
+/**<h1>Launch Activity</h1>
+ * <p>
+ *     <b>Description: </b>User Landing page
+ * </p>
+ * <p>
+ *     <b>Use Case: </b>Users can choose to register or login depending if they already have an account
+ * </p>
+ **/
 public class launchActivity extends AppCompatActivity {
 
     private Button loginButton;

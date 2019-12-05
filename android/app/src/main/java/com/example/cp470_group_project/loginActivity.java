@@ -15,7 +15,14 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
-
+/**<h1>Login Activity</h1>
+ * <p>
+ *     <b>Description: </b> User Login Page
+ * </p>
+ * <p>
+ *     <b>Use Case: </b>User's gateway into the app upon success user validation.
+ * </p>
+ **/
 public class loginActivity extends AppCompatActivity {
 
     private String ACTIVITY_NAME = "loginActivity";

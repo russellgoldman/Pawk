@@ -8,7 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+/**<h1>Register Page 3</h1>
+ * <p>
+ *     <b>Description: </b>User's Fall Term
+ * </p>
+ * <p>
+ *     <b>Use Case: </b> User can enter up to 5 courses they are taking in that term which will be inserted into a JSON object for personalization.
+ * </p>
+ **/
 public class registerPage3 extends AppCompatActivity {
 
     Button nextButton;
