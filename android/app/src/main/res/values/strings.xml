@@ -1,6 +1,5 @@
-
 <resources>
-    <string name="app_name">CP470-Group-Project</string>
+    <string name="app_name">Pawk</string>
     <string name="loginText">Login</string>
     <string name="signUpText">Sign Up</string>
     <string name="registerText">Register</string>
@@ -11,23 +10,21 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="course_regi">
 
-Course Registration
+<!-- Course Registration -->
 </string>>
     <string name="ongoing">
 
-Ongoing
+<!-- Ongoing -->
 </string>
     <string name="completed">
-Completed
+<!-- Completed -->
 </string>
     <string name="dashboard">
 
-Dashboard
+<!-- Dashboard -->
 </string>
     <string name="welcome_joh">
-Favorites
-    <string name="app_name">Pawk</string>
+<!-- Favorites -->
     <string name="action_settings">Settings</string>
-Welcome, John Doe
-</string>
+<!-- Welcome, John Doe -->
 </resources>
