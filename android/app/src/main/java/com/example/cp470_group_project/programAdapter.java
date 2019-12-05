@@ -17,6 +17,15 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 
+/**
+ *
+ * <h1>programAdapter</h1>
+ * This displays the programs on explore programs page
+ * as well as keeps track of information between the explore program (all) activity
+ * and the actual specific program page activity.
+ *
+ */
+
 public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewHolder> implements Filterable {
     ArrayList<programData> programList, programListFull;
     //FilterList is a copy of programList for the filter..
@@ -68,7 +77,12 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
         return programList == null ? 0 : programList.size();
     }
 
-    //RETURN FILTER OBJ
+
+    /**
+     * Function for real time search implemented for explore program page.
+     * @return
+     */
+
     @Override
     public Filter getFilter() {
         return programFilter;
@@ -99,6 +113,13 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
             return results;
         }
 
+        /**
+         *
+         * Function publishes search results for the search button
+         * @param constraint
+         * @param results
+         */
+
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results){
             // clear recycle view
@@ -113,6 +134,15 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
     };
 
 
+    /**
+     *
+     * This creates the layout for all programs in the database and
+     * keeps track of data for the actual specific program page
+     *
+     * <h2> USE CASES </h2>
+     * User can click on each program and get additional information about the program or just view a preview of it.
+     *
+     */
 
     public class RecViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 

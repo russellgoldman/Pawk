@@ -14,6 +14,16 @@ import android.widget.TextView;
 import android.util.Log;
 import androidx.annotation.NonNull;
 
+/**
+ *
+ * <h1>programFragment</h1>
+ * This contains the fragment needed to show sample courses on the program pages.
+ *
+ * <h2>Use Cases</h2>
+ * This is for users to see sample courses from the program.
+ *
+ */
+
 public class programFragment extends Fragment {
 
     private static final String ACTIVITY_NAME = "programFragment";
@@ -27,6 +37,14 @@ public class programFragment extends Fragment {
         View v = inflater.inflate(R.layout.sample_course_fragment, container, false);
         return v;
     }
+
+    /**
+     *
+     * This creates a new fragment for sample courses for gridView.
+     *
+     * @param view
+     * @param savedInstanceState
+     */
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
@@ -44,6 +62,12 @@ public class programFragment extends Fragment {
         gridView.setAdapter(adapter);
     }
 
+    /**
+     *
+     * <h1>sampleCourseFragmentAdapter</h1>
+     * This inflates the layout for each sample course to be displayed in the sample course fragment.
+     *
+     */
 
 public class sampleCourseFragmentAdapter extends BaseAdapter {
 

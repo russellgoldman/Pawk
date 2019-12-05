@@ -29,8 +29,12 @@ import org.jetbrains.annotations.NotNull;
  *  This is the explore program page for PAWK.
  *  From here, you can tap on available programs
  *  and get additional information on them.
- *  <h2>USE CASE DESCRIPTION</h2>
  *
+ *  <h2>USE CASE DESCRIPTION</h2>
+ * Users can browse and search for programs on this activity.
+ * Tapping on the available programs will show additional information about the program.
+ * Users can get more information such as sample courses, program duration, coop terms for the program
+ * by tapping on the button.
  *
  */
 
@@ -50,6 +54,8 @@ public class exploreProgram2 extends AppCompatActivity{
 
     /**
      *
+     * This creates the view for explore programs activity and gets
+     * the information from the database for the page.
      *
      * @param savedInstanceState
      *
@@ -105,8 +111,6 @@ public class exploreProgram2 extends AppCompatActivity{
 
             }
 
-            // SEARCH FILTER DOESN'T WORK BECAUSE LIST SI EMPTY OUTSIDE OF THE FUNCTION
-
             @Override
             public void onFailure(@NotNull ApolloException e) {
                 Log.e(ACTIVITY_NAME, e.getMessage(), e);
@@ -149,6 +153,13 @@ public class exploreProgram2 extends AppCompatActivity{
 
     }
 
+
+    /**
+     *
+     *  Toolbar for search and filter option on the explore program page.
+     *
+     */
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
@@ -166,6 +177,14 @@ public class exploreProgram2 extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    /**
+     *
+     * This function filters results of the search (on the top toolbar)
+     * for the explore programs activity in real time
+     *
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
