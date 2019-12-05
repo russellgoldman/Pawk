@@ -20,7 +20,7 @@ public class registerPage5 extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(registerPage5.this, MainActivity.class);
+                Intent intent = new Intent(registerPage5.this, Dashboard.class);
                 startActivity(intent);
             }
         });
