@@ -12,8 +12,8 @@
         android:id="@+id/viewCourseRegi"
         android:layout_width="340dp"
         android:layout_height="100dp"
-        android:layout_marginLeft="31dp"
-        android:layout_marginTop="255dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="244dp"
         android:background="@drawable/rounded_button_yellow"
         android:elevation="4dp"
         android:src="@drawable/viewcoursereg"
@@ -24,8 +24,8 @@
         android:id="@+id/viewFavs"
         android:layout_width="340dp"
         android:layout_height="100dp"
-        android:layout_marginLeft="31dp"
-        android:layout_marginTop="386dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="360dp"
         android:background="@drawable/rounded_button_pink"
         android:elevation="4dp"
         android:src="@drawable/yourfavs"
@@ -35,16 +35,16 @@
 
     <ImageButton
         android:id="@+id/viewYourRatings"
-        android:layout_width="350dp"
-        android:layout_height="103dp"
-        android:layout_marginLeft="31dp"
-        android:layout_marginTop="517dp"
+        android:layout_width="340dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="468dp"
         android:background="@drawable/rounded_button_black"
         android:elevation="4dp"
         android:src="@drawable/viewrates"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/dashboard"

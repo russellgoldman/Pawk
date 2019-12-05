@@ -45,16 +45,16 @@ public class Dashboard extends AppCompatActivity {
         viewFavs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(Dashboard.this, CourseReg.class);
-                startActivity(intent);
+ //               intent = new Intent(Dashboard.this, CourseReg.class);
+   //             startActivity(intent);
             }
         });
         viewRatings = findViewById(R.id.viewYourRatings);
         viewRatings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(Dashboard.this, CourseReg.class);
-                startActivity(intent);
+ //               intent = new Intent(Dashboard.this, CourseReg.class);
+  //              startActivity(intent);
             }
         });
         bottomNav = findViewById(R.id.bottom_navigation);
@@ -63,11 +63,11 @@ public class Dashboard extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_courses:
-                        intent = new Intent(Dashboard.this, CoursePageActivity.class);
+                        intent = new Intent(Dashboard.this, ExploreCoursesActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.navigation_programs:
-                        intent = new Intent(Dashboard.this, CourseReg.class);
+                        intent = new Intent(Dashboard.this, exploreProgram2.class);
                         startActivity(intent);
                         break;
                     case R.id.navigation_settings:
