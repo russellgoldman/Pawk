@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Filterable;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
 import android.widget.Button;
@@ -29,16 +28,13 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
 
     private Context mContext;
 
-
-
-    public programAdapter(ArrayList<programData> programList, Context context, OnNoteListener MOnNoteListener) {
+    public programAdapter(ArrayList<programData> programList, ArrayList<programData> programListCopy, Context context, OnNoteListener MOnNoteListener) {
         this.programList = programList;
         this.mContext = context;
         this.MOnNoteListener = MOnNoteListener;
         // makes copy of list for the search thing
-        programListFull = new ArrayList<>(programList);
+        programListFull = programListCopy;
     }
-
 
     @Override
     public RecViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -67,7 +63,6 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
 
     }
 
-
     @Override
     public int getItemCount() {
         return programList == null ? 0 : programList.size();
@@ -85,19 +80,15 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
             // return filter results
             List<programData> filteredList = new ArrayList<>();
 
-
             // if constraints emptyu, show all the results.. b/c no filter
             if (constraint == null || constraint.length() == 0) {
-                Log.i("programFilter","search not implemeneted");
+
+                Log.i(ACTIVITY_NAME,"NO SEARCH FILTER APPLIED");
                 filteredList.addAll(programListFull);
             } else {
-                Log.i("programFilter","size: " + programListFull.size());
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                Log.i("programFilter",constraint.toString());
                 for (programData item : programListFull) {
-                    Log.i("programFilter","item: " + item);
                     if (item.getProgramName().toLowerCase().contains(filterPattern)) {
-                        Log.i("programFilter","Found a matching");
                         filteredList.add(item);
                     }
                 }
@@ -152,16 +143,30 @@ public class programAdapter extends RecyclerView.Adapter<programAdapter.RecViewH
                             Bundle data = new Bundle();
                             int pos = getAdapterPosition();
                             programData p = programList.get(pos);
+
                             data.putString("programName",p.getProgramName());
                             data.putString("programDesc",p.getProgramBlurb());
                             data.putInt("programID",getAdapterPosition());
-                            data.putString("programHighlights",p.getProgramHighlights());
-                            data.putString("programRequirements",p.getProgramRequirements());
+                            data.putInt("duration",p.getDuration());
+                            data.putInt("coopTerms",p.getCoopTerms());
+
                             List<String> courses = p.getSampleCourses();
+
+                            // put random rating
+                            List<String> ratings = new ArrayList<>();
+                            for (int i = 0; i<courses.size();i++){
+                                    int x = (int)(Math.random()*((5-1)+1))+1;
+                                    ratings.add(Integer.toString(x));
+                            }
+
+                            String[] ratingsList = ratings.toArray(new String[0]);
+                            data.putStringArray("sampleCourseRatings",ratingsList);
+
                             String[] courseList = courses.toArray(new String[0]);
                             data.putStringArray("sampleCourses",courseList);
                             intent.putExtras(data);
                             context.startActivity(intent);
+
                         } else {
                             Log.i(ACTIVITY_NAME,"it's null");
                         }

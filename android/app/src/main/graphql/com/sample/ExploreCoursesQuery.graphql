@@ -3,7 +3,7 @@ query exploreCourses{
     orderBy: [CODE_ASC]
   ) {
     nodes {
-      code,
+      code
       description
     }
   }

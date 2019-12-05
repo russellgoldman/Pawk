@@ -1,10 +1,25 @@
+#query explorePrograms{
+##  allPrograms(
+##    orderBy: [NAME_ASC]
+##  ) {
+##    nodes {
+##      name
+##      description
+##      requiredCourses
+##
+##    }
+##  }
+##}
+
 query explorePrograms{
   allPrograms(
     orderBy: [NAME_ASC]
   ) {
     nodes {
-      name,
-      description,
+      name
+      description
+      years
+      coopCount
       requiredCourses
     }
   }

@@ -12,8 +12,11 @@ public class programData {
     private String programBlurb;
 //    private String[] programHighlights;
 //    private String[] programRequirements;
-    private String programHighlights;
-    private String programRequirements;
+//    private String programHighlights;
+//    private String programRequirements;
+
+    private int coopTerms;
+    private int duration;
     private List<String> sampleCourses;
    // private List<String> sampleCourses;
 
@@ -28,11 +31,13 @@ public class programData {
 ////        this.sampleCourses = sampleCourses;
 ////    }
 
-    public programData(String programName, String programBlurb, String programHighlights, String programRequirements, List<String> sampleCourses){
+    public programData(String programName, String programBlurb, int coopTerms, int duration, List<String> sampleCourses){
         this.programName = programName;
         this.programBlurb = programBlurb;
-        this.programHighlights = programHighlights;
-        this.programRequirements = programRequirements;
+//        this.programHighlights = programHighlights;
+//        this.programRequirements = programRequirements;
+        this.duration = duration;
+        this.coopTerms = coopTerms;
         this.sampleCourses = sampleCourses;
     }
 
@@ -44,15 +49,15 @@ public class programData {
 //        return programRequirements;
 //    }
 
-    public String getProgramHighlights(){
-        return programHighlights;
-    }
-
-
-
-    public String getProgramRequirements(){
-        return programRequirements;
-    }
+//    public String getProgramHighlights(){
+//        return programHighlights;
+//    }
+//
+//
+//
+//    public String getProgramRequirements(){
+//        return programRequirements;
+//    }
 
 //    public ArrayList<Course> getSampleCourses(){
 //        return sampleCourses;
@@ -70,13 +75,29 @@ public class programData {
         return programName;
     }
 
-    public void setProgramName(String programName){
-        this.programName = programName;
+    public void setCoopTerms(int coopTerms){
+        this.coopTerms = coopTerms;
     }
 
-    public void setProgramBlurb(String programBlurb){
-        this.programBlurb = programBlurb;
+    public void setDuration(int duration){
+        this.duration = duration;
     }
+
+    public int getCoopTerms(){
+        return coopTerms;
+    }
+
+    public int getDuration(){
+        return duration;
+    }
+
+//    public void setProgramName(String programName){
+//        this.programName = programName;
+//    }
+//
+//    public void setProgramBlurb(String programBlurb){
+//        this.programBlurb = programBlurb;
+//    }
 
     public boolean isExpanded(){
         return expanded;
