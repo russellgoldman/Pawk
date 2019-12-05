@@ -73,11 +73,11 @@ INSERT INTO pawk.programs (
 ) VALUES
 (
     'Honours BSc Computer Science',
-    "The Honours BSc Computer Science program consists of a minimum of 20.0 credits. A maximum of 6.0 credits are allowed at the 100 level. The aim of the program is to develop a strong understanding of the basic principles of computer science, while providing the opportunity for specialization according to students' interests.",
+    'The Honours BSc Computer Science program consists of a minimum of 20.0 credits. A maximum of 6.0 credits are allowed at the 100 level. The aim of the program is to develop a strong understanding of the basic principles of computer science, while providing the opportunity for specialization according to students interests.',
     4,
     ARRAY[['CP104', 'CP164'], ['CP213', 'CP264'], ['CP312', 'CP386'], ['CP414', 'CP470']],
     ARRAY['2.0 elective credits if MA103 is taken in Winter', '2.5 elective credits', '1.5 elective credits', '4.5 elective credits'],
     3,
     ARRAY['Spring 2018', 'Winter 2019', 'Fall 2020'],
-    ARRAY["Based on the results of the Calculus Preparation Evaluation, an entering student may be required to complete MA102 prior to completing MA103).", "The electives must include at least 3.5 senior CP credits among which at least 1.0 credit must be at the 400 level. The electives must also include at least 1.0 credit from a discipline outside of the Faculty of Science.", "Progression requirements will be based on grade point averages (GPAs) obtained from all courses taken and will be calculated on a cumulative basis. For progression and graduation, the requirement will be a cumulative GPA of 5.00 in Computer Science and a minimum overall GPA of 5.00."]
+    ARRAY['Based on the results of the Calculus Preparation Evaluation, an entering student may be required to complete MA102 prior to completing MA103).', 'The electives must include at least 3.5 senior CP credits among which at least 1.0 credit must be at the 400 level. The electives must also include at least 1.0 credit from a discipline outside of the Faculty of Science.', 'Progression requirements will be based on grade point averages (GPAs) obtained from all courses taken and will be calculated on a cumulative basis. For progression and graduation, the requirement will be a cumulative GPA of 5.00 in Computer Science and a minimum overall GPA of 5.00.']
 );
