@@ -25,13 +25,14 @@
         <activity android:name=".exploreProgram2" />
         <activity android:name=".CoursePageActivity" />
         <activity android:name=".loginActivity">
+        </activity>
+        <activity android:name=".launchActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-        <activity android:name=".launchActivity" />
         <activity android:name=".registerPage1" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Dashboard"/>
