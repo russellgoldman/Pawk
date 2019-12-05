@@ -36,7 +36,12 @@ import java.util.List;
 
 /**
  * <h1>Course Registration</h1>
- * This is where ongoing and compelted courses are shown for a specific user
+ * This is where ongoing and completed courses are shown for a specific user
+ *
+ * <h2>USE CASE DESCRIPTION</h2>
+ * This Activity is used by the user to check on their Courses for this current semsster
+ * and to see important information like what time and where the Course is. User can also check their Compelted Courses
+ * and remove courses from the list of ongoing Courses
  */
 public class CourseReg extends AppCompatActivity {
     private static final String ACTIVITY_NAME = "CourseRegi";

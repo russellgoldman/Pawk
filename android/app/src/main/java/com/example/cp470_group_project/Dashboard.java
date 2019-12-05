@@ -21,8 +21,11 @@ import java.util.Locale;
  <h1>Dashboard</h1>
   This is the Dashboard for the PAWK App
   From this you can navigate to the pages that contain
-  Explore Courses, Programs, Help, Settings, Favrouites, and Ratings
-
+  Explore Courses, Programs, Help, Settings, Favourites, and Ratings
+ <h2>USE CASE DESCRIPTION</h2>
+ This Activity is used as the Hub for the app
+ It is used to access all the other features of the app and is considered the Home Screen of the app once
+ you have logged in. This is used for users to navigate through the course and to access essential features.
  */
 
 public class Dashboard extends AppCompatActivity {
@@ -33,7 +36,7 @@ public class Dashboard extends AppCompatActivity {
     Intent intent;
 
     /**
-     * This method creates the view and functions and sets the intents 
+     * This method creates the view and functions and sets the intents
      * @param savedInstanceState
      */
     @Override
