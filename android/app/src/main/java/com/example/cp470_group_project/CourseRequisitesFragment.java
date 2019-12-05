@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
+ * used for loading in course requisite data
  */
 public class CourseRequisitesFragment extends Fragment {
     public String id;

@@ -11,6 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+/**
+ * <h1>Acquiring Courses Rating Fragment</h1>
+ * This is the fragment class to insert ratings for specific courses
+ * This fragment is loaded for every course and displays that course's rating
+ *
+ */
 public class CourseAcquiredRatingFragment extends Fragment {
     private int rating = 0;
     private final int maxRating = 5;

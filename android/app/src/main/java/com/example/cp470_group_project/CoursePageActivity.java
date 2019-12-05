@@ -25,6 +25,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <h1>Course Page</h1>
+ * This page displays the specific information about a Laurier Course
+ * <h2>Use Case Description</h2>
+ * user accesses this course activity through the ExploreCases
+ * said user can see all releveant information about a specific course and can see courses related to said course
+ *
+ */
 public class CoursePageActivity extends AppCompatActivity {
     final String ACTIVITY_NAME = "CoursePageActivity";
     public String code = "CP212";

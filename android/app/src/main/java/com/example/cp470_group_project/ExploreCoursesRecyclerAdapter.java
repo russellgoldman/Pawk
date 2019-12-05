@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * Adapter class used to set View with list of courses
+ */
 public class ExploreCoursesRecyclerAdapter extends RecyclerView.Adapter<ExploreCoursesRecyclerAdapter.ViewHolder> {
     private ArrayList<ExploreCoursesActivity.Course> courses;
     private LayoutInflater inflater;

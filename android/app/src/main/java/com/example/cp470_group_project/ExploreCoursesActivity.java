@@ -33,6 +33,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <h1>Explore Courses</h1>
+ * This is the activity used to access any one of Lauriers courses
+ * <h2>Use Case Description</h2>
+ * User reaches this pace using the Courses menu item in the toolbar
+ * This activity is used for users to access any and all courses Laurier provides
+ * the courses that can be seen provide a snippet of the course code and description of the course for users to inform themselves with
+ */
 public class ExploreCoursesActivity extends AppCompatActivity implements ExploreCoursesRecyclerAdapter.ItemClickListener {
 
     BottomNavigationView bottomNav;
