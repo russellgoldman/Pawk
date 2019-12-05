@@ -8,17 +8,18 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient">
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_height="609dp"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="60dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginRight="46dp" >
+            android:layout_marginTop="60dp"
+            android:layout_marginRight="46dp">
 
             <TextView
                 android:id="@+id/title"
@@ -33,7 +34,7 @@
                 android:id="@+id/slider_tool_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true" >
+                android:layout_alignParentRight="true">
 
                 <ImageButton
                     android:layout_width="33dp"
@@ -53,20 +54,20 @@
                 android:id="@+id/search_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/slider_tool_button"
-                android:layout_marginRight="10dp">
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/slider_tool_button">
 
                 <ImageButton
-                    android:layout_height="33dp"
                     android:layout_width="33dp"
+                    android:layout_height="33dp"
                     android:background="@drawable/rounded_gray_button" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/search"
+                    android:layout_centerInParent="true"
                     android:background="@null"
-                    android:layout_centerInParent="true" />
+                    android:src="@drawable/search" />
 
             </RelativeLayout>
 
@@ -79,6 +80,20 @@
                 android:layout_marginBottom="68dp" />
 
         </RelativeLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="#E3E3E3"
+            app:itemIconTint="@drawable/menu_item_selection_color"
+            app:itemTextColor="@drawable/menu_item_selection_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav_menu" />
 
     </RelativeLayout>
 

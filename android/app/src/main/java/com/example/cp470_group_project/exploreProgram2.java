@@ -23,6 +23,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sample.ExploreProgramsQuery;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ *
+ *  <h1>Explore Program</h1>
+ *  This is the explore program page for PAWK.
+ *  From here, you can tap on available programs
+ *  and get additional information on them.
+ *  <h2>USE CASE DESCRIPTION</h2>
+ *
+ *
+ */
+
 public class exploreProgram2 extends AppCompatActivity{
 
     private String ACTIVITY_NAME = "exploreProgram2";
@@ -36,6 +47,13 @@ public class exploreProgram2 extends AppCompatActivity{
     Intent intent;
     final ArrayList<programData> programList = new ArrayList<>();
     final ArrayList<programData> programList2 = new ArrayList<>();
+
+    /**
+     *
+     *
+     * @param savedInstanceState
+     *
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

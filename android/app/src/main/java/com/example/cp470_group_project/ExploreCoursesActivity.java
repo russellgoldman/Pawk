@@ -1,5 +1,6 @@
 package com.example.cp470_group_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.os.Looper;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.apollographql.apollo.ApolloClient;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sample.ExploreCoursesQuery;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +34,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class ExploreCoursesActivity extends AppCompatActivity implements ExploreCoursesRecyclerAdapter.ItemClickListener {
+
+    BottomNavigationView bottomNav;
+    Intent intent;
     final String ACTIVITY_NAME = "ExploreCoursesActivity";
     final com.example.cp470_group_project.ExploreCoursesActivity ctx = this;
     ExploreCoursesRecyclerAdapter adapter;
@@ -92,6 +98,32 @@ public class ExploreCoursesActivity extends AppCompatActivity implements Explore
             }
         });
 
+        bottomNav = findViewById(R.id.bottom_navigation);
+
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_dashboard:
+                        intent = new Intent(ExploreCoursesActivity.this, Dashboard.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.navigation_courses:
+                        // since already on navigation page, not need to implement intent
+                        Toast.makeText(getApplicationContext(),"Already on explore course page", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.navigation_programs:
+                        intent = new Intent(ExploreCoursesActivity.this, exploreProgram2.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.navigation_settings:
+//                        intent = new Intent(exploreProgram2.this, HelpActivity.class);
+//                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
