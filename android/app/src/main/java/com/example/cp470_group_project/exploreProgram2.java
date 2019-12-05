@@ -1,16 +1,9 @@
 package com.example.cp470_group_project;
 
-import android.app.SearchManager;
-import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,100 +15,118 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import com.apollographql.apollo.ApolloCall;
+import com.apollographql.apollo.ApolloClient;
+import com.apollographql.apollo.api.Response;
+import com.apollographql.apollo.exception.ApolloException;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import com.sample.ExploreProgramsQuery;
+import org.jetbrains.annotations.NotNull;
 
 public class exploreProgram2 extends AppCompatActivity{
 
-
-    public boolean isButtonVisible = true;
-    public boolean isTextViewVisible= false;
-    private TextView programDescription;
-
-    Button learnMore;
-
     private String ACTIVITY_NAME = "exploreProgram2";
-
     private Toolbar toolbar2;
-
     programAdapter  adapter;
-
     BottomNavigationView bottomNav;
-
     MenuItem programNav;
-
     private RecyclerView recyclerView;
-
     SearchView searchView;
+    public static ApolloClient client;
+    Intent intent;
+    final ArrayList<programData> programList = new ArrayList<>();
+    final ArrayList<programData> programList2 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore_program2);
 
-        /* TODO THIS IS THE TESTING BLOCK SO YOU SHOULD REPLACE WITH DATABSE STUFF HERE */
-
-        ArrayList<programData> programList = new ArrayList<>();
-
-        String[] programArray = {"Computer Science","Math","English","Sociology"};
-        String[] infoArray={"this is computer scie","tis is math","this is eng", "this is soc"};
-
-        String[] highlightsArray={"You can make experience","you are cool","i am cool"};
-        String[] requirementsArray={"highschol","preeschool","meschool"};
-        Course requiredCourse = new Course("cp103",5);
-        Course requiredCourse1 = new Course("cp104",3);
-        Course requiredCourse2 = new Course("cp123",1);
-        Course requiredCourse3 = new Course("su103",4);
-        Course requiredCourse4 = new Course("cp233",3);
-
-        ArrayList<Course> sampleCourses = new ArrayList<Course>();
-
-        sampleCourses.add(requiredCourse);
-        sampleCourses.add(requiredCourse1);
-        sampleCourses.add(requiredCourse2);
-        sampleCourses.add(requiredCourse3);
-        sampleCourses.add(requiredCourse4);
-
-
-        programData comsci = new programData(programArray[0],infoArray[0],highlightsArray,requirementsArray,sampleCourses);
-        programList.add(comsci);
-
-        programData math = new programData(programArray[1],infoArray[1],highlightsArray,requirementsArray,sampleCourses);
-        programList.add(math);
-
-        programData eng = new programData(programArray[2],infoArray[2],highlightsArray,requirementsArray,sampleCourses);
-        programList.add(eng);
-
-        programData soc = new programData(programArray[3],infoArray[3],highlightsArray,requirementsArray,sampleCourses);
-        programList.add(soc);
-
-
-        /* TODO TESTING STUFF IS ABOVE THIS TO DO... DELETE LATER */
-
         recyclerView = findViewById(R.id.recview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-
-        // PROBABLY HAVE TO DELETE THIS LINE..
-        adapter = new programAdapter(programList, this, new programAdapter.OnNoteListener() {
+        adapter = new programAdapter(programList, programList2, this, new programAdapter.OnNoteListener() {
             @Override
             public void OnNoteClick(View view, int position) {
-//                Log.i(ACTIVITY_NAME,"how bout hre?");
-//                Log.i(ACTIVITY_NAME,"onNoteClicked: " + position);
-//
-//                // added this last minute
-//                adapter.notifyDataSetChanged();
+                Log.i(ACTIVITY_NAME,"adapter created");
             }
         });
 
         recyclerView.setAdapter(adapter);
 
+        client = new GraphQLClient().getClient();
+        ExploreProgramsQuery exploreProgramQuery = ExploreProgramsQuery.builder().build();
 
+        client.query(exploreProgramQuery).enqueue(new ApolloCall.Callback<ExploreProgramsQuery.Data>() {
+            @Override
+            public void onResponse(@NotNull Response<ExploreProgramsQuery.Data> dataResponse) {
+                Log.i(ACTIVITY_NAME, dataResponse.data().toString());
+
+                for (ExploreProgramsQuery.Node node: dataResponse.data().allPrograms().nodes()) {
+                    programData pData = new programData(
+                            node.name(),
+                            node.description(),
+                            node.years(),
+                            node.coopCount(),
+                            node.requiredCourses()
+                    );
+                    programList.add(pData);
+                    programList2.add(pData);
+                }
+
+
+                Log.i(ACTIVITY_NAME,"size: "+ programList.size());
+
+                exploreProgram2.this.runOnUiThread(new Runnable() {
+                    @Override public void run() {
+                        Log.i(ACTIVITY_NAME,"size in runOnUi: "+ adapter.programList.size());
+                        Log.i(ACTIVITY_NAME, "GraphQL fetch complete");
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+            }
+
+            // SEARCH FILTER DOESN'T WORK BECAUSE LIST SI EMPTY OUTSIDE OF THE FUNCTION
+
+            @Override
+            public void onFailure(@NotNull ApolloException e) {
+                Log.e(ACTIVITY_NAME, e.getMessage(), e);
+            }
+        });
 
         toolbar2 = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar2);
         getSupportActionBar().setTitle("Programs");
         searchView = (SearchView)findViewById(R.id.search);
+
+
+        bottomNav = findViewById(R.id.bottom_navigation);
+
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_dashboard:
+                        intent = new Intent(exploreProgram2.this, Dashboard.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.navigation_courses:
+                        intent = new Intent(exploreProgram2.this, ExploreCoursesActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.navigation_programs:
+                        // since already on programs page, not need to implement intent
+                        Toast.makeText(getApplicationContext(),"Already on explore program page", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.navigation_settings:
+//                        intent = new Intent(exploreProgram2.this, HelpActivity.class);
+//                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+        });
 
 
     }
@@ -140,7 +151,6 @@ public class exploreProgram2 extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_nav, menu);
 

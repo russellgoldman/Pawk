@@ -36,26 +36,28 @@ public class loginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i(ACTIVITY_NAME,"Clicked Log In Button");
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.rate_course_dialog);
-                TextView text = (TextView)dialog.findViewById(R.id.rateCourseTextView);
-                Button submitCourseRating = (Button)dialog.findViewById(R.id.submitCourseRatingButton);
-                final RatingBar ratingBar = (RatingBar)dialog.findViewById(R.id.ratingBar);
-                submitCourseRating.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String totalStars = "Rating: " + ratingBar.getRating();
-                        Log.i(ACTIVITY_NAME,"Total Stars: " + totalStars);
-
-                        // THIS LINE MAKES A TOAST..  FOR RATINGS - TOAST.PNG
-                        Toast.makeText(getApplicationContext(),totalStars, Toast.LENGTH_LONG).show();
-
-                        // Closes the Dialog when submit is pressed
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                Intent intent = new Intent(loginActivity.this,Dashboard.class);
+                startActivity(intent);
+//                Log.i(ACTIVITY_NAME,"Clicked Log In Button");
+//                final Dialog dialog = new Dialog(context);
+//                dialog.setContentView(R.layout.rate_course_dialog);
+//                TextView text = (TextView)dialog.findViewById(R.id.rateCourseTextView);
+//                Button submitCourseRating = (Button)dialog.findViewById(R.id.submitCourseRatingButton);
+//                final RatingBar ratingBar = (RatingBar)dialog.findViewById(R.id.ratingBar);
+//                submitCourseRating.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        String totalStars = "Rating: " + ratingBar.getRating();
+//                        Log.i(ACTIVITY_NAME,"Total Stars: " + totalStars);
+//
+//                        // THIS LINE MAKES A TOAST..  FOR RATINGS - TOAST.PNG
+//                        Toast.makeText(getApplicationContext(),totalStars, Toast.LENGTH_LONG).show();
+//
+//                        // Closes the Dialog when submit is pressed
+//                        dialog.dismiss();
+//                    }
+//                });
+//                dialog.show();
             }
         });
 

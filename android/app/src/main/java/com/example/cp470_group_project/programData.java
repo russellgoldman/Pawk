@@ -4,36 +4,66 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //public class programData implements Parcelable
 public class programData {
     private String programName;
     private String programBlurb;
-    private String[] programHighlights;
-    private String[] programRequirements;
-    private ArrayList<Course> sampleCourses;
+//    private String[] programHighlights;
+//    private String[] programRequirements;
+//    private String programHighlights;
+//    private String programRequirements;
+
+    private int coopTerms;
+    private int duration;
+    private List<String> sampleCourses;
+   // private List<String> sampleCourses;
 
     // State of Item
     private boolean expanded;
 
-    public programData(String programName, String programBlurb, String[] programHighlights, String[] programRequirements, ArrayList<Course> sampleCourses){
+//    public programData(String programName, String programBlurb, String[] programHighlights, String[] programRequirements, ArrayList<Course> sampleCourses){
+////        this.programName = programName;
+////        this.programBlurb = programBlurb;
+////        this.programHighlights = programHighlights;
+////        this.programRequirements = programRequirements;
+////        this.sampleCourses = sampleCourses;
+////    }
+
+    public programData(String programName, String programBlurb, int coopTerms, int duration, List<String> sampleCourses){
         this.programName = programName;
         this.programBlurb = programBlurb;
-        this.programHighlights = programHighlights;
-        this.programRequirements = programRequirements;
+//        this.programHighlights = programHighlights;
+//        this.programRequirements = programRequirements;
+        this.duration = duration;
+        this.coopTerms = coopTerms;
         this.sampleCourses = sampleCourses;
-
     }
 
-    public String[] getProgramHighlights(){
-        return programHighlights;
-    }
+//    public String[] getProgramHighlights(){
+//        return programHighlights;
+//    }
+//
+//    public String[] getProgramRequirements(){
+//        return programRequirements;
+//    }
 
-    public String[] getProgramRequirements(){
-        return programRequirements;
-    }
+//    public String getProgramHighlights(){
+//        return programHighlights;
+//    }
+//
+//
+//
+//    public String getProgramRequirements(){
+//        return programRequirements;
+//    }
 
-    public ArrayList<Course> getSampleCourses(){
+//    public ArrayList<Course> getSampleCourses(){
+//        return sampleCourses;
+//    }
+
+    public List<String> getSampleCourses(){
         return sampleCourses;
     }
 
@@ -45,13 +75,29 @@ public class programData {
         return programName;
     }
 
-    public void setProgramName(String programName){
-        this.programName = programName;
+    public void setCoopTerms(int coopTerms){
+        this.coopTerms = coopTerms;
     }
 
-    public void setProgramBlurb(String programBlurb){
-        this.programBlurb = programBlurb;
+    public void setDuration(int duration){
+        this.duration = duration;
     }
+
+    public int getCoopTerms(){
+        return coopTerms;
+    }
+
+    public int getDuration(){
+        return duration;
+    }
+
+//    public void setProgramName(String programName){
+//        this.programName = programName;
+//    }
+//
+//    public void setProgramBlurb(String programBlurb){
+//        this.programBlurb = programBlurb;
+//    }
 
     public boolean isExpanded(){
         return expanded;
@@ -61,34 +107,4 @@ public class programData {
         this.expanded = expanded;
     }
 
-//    // adds all class properties to parcel in preparation for transfer
-//    public void writeToParcel(Parcel dest, int flags){
-//        // write all properties to the parcel
-//        dest.writeString(programName);
-//        dest.writeString(programBlurb);
-//    }
-//
-//    public programData(Parcel parcel){
-//        // read and set saved values from parcel
-//        programName = parcel.readString();
-//        programBlurb = parcel.readString();
-//    }
-//
-//    // creator - used when unparcling our parcel (creating obkects)
-//    public static final Parcelable.Creator<programData> CREATOR = new Parcelable.Creator<programData>(){
-//        @Override
-//        public programData createFromParcel(Parcel parcel){
-//            return new programData(parcel);
-//        }
-//
-//        @Override
-//        public programData[] newArray(int size){
-//            return new programData[0];
-//        }
-//    };
-//
-//    // return hashcode of object
-//    public int describeContents(){
-//        return hashCode();
-//    }
 }

@@ -4,29 +4,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.util.Log;
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-
-/*
-    THIS CLASS IS NOT USED LOL
- */
-
 public class programFragment extends Fragment {
 
-    exploreProgram2 exploreProgramWindow;
     private static final String ACTIVITY_NAME = "programFragment";
 
     public programFragment() {
@@ -36,37 +25,67 @@ public class programFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.sample_course_fragment, container, false);
-        GridView gridView = (GridView) v.findViewById(R.id.gridview);
-
-        int[] books = {1,2,3,4};
-
-        gridView.setAdapter(new sampleCourseFragmentAdapter(v.getContext(),books,getFragmentManager()));
-
-        Log.i(ACTIVITY_NAME, "In onCreateView");
         return v;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+        Log.i(ACTIVITY_NAME, "In onCreateView");
+
         super.onViewCreated(view, savedInstanceState);
 
+        Bundle data = getActivity().getIntent().getExtras();
 
-//        final Bundle data = this.getArguments();
-//        Log.i(ACTIVITY_NAME, "Bundle: " + data.isEmpty() + "");
-//        Log.i(ACTIVITY_NAME, "Program Name: " + data.getString("programName"));
-//        Log.i(ACTIVITY_NAME, "Program Desc: " + data.getString("programDesc"));
+        String[] sampleCourses = data.getStringArray("sampleCourses");
+        String[] ratings = data.getStringArray("sampleCourseRatings");
+
+        sampleCourseFragmentAdapter adapter = new sampleCourseFragmentAdapter(getActivity(), sampleCourses,ratings);
+        final GridView gridView = (GridView) view.findViewById(R.id.gridview);
+        gridView.setAdapter(adapter);
     }
 
-    public class sampleCourseAdapter extends ArrayAdapter<programData>{
-        public sampleCourseAdapter(Context context, ArrayList<programData> programs){
-            super(context, 0, programs);
-        }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent){
+public class sampleCourseFragmentAdapter extends BaseAdapter {
 
-            return convertView;
-        }
+    private final Context mContext;
+    private final String[] courses;
+    private final String[] ratings;
+    private static final String ACTIVITY_NAME = "sampleCourseFragAdapter";
+
+    public sampleCourseFragmentAdapter(Context context, String[] courses, String[] ratings) {
+        this.mContext = context;
+        this.courses = courses;
+        this.ratings = ratings;
     }
 
+    @Override
+    public int getCount() {
+        return courses.length;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+        convertView = layoutInflater.inflate(R.layout.sample_course_item, null);
+
+        TextView titleView = convertView.findViewById(R.id.sampleCourseCode);
+        titleView.setText(courses[position]);
+
+        TextView rating = convertView.findViewById(R.id.sampleCourseRating);
+        rating.setText(ratings[position]);
+
+        return convertView;
+    }
+
+}
 }

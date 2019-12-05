@@ -1,18 +1,19 @@
 package com.example.cp470_group_project;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.List;
+
+/*
+    THIS SPINNER CLASS IS NOT FINISHED
+ */
 
 public class programFilter extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -24,7 +25,14 @@ public class programFilter extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.program_filter);
 
-        /* YOUR SPINNED DOES NOT WORK MICHELLE */
+        ImageButton exit = (ImageButton)findViewById(R.id.exitFilter);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        /* NOT IMPLEMENTED */
 //        Spinner spinner = (Spinner) findViewById(R.id.facultyChoicesSpinner);
 //        Log.i(ACTIVITY_NAME,"Found: "+ spinner);
 //

@@ -12,7 +12,6 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:id="@+id/sampleCourseTitle">
-
     </TextView>
 
     <GridView

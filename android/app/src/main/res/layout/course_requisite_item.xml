@@ -19,7 +19,7 @@
             android:background="@drawable/rounded_purple_bkg" />
 
         <TextView
-            android:id="@+id/code"
+            android:id="@+id/sampleCourseCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CP102"
@@ -46,7 +46,7 @@
                 android:layout_marginTop="3.5dp" />
 
             <TextView
-                android:id="@+id/rating"
+                android:id="@+id/sampleCourseRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/star"
