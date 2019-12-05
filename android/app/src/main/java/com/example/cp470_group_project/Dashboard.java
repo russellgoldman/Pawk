@@ -17,8 +17,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-//Required imports
+/**
+ <h1>Dashboard</h1>
+  This is the Dashboard for the PAWK App
+  From this you can navigate to the pages that contain
+  Explore Courses, Programs, Help, Settings, Favrouites, and Ratings
 
+ */
 
 public class Dashboard extends AppCompatActivity {
     BottomNavigationView bottomNav;
@@ -26,6 +31,11 @@ public class Dashboard extends AppCompatActivity {
     ImageButton viewFavs;
     ImageButton viewRatings;
     Intent intent;
+
+    /**
+     * This method creates the view and functions and sets the intents 
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         intent = null;

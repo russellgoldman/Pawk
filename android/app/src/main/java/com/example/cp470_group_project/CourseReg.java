@@ -34,6 +34,10 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <h1>Course Registration</h1>
+ * This is where ongoing and compelted courses are shown for a specific user
+ */
 public class CourseReg extends AppCompatActivity {
     private static final String ACTIVITY_NAME = "CourseRegi";
     ListView chatList;
@@ -41,6 +45,9 @@ public class CourseReg extends AppCompatActivity {
     private ArrayList<CourseOffers> registeredList = new ArrayList<>();
     OfferingsAdapter messageAdapter;
 
+    /**
+     * Structure for Course Offers
+     */
     public class CourseOffers {
         protected String code;
         protected Object startTime;
@@ -62,6 +69,11 @@ public class CourseReg extends AppCompatActivity {
         }
     }
     public static ApolloClient client;
+
+    /**
+     * This oncreate displayes the activity and sets the activites basic functions
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +105,9 @@ public class CourseReg extends AppCompatActivity {
                     registeredList.add(crs);
                 }
             CourseReg.this.runOnUiThread(new Runnable() {
+                /**
+                 * Updates the ListView
+                 */
                 @Override
                 public void run() {
                     Log.e(ACTIVITY_NAME,"GraphQl Fetched");
@@ -116,7 +131,9 @@ public class CourseReg extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Adapter class for listview and setting ongoing courses
+     */
     public class OfferingsAdapter extends ArrayAdapter<CourseOffers>{
         public OfferingsAdapter(Context ctx){
             super(ctx,0);
