@@ -96,7 +96,7 @@ public class registerPage1 extends AppCompatActivity {
         F3 = findViewById(R.id.F3);
         String inputF3 = F3.getText().toString();
 
-        if(!(inputF4.equals(inputF3))){
+        if(!(inputF4 != inputF3)){
             F4.setError("Password does not match");
             return false;
         }
