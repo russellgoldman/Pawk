@@ -16,14 +16,15 @@ Node.js server uses webscraping libraries to access course/program data from
 the Laurier Academic Calendar. The server mutates the PostgreSQL database with
 the collected data using GraphQL.
 
-### Database
-Manages PostgreSQL setup, SQL migrations, and connection to GraphQL. GraphQL
-type definitions, queries and mutations also defined here. Entrypoint is
-a Node.js server.
+### PostgreSQL Database
+SQL init schema and migrations used to define logic within the database.
+
+### GraphQL API (using Postgraphile)
+Postgraphile creates a GraphQL API from our PostgreSQL database with the ability to create custom queries and mutations. If our GraphQL API relied upon many database management systems however (e.g. MongoDB, PostgreSQL), then Postgraphile wouldn't be an appropriate fit. For our usecase, it works quite well.
 
 ### Docker
-Manages services and containerizes the backend ecosystem to be accessible with
-scale from frontend clients.
+Manages services and containerizes the backend ecosystem (GraphQL API + PostgreSQL database) to be accessible with
+scale from many frontend clients.
 
 ## Frontend
 ### Figma
