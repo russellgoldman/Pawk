@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/15056496/71398267-7e01b100-25e5-11ea-9de6-6d8e0d2315fe.png" width="150" />
+<img src="https://user-images.githubusercontent.com/15056496/71398406-efd9fa80-25e5-11ea-8beb-c9f2f8f62a0e.png" width="150" />
 
 # Pawk
 Pawk is a course and program exploration app for students at Wilfrid Laurier University. It was inspired by [CourseHawk](https://github.com/russellgoldman/CourseHawk) and built to address CourseHawk's architectural shortcomings.
