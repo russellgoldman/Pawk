@@ -1,4 +1,5 @@
 # Pawk
+Pawk is a course and program exploration app for students at Wilfrid Laurier University. It was built as a second iteration of [CourseHawk](https://github.com/russellgoldman/CourseHawk) to address it's architectural shortcomings.
 
 ## Team Members (CP470 Final Project)
 - Russell Goldman
