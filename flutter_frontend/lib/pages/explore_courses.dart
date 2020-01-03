@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pawk_flutter/colours.dart';
+import 'package:flutter_frontend/colours.dart';
 
 class ExploreCourses extends StatefulWidget {
   @override
@@ -22,7 +22,8 @@ class _ExploreCoursesState extends State<ExploreCourses> {
     Course(code: 'CP164', rating: 4.6),
     Course(code: 'CP212', rating: 4.2),
     Course(code: 'CP213', rating: 4.5),
-    Course(code: 'CP264', rating: 3.7)
+    Course(code: 'CP264', rating: 3.7),
+    Course(code: 'CP470', rating: 4.8)
   ];
 
   @override
@@ -38,7 +39,7 @@ class _ExploreCoursesState extends State<ExploreCourses> {
               return Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Row(
