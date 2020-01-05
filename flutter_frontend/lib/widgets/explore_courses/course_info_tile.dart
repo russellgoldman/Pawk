@@ -17,7 +17,7 @@ class CourseInfoTile extends StatelessWidget {
       },
       borderRadius: BorderRadius.circular(5),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+        padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,7 +47,6 @@ class CourseInfoTile extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               )
             ),
-            SizedBox(width: 30)
           ],
         ),
       ),

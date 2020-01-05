@@ -39,13 +39,13 @@ class _ExploreCoursesState extends State<ExploreCourses> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: light_grey_background,
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: courses.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Column(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+        child: SafeArea(
+          child: ListView.builder(
+            itemCount: courses.length,
+            itemBuilder: (context, index) {
+              return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -54,7 +54,7 @@ class _ExploreCoursesState extends State<ExploreCourses> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.fromLTRB(0, 10, 16, 0),
+                        padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
                         child: SlidingBox(
                           id: courses[index].code,
                           selectedId: courseToShow,
@@ -75,25 +75,29 @@ class _ExploreCoursesState extends State<ExploreCourses> {
                           },
                         ),
                       ),
+                      SizedBox(width: 30)
                     ]
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(35, 5, 35, 0),
+                    padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 300),
                       height: courseToShow == courses[index].code ? 170 : 0,
                       child: CourseInfoExpanded(code: courses[index].code, description: courses[index].description)
                     ),
                   ),
-                  Divider(
-                    color: grey_divider,
-                    thickness: 1,
-                    height: 0,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
+                    child: Divider(
+                      color: grey_divider,
+                      thickness: 1,
+                      height: 0,
+                    ),
                   ),
                 ],
-              ),
-            );
-          }
+              );
+            }
+          ),
         ),
       )
     );
