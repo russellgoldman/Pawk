@@ -12,13 +12,10 @@ class SlidingBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        AnimatedContainer(
-          duration: Duration(milliseconds: 800),
-          child: Container(
-            color: backgroundColor,
-            height: 13,
-            width: 9
-          )
+        Container(
+          color: backgroundColor,
+          height: 13,
+          width: 9
         ),
         AnimatedContainer(
           duration: Duration(milliseconds: 300),
