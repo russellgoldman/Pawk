@@ -13,6 +13,8 @@ class CourseInfoExpanded extends StatelessWidget {
         Row(children: <Widget>[
           Flexible(child: Text(
             description,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: light_grey_description,
               fontFamily: 'Avenir',
