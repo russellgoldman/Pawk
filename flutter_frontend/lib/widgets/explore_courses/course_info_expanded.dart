@@ -22,7 +22,7 @@ class CourseInfoExpanded extends StatelessWidget {
           )),
         ]),
         Padding(
-          padding: const EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(top: 15, bottom: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
