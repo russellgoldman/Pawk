@@ -11,15 +11,15 @@ class CourseInfoCard extends StatelessWidget {
     return Wrap(
       children: <Widget>[
         Row(children: <Widget>[
-            Flexible(child: Text(
-              description,
-              style: TextStyle(
-                color: light_grey_description,
-                fontFamily: 'Avenir',
-                fontWeight: FontWeight.w200,
-                fontSize: 16,
-              )
-            )),
+          Flexible(child: Text(
+            description,
+            style: TextStyle(
+              color: light_grey_description,
+              fontFamily: 'Avenir',
+              fontWeight: FontWeight.w200,
+              fontSize: 16,
+            )
+          )),
         ]),
         Padding(
           padding: const EdgeInsets.only(top: 15),

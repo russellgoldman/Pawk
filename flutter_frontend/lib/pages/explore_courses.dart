@@ -38,63 +38,96 @@ class _ExploreCoursesState extends State<ExploreCourses> {
       resizeToAvoidBottomInset: false,
       backgroundColor: light_grey_background,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(35.0, 20, 35.0, 0),
-          child: ListView.builder(
-            itemCount: courses.length,
-            itemBuilder: (context, index) {
-              return Column(
+        child: ListView.builder(
+          itemCount: courses.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  InkWell(
-                    onTap: () {
-                      String code;
-                      if (courseToShow != courses[index].code) {
-                        code = courses[index].code;
-                      }
-                      setState(() {
-                        courseToShow = code;
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(5),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              courses[index].code,
-                              style: TextStyle(
-                                color: grey_header,
-                                fontFamily: 'Avenir',
-                                fontSize: 16
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 10, 16, 0),
+                        child: Stack(
+                          children: <Widget>[
+                            AnimatedContainer(
+                              duration: Duration(milliseconds: 800),
+                              child: Container(
+                                color: light_grey_background,
+                                height: 13,
+                                width: 9
                               )
-                            )
-                          ),
-                          Image(
-                            image: AssetImage('assets/images/rating_star.png'),
-                            height: 20.0,
-                            width: 20.0,
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            '${courses[index].rating}',
-                            style: TextStyle(
-                              color: bolded_grey_header,
-                              fontSize: 16,
-                              fontFamily: 'Avenir',
-                              fontWeight: FontWeight.bold,
-                            )
-                          )
-                        ],
+                            ),
+                            AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              width: courseToShow == courses[index].code ? 9 : 0,
+                              height: 13,
+                              decoration: BoxDecoration(
+                                color: main_purple
+                              ),
+                            ),
+                          ],
+                        ),
+                        
                       ),
-                    ),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            String code;
+                            if (courseToShow != courses[index].code) {
+                              code = courses[index].code;
+                            }
+                            setState(() {
+                              courseToShow = code;
+                            });
+                          },
+                          borderRadius: BorderRadius.circular(5),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Expanded(
+                                  child: Text(
+                                    courses[index].code,
+                                    style: TextStyle(
+                                      color: grey_header,
+                                      fontFamily: 'Avenir',
+                                      fontSize: 16
+                                    )
+                                  )
+                                ),
+                                Image(
+                                  image: AssetImage('assets/images/rating_star.png'),
+                                  height: 20.0,
+                                  width: 20.0,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  '${courses[index].rating}',
+                                  style: TextStyle(
+                                    color: bolded_grey_header,
+                                    fontSize: 16,
+                                    fontFamily: 'Avenir',
+                                    fontWeight: FontWeight.bold,
+                                  )
+                                ),
+                                SizedBox(width: 30)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                    padding: const EdgeInsets.fromLTRB(35, 5, 35, 0),
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 300),
                       height: courseToShow == courses[index].code ? 170 : 0,
@@ -107,9 +140,9 @@ class _ExploreCoursesState extends State<ExploreCourses> {
                     height: 0,
                   ),
                 ],
-              );
-            }
-          ),
+              ),
+            );
+          }
         ),
       )
     );
