@@ -24,8 +24,8 @@ class CourseListItem extends StatefulWidget {
 }
 
 class CourseListItemState extends State<CourseListItem> with SingleTickerProviderStateMixin {
-  AnimationController expandController;
-  Animation<double> animation; 
+  AnimationController courseInfoExpandController;
+  Animation<double> courseInfoExpandAnimation; 
 
   @override
   void initState() {
@@ -35,21 +35,21 @@ class CourseListItemState extends State<CourseListItem> with SingleTickerProvide
   }
 
   void setupAnimation() {
-    expandController = AnimationController(
+    courseInfoExpandController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500)
     );
-    animation = CurvedAnimation(
-      parent: expandController,
+    courseInfoExpandAnimation = CurvedAnimation(
+      parent: courseInfoExpandController,
       curve: Curves.easeInOut,
     );
   }
 
   void shouldExpandOrCollapse() {
     if (widget.getCourseToExpand() == widget.course) {
-      expandController.forward();
+      courseInfoExpandController.forward();
     } else {
-      expandController.reverse();
+      courseInfoExpandController.reverse();
     }
   }
 
@@ -57,6 +57,12 @@ class CourseListItemState extends State<CourseListItem> with SingleTickerProvide
   void didUpdateWidget(CourseListItem oldWidget) {
     super.didUpdateWidget(oldWidget);
     shouldExpandOrCollapse();
+  }
+
+  @override
+  void dispose() {
+    courseInfoExpandController.dispose();
+    super.dispose();
   }
 
   @override
@@ -95,7 +101,7 @@ class CourseListItemState extends State<CourseListItem> with SingleTickerProvide
         Padding(
           padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
           child: SizeTransition(
-            sizeFactor: animation,
+            sizeFactor: courseInfoExpandAnimation,
             child: CourseInfoExpanded(
               code: widget.course,
               description: widget.description,
