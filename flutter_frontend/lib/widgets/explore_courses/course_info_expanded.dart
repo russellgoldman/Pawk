@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/colours.dart';
 
-class CourseInfoCard extends StatelessWidget {
+class CourseInfoExpanded extends StatelessWidget {
   final String code;
   final String description;
-  CourseInfoCard({ this.code, this.description });
+  CourseInfoExpanded({ this.code, this.description });
     
   @override
   Widget build(BuildContext context) {

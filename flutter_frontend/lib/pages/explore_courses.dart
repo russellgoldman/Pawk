@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/colours.dart';
-import 'package:flutter_frontend/widgets/explore_courses/course_info_card.dart';
+import 'package:flutter_frontend/widgets/explore_courses/course_info_tile.dart';
+import 'package:flutter_frontend/widgets/explore_courses/course_info_expanded.dart';
+import 'package:flutter_frontend/widgets/explore_courses/sliding_box.dart';
 
 class ExploreCourses extends StatefulWidget {
   @override
@@ -53,75 +55,24 @@ class _ExploreCoursesState extends State<ExploreCourses> {
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 10, 16, 0),
-                        child: Stack(
-                          children: <Widget>[
-                            AnimatedContainer(
-                              duration: Duration(milliseconds: 800),
-                              child: Container(
-                                color: light_grey_background,
-                                height: 13,
-                                width: 9
-                              )
-                            ),
-                            AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
-                              width: courseToShow == courses[index].code ? 9 : 0,
-                              height: 13,
-                              decoration: BoxDecoration(
-                                color: main_purple
-                              ),
-                            ),
-                          ],
-                        ),
-                        
+                        child: SlidingBox(
+                          id: courses[index].code,
+                          selectedId: courseToShow,
+                          foregroundColor: main_purple,
+                          backgroundColor: light_grey_background,
+                        )
                       ),
                       Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            String code;
-                            if (courseToShow != courses[index].code) {
-                              code = courses[index].code;
-                            }
+                        child: CourseInfoTile(
+                          course: courses[index].code,
+                          rating: courses[index].rating,
+                          updateSelectedCourse: (String course) {
+                            String toSet;
+                            if (courseToShow != courses[index].code) toSet = courses[index].code;
                             setState(() {
-                              courseToShow = code;
+                              courseToShow = toSet;
                             });
                           },
-                          borderRadius: BorderRadius.circular(5),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text(
-                                    courses[index].code,
-                                    style: TextStyle(
-                                      color: grey_header,
-                                      fontFamily: 'Avenir',
-                                      fontSize: 16
-                                    )
-                                  )
-                                ),
-                                Image(
-                                  image: AssetImage('assets/images/rating_star.png'),
-                                  height: 20.0,
-                                  width: 20.0,
-                                ),
-                                SizedBox(width: 10),
-                                Text(
-                                  '${courses[index].rating}',
-                                  style: TextStyle(
-                                    color: bolded_grey_header,
-                                    fontSize: 16,
-                                    fontFamily: 'Avenir',
-                                    fontWeight: FontWeight.bold,
-                                  )
-                                ),
-                                SizedBox(width: 30)
-                              ],
-                            ),
-                          ),
                         ),
                       ),
                     ]
@@ -131,7 +82,7 @@ class _ExploreCoursesState extends State<ExploreCourses> {
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 300),
                       height: courseToShow == courses[index].code ? 170 : 0,
-                      child: CourseInfoCard(code: courses[index].code, description: courses[index].description)
+                      child: CourseInfoExpanded(code: courses[index].code, description: courses[index].description)
                     ),
                   ),
                   Divider(
