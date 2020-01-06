@@ -4,16 +4,14 @@ class SlidingBox extends StatelessWidget {
   final String id;
   final String selectedId;
   final Color foregroundColor;
-  final Color backgroundColor;
 
-  SlidingBox({ this.id, this.selectedId, this.foregroundColor, this.backgroundColor });
+  SlidingBox({ this.id, this.selectedId, this.foregroundColor });
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         Container(
-          color: backgroundColor,
           height: 13,
           width: 9
         ),

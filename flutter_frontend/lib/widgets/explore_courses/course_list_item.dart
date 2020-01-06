@@ -5,14 +5,16 @@ import 'package:flutter_frontend/widgets/explore_courses/course_info_expanded.da
 import 'package:flutter_frontend/widgets/explore_courses/sliding_box.dart';
 
 class CourseListItem extends StatefulWidget {
-  final String course;
+  final String code;
+  final String name;
   final double rating;
   final String description;
   final Function getCourseToExpand;
   final Function setCourseToExpand;
 
   CourseListItem({
-    this.course,
+    this.code,
+    this.name,
     this.rating,
     this.description,
     this.getCourseToExpand,
@@ -46,7 +48,7 @@ class CourseListItemState extends State<CourseListItem> with SingleTickerProvide
   }
 
   void shouldExpandOrCollapse() {
-    if (widget.getCourseToExpand() == widget.course) {
+    if (widget.getCourseToExpand() == widget.code) {
       courseInfoExpandController.forward();
     } else {
       courseInfoExpandController.reverse();
@@ -73,24 +75,24 @@ class CourseListItemState extends State<CourseListItem> with SingleTickerProvide
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
+              padding: EdgeInsets.fromLTRB(0, 24, 16, 0),
               child: SlidingBox(
-                id: widget.course,
+                id: widget.code,
                 selectedId: widget.getCourseToExpand(),
                 foregroundColor: main_purple,
-                backgroundColor: light_grey_background,
               )
             ),
             Expanded(
               child: CourseInfoTile(
-                course: widget.course,
+                code: widget.code,
+                name: widget.name,
                 rating: widget.rating,
-                updateSelectedCourse: (String course) {
+                updateSelectedCourse: (String code) {
                   String toSet;
-                  if (widget.getCourseToExpand() != widget.course) toSet = widget.course;
+                  if (widget.getCourseToExpand() != widget.code) toSet = widget.code;
                   widget.setCourseToExpand(toSet);
                 },
               ),
@@ -103,7 +105,7 @@ class CourseListItemState extends State<CourseListItem> with SingleTickerProvide
           child: SizeTransition(
             sizeFactor: courseInfoExpandAnimation,
             child: CourseInfoExpanded(
-              code: widget.course,
+              code: widget.code,
               description: widget.description,
             )
           ),
