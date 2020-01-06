@@ -10,16 +10,35 @@ class ExploreCourses extends StatefulWidget {
 }
 
 class _ExploreCoursesState extends State<ExploreCourses>  {
+  // course data
+  DummyCourses dummyCourses = DummyCourses();
+  List<DummyCourse> courses;
+  List<DummyCourse> searchedCourses;
+
+  // course_info_expanded controls
+  String courseToExpand;
+  String getCourseToExpand() => courseToExpand;
+  void setCourseToExpand(String course) => setState(() => courseToExpand = course);
+
+  // title bar drop shadow
+  bool showDropShadow = false;
   ScrollController scrollController;
   double scrollPosition;
 
-  DummyCourses dummyCourses = DummyCourses();
-  List<DummyCourse> courses;
-
-  String courseToExpand;
-  bool showDropShadow = false;
-  String getCourseToExpand() => courseToExpand;
-  void setCourseToExpand(String course) => setState(() => courseToExpand = course);
+  // title bar filter
+  void updateCourseListFromSearch(String searchText) {
+    bool isSelectedCourseWithinSearch = false;
+    setState(() {
+      searchedCourses = courses.where((DummyCourse course) {
+        if (course.code.startsWith(searchText)) {
+          if (course.code == courseToExpand) isSelectedCourseWithinSearch = true;
+          return true;
+        }
+        return false;
+      }).toList();
+      if (!isSelectedCourseWithinSearch) courseToExpand = null;
+    }); //apples
+  }
 
   @override
   void initState() {
@@ -28,20 +47,12 @@ class _ExploreCoursesState extends State<ExploreCourses>  {
     scrollController.addListener(updateDropShadow);
 
     courses = dummyCourses.getDummyCourses();
+    searchedCourses = courses;
   }
 
   void updateDropShadow() {
-    if (!showDropShadow && scrollController.position.pixels > 7) {
-      print(true);
-      setState(() {
-        showDropShadow = true;
-      });
-    } else if (showDropShadow && scrollController.position.pixels < 7) {
-      print(false);
-      setState(() {
-        showDropShadow = false;
-      });
-    }
+    if (!showDropShadow && scrollController.position.pixels > 7) setState(() => showDropShadow = true);
+    else if (showDropShadow && scrollController.position.pixels < 7) setState(() => showDropShadow = false);
   }
 
   @override
@@ -54,16 +65,16 @@ class _ExploreCoursesState extends State<ExploreCourses>  {
         child: SafeArea(
           child: Column(
             children: <Widget>[
-              TitleBar(title: 'Courses', showShadow: showDropShadow,),
+              TitleBar(title: 'Courses', showShadow: showDropShadow, searchCallback: updateCourseListFromSearch),
               Expanded(child: ListView.builder(
                 controller: scrollController,
-                itemCount: courses.length,
+                itemCount: searchedCourses.length,
                 itemBuilder: (context, index) {
                   return CourseListItem(
-                    code: courses[index].code,
-                    name: courses[index].name,
-                    rating: courses[index].rating,
-                    description: courses[index].description,
+                    code: searchedCourses[index].code,
+                    name: searchedCourses[index].name,
+                    rating: searchedCourses[index].rating,
+                    description: searchedCourses[index].description,
                     getCourseToExpand: getCourseToExpand,
                     setCourseToExpand: setCourseToExpand,
                   );

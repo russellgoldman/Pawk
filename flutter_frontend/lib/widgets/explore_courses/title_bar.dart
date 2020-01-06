@@ -4,14 +4,17 @@ import 'package:flutter_frontend/colours.dart';
 class TitleBar extends StatefulWidget {
   final String title;
   final bool showShadow;
+  final Function searchCallback;
 
-  TitleBar({ this.title, this.showShadow });
+  TitleBar({ this.title, this.showShadow, this.searchCallback });
 
   @override
   _TitleBarState createState() => _TitleBarState();
 }
 
 class _TitleBarState extends State<TitleBar> {
+  bool searchTap = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +35,7 @@ class _TitleBarState extends State<TitleBar> {
           Container(
             color: light_grey_background,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 17.5),
+              padding: EdgeInsets.only(bottom: 12.5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,12 +50,80 @@ class _TitleBarState extends State<TitleBar> {
                       fontWeight: FontWeight.bold
                     )
                   ),
-                  Expanded(child: SizedBox())
+                  Expanded(child: SizedBox()),
+                  GestureDetector(
+                    onTap: () {
+                      if (searchTap) widget.searchCallback('');
+                      setState(() => searchTap = !searchTap);
+                    },
+                    child: AnimatedContainer(
+                      height: 40,
+                      width: searchTap ? 150 : 40,
+                      duration: Duration(milliseconds: 300),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(25),
+                        color: grey_button
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget> [
+                          SizedBox(height: 40, width: 10),
+                          Expanded(child: searchTap ? TextField(
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontFamily: 'Avenir',
+                              fontSize: 16,
+                              letterSpacing: 0.5
+                            ),
+                            autofocus: true,
+                            textCapitalization: TextCapitalization.characters,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.only(left: 5, bottom: 10),
+                              border: InputBorder.none,
+                              hintText: 'CP104',
+                            ),
+                            cursorColor: Colors.grey,
+                            onChanged: (String searchText) {
+                              widget.searchCallback(searchText);
+                            }
+                          ) : Container()),
+                          Image(
+                            image: AssetImage('assets/images/search.png'),
+                            height: 20,
+                            width: 20
+                          ),
+                          SizedBox(height: 40, width: 10),
+                        ]
+                      )
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: () {
+                      print('tapped filters');
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(25),
+                        color: grey_button
+                      ),
+                      child: Image(
+                        image: AssetImage('assets/images/filter.png'),
+                        height: 20,
+                        width: 20
+                      )
+                    ),
+                  ),
+                  SizedBox(width: 35)
                 ]
               ),
             ),
           ),
-          
         ],
       )
     );

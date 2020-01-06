@@ -19,7 +19,7 @@ class CourseInfoExpanded extends StatelessWidget {
               color: light_grey_description,
               fontFamily: 'Avenir',
               fontWeight: FontWeight.w200,
-              fontSize: 14,
+              fontSize: 15,
             )
           )),
         ]),

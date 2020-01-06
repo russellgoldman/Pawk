@@ -55,18 +55,20 @@ class CourseInfoTile extends StatelessWidget {
               ]
             ),
             SizedBox(height: 5),
-            Row(children: <Widget>[
-              Expanded(
-                  child: Text(
-                    name,
-                    style: TextStyle(
-                      color: grey_header,
-                      fontFamily: 'Avenir',
-                      fontSize: 13,
-                    )
+            Row(
+              children: <Widget>[
+              Flexible(
+                child: Text(
+                  name,
+                  style: TextStyle(
+                    color: grey_header,
+                    fontFamily: 'Avenir',
+                    fontSize: 15,
                   )
                 ),
-            ],)
+              ),
+              SizedBox(width: 60)
+            ])
           ],
         ),
       ),
