@@ -1,10 +1,8 @@
-const cheerio = require('cheerio');
+const $ = require('cheerio');
 const rp = require('request-promise')
-const $ = cheerio.load('<h2 class="title">Hello world</h2>')
 
 export default class Webscraper {
     // url roots
-
     private academicCalendarRoot: string;
     private courseOfferingRoot: string
 
@@ -22,11 +20,12 @@ export default class Webscraper {
                 return val;
             })
             .catch((err) => {
-                return err;
+                // by not returning anything, the value of areasOfStudyTable is set to undefined
+                console.log(err);
             });
 
-        if (areasOfStudyTable === null) {
-            throw new Error('Unable to fetch areas of study table');
+        if (areasOfStudyTable === null || typeof areasOfStudyTable == 'undefined') {
+            return
         }
 
         areasOfStudyTable.find('a').each(function (i, e) {
@@ -66,7 +65,12 @@ export default class Webscraper {
         }
 
         return rp(options)
+            .catch((err) => {
+                // if there is an issue with the rp fetch, reject it now
+                return Promise.reject(new Error(`Request to academic calendar root url failed`));
+            })
             .then(($) => {
+                // otherwise parse the result
                 let areasOfStudyTable;
 
                 $('h1').each(function (index, el1) {
@@ -78,12 +82,10 @@ export default class Webscraper {
                 if (areasOfStudyTable !== null || typeof areasOfStudyTable !== 'undefined') {
                     return Promise.resolve(areasOfStudyTable);
                 } else {
-                    return Promise.reject(null);
+                    return Promise.reject(new Error(`Area of Study Table not found`));
                 }
             })
-            .catch((err) => {
-                return Promise.reject(err);
-            })
+            
     }
 
     programScrape() {
