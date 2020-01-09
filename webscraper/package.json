@@ -15,7 +15,7 @@
     "prompts": "^2.2.1",
     "puppeteer": "^1.20.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4",
+    "request-promise": "^4.2.5",
     "request-rate-limiter": "^2.0.3",
     "typescript": "^3.6.4"
   }

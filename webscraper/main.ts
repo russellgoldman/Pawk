@@ -1,33 +1,53 @@
-const cheerio = require('cheerio')
-const $ = cheerio.load('<h2 class="title">Hello world</h2>');
+import Webscraper from './src/webscraper'
 const prompts = require('prompts');
-
-import academicCalendar from './src/academic_calendar/main'
-import courseOfferings from './src/course_offerings/main'
 
 console.log(`Web Scraping Options\n1: Courses\n2: Programs\n3: Course Offerings`)
 console.log('Enter numbers you want to scrape\n(e.g. 13 is Courses and Course Offerings)\n')
 
-// scraping permission toggles
-// each index + 1 represents the choose option
-let optionNames: Array<String> = ['Courses', 'Programs', 'Course Offerings'];
-let optionToggles: Array<Boolean> = [false, false, false];
+class Option {
+    name: string;
+    defaultToggle: boolean = false;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
+let options: Array<Option> = [
+    new Option('Courses'),
+    new Option('Programs'),
+    new Option('Course Offerings'),
+];
 
 (async () => {
+    // url roots
+    var academicCalendarRoot: string = 'https://academic-calendar.wlu.ca/section.php?cal=1&s=939&y=79';
+    var courseOfferingRoot: string = '';    // TODO
+    
+    const webscraper = new Webscraper(academicCalendarRoot, courseOfferingRoot);
+
     await prompts({
         type: 'text',
         name: 'value',
         message: 'Selected options:'
     }).then((input: any) => {
         let val: string = input.value;
-        optionToggles.forEach((_, index: number) => {
+        options.forEach((option: Option, index: number) => {
             if (val.includes(`${index + 1}`)) {
-                optionToggles[index] = true
-                console.log(`-> ${optionNames[index]}`)
+                switch(option.name) {
+                    case 'Courses':
+                        webscraper.courseScrape();
+                        break;
+                    case 'Programs':
+                        webscraper.programScrape();
+                        break;
+                    case 'Course Offerings':
+                        webscraper.courseOfferingScrape();
+                        break;
+                }
+
+                console.log(`-> ${option.name}`)
             }
         });
     });
-
-    academicCalendar(optionToggles[0], optionToggles[1])
-    courseOfferings(optionToggles[2])
 })();
