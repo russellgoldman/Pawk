@@ -1,6 +1,6 @@
 const $ = require('cheerio');
-const rp = require('request-promise')
-
+const rp = require('request-promise');
+import { Course } from './models'
 export default class Webscraper {
     // url roots
     private academicCalendarRoot: string;
@@ -18,6 +18,8 @@ export default class Webscraper {
     private visitedCourses: Array<string> = [];
 
     async getAreasOfStudyTable(): Promise<any> {
+        const root = this;
+
         const options: Object = {
             uri: this.academicCalendarRoot,
             transform: function (body) {
@@ -28,7 +30,7 @@ export default class Webscraper {
         return rp(options)
             .catch((err) => {
                 // if there is an issue with the rp fetch, reject it now
-                return Promise.reject(new Error(`Request to academic calendar root url failed`));
+                return Promise.reject(new Error(`Request to academic calendar root ${root.academicCalendarRoot} failed`));
             })
             .then(($) => {
                 // otherwise parse the result
@@ -61,7 +63,7 @@ export default class Webscraper {
         rp(options)
             .catch((err) => {
                 // if there is an issue with the rp fetch, reject it now
-                return Promise.reject(new Error(`Request to area of study page failed`));
+                return Promise.reject(new Error(`Request to area of study ${areaOfStudy} failed`));
             })
             .then(($) => {
                 let foundCourses = false;
@@ -69,16 +71,19 @@ export default class Webscraper {
 
                 $('caption').each(function(index, el) {
                     if ($(this).text() === 'Course Offerings') {
-                        $(this).next().find('a').each(function(index, el) {
+                        $(this).next().find('a').each(async function(index, el) {
                             if ($(this).attr('href').startsWith('course')) {
                                 let courseUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
-                                console.log(courseUrl);
+                                //console.log(courseUrl);
 
                                 if (!root.visitedCourses.includes(courseUrl)) {
                                     if (!foundCourses) foundCourses = true;
                                     root.visitedCourses.push(courseUrl);
                                     // scrape the course here
-                                    root.scrapeCourse(courseUrl);
+                                    await root.scrapeCourse('https://academic-calendar.wlu.ca/course.php?c=52974&cal=1&d=2068&s=932&y=79')
+                                        .then((courseData) => {
+                                            console.log(courseData);
+                                        });
                                 }
                             }
                         })
@@ -87,30 +92,204 @@ export default class Webscraper {
 
                 if (!foundCourses) console.log('\nNo courses found\n');
 
-                // see if there are Departments listed
-                if ($('#facultytable').children().first().text() === 'Departments') {
-                    $('#facultytable').children().first().next().next().find('a').each(function(index, el) {
-                        if ($(this).attr('href').startsWith('department')) {
-                            let departmentUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
-                            console.log(departmentUrl);
+                // // see if there are Departments listed
+                // if ($('#facultytable').children().first().text() === 'Departments') {
+                //     $('#facultytable').children().first().next().next().find('a').each(function(index, el) {
+                //         if ($(this).attr('href').startsWith('department')) {
+                //             let departmentUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
+                //             console.log(departmentUrl);
 
-                            if (!root.visitedDepartments.includes(departmentUrl)) {
-                                if (!foundDepartments) foundDepartments = true;
-                                root.visitedDepartments.push(departmentUrl);
-                                // call the same function recursively, base case is when no departments AND no courses are present
-                                // root.requestAreaOfStudy(departmentUrl)
-                            }
-                        }
-                    })
-                }
+                //             if (!root.visitedDepartments.includes(departmentUrl)) {
+                //                 if (!foundDepartments) foundDepartments = true;
+                //                 root.visitedDepartments.push(departmentUrl);
+                //                 // call the same function recursively, base case is when no departments AND no courses are present
+                //                 // await root.requestAreaOfStudy(departmentUrl)
+                //             }
+                //         }
+                //     })
+                // }
 
-                if (!foundDepartments) console.log('\nNo departments found\n');
-                if (!foundCourses && !foundDepartments) Promise.resolve();  // search the next Area of Study
+                // if (!foundDepartments) console.log('\nNo departments found\n');
+                // if (!foundCourses && !foundDepartments) Promise.resolve();  // search the next Area of Study
             })
     }
 
-    async scrapeCourse(courseUrl: string) {
-        // scrape all possible values and mutate to GraphQL
+    async scrapeCourse(courseUrl: string): Promise<any> {
+        const root = this;
+
+        let code: string | null = null;
+        let name: string | null = null;
+        let credits: number | null = null;
+        let lectureHours: number | null = null;
+        let labHours: number | null = null;
+        let tutorialHours: number | null = null;
+        let description: string | null = null;
+        let prerequisiteDescription: string | null = null;
+        let prerequisiteCourses: Array<string> | null = null;
+        let corequisiteDescription: string | null = null;
+        let corerequsiteCourses: Array<string> | null = null;
+        let exclusionsDescription: string | null = null;
+        let exclusionsCourses: Array<string> | null = null;
+        let notesDescriptions: string | null = null;
+
+        const options: Object = {
+            uri: courseUrl,
+            transform: function (body) {
+                return $.load(body);
+            }
+        }
+
+        return rp(options)
+            .catch((err) => {
+                // if there is an issue with the rp fetch, reject it now
+                return Promise.reject(new Error(`Request to course page ${courseUrl} failed`));
+            })
+            .then(function($) {
+                let headerInfo = $('div[style="padding: 0px 20px;"]').children().first();
+                let reg = /.+?(?=<br>)/;
+                let arr = reg.exec(headerInfo.html());
+
+                // Code
+                if (arr !== null && arr !== undefined) {
+                    code = reg.exec(headerInfo.html())[0] as string;    // e.g. LL201<br>..., LL201 is caught
+                }
+
+                // Name and Credits
+                headerInfo.children().each(function(index, el) {
+                    // span contains our name and credits
+                    if ($(this).is('span')) {
+                        if (index === 1) name = $(this).text();
+                        if (index === 3) credits = +$(this).text().split(' ')[0];    // i.e. 0.5 Credit is split into ['0.5', 'Credit']
+                    }
+                });
+
+                // Lecture Hours, Lab Hours, and Tutorial Hours
+                $('div .hours').children().last().children().each(function(index, el) {
+                    let data = $(this).text().split(' ')
+                    switch (data[0]) {
+                        case 'Lecture/Discussion:':
+                            lectureHours = data[1];
+                            break;
+                        case 'Lab:':
+                            labHours = data[1];
+                            break;
+                        case 'Tutorial/Seminar:':
+                            tutorialHours = data[1];
+                            break;
+                    }
+                });
+
+                // Description
+                let cursor = $('div[style="padding: 0px 20px;"]').children().first();
+                
+                // checks if cursor element is a p tag and has text greater than 0
+                while (!cursor.is('p') || cursor.text().length <= 0) {
+                    cursor = cursor.next();
+                }
+                description = cursor.text();
+
+
+                // Requisites
+                $('div .heading').each(function(index, el) {
+                    if ($(this).text() === 'Additional Course Information') {
+                        $(this).next().children().each(function(index, el) {
+                            if (index % 2 === 0) {
+                                let requisiteData = $(this).next();
+                                //console.log(requisiteData.html())
+                                let crossListCheck: string | null = requisiteData.text();
+                                let crossListings: Array<string> = [];
+
+                                let start: number = 0;
+                                let end: number = -1;
+                                let crossList: boolean = false;
+                                for (let i: number = 0; i < crossListCheck.length; i++) {
+                                    if (start === -1 && crossListCheck[i] == ' ') {
+                                        // begin
+                                        start = i + 1;  // the next character is the start of a cross-listing
+                                        continue;
+                                    } 
+                                    if (start !== 1 &&  
+                                        (   
+                                            crossListCheck[i] === ' '
+                                            || 
+                                            crossListCheck[i] === ',' 
+                                            ||
+                                            crossListCheck[i] === ')'   
+                                        )
+                                    ) {
+                                        end = i;
+
+                                        if (crossList) crossListings.push(crossListCheck.slice(start, end));
+                                        start = -1;
+                                        end = -1;
+                                        crossList = false;
+                                    } else if (start !== 1 && i === crossListCheck.length - 1) {
+                                        end = crossListCheck.length;
+
+                                        if (crossList) crossListings.push(crossListCheck.slice(start, crossListCheck.length));
+                                        start = -1;
+                                        end = -1;
+                                        crossList = false;
+                                    } else if (crossListCheck[i] === '/') {
+                                        crossList = true;
+                                    }
+                                }
+
+                                let temp: string = crossListings.join(' ');
+                                let tempCrossList: string = '';
+                                let requisiteCourses: Array<string> = [];
+                                requisiteData.find('a').each(function(index, el) {
+                                    if (!temp.includes($(this).text())) {
+                                        requisiteCourses.push($(this).text());
+                                    } else {
+                                        if (tempCrossList === '') {
+                                            tempCrossList = $(this).text();
+                                        } else {
+                                            tempCrossList += `/${$(this).text()}`;
+                                            requisiteCourses.push(tempCrossList);
+                                        }
+                                    }
+                                });
+
+                                switch ($(this).text()) {
+                                    case 'Prerequisites':
+                                        prerequisiteDescription = requisiteData.text();
+                                        prerequisiteCourses = requisiteCourses;
+                                        break;
+                                    case 'Corequisites':
+                                        corequisiteDescription = requisiteData.text();
+                                        corerequsiteCourses = requisiteCourses;
+                                        break;
+                                    case 'Exclusions':
+                                        exclusionsDescription = requisiteData.text();
+                                        exclusionsCourses = requisiteCourses;
+                                        break;
+                                    case 'Notes':
+                                        notesDescriptions = requisiteData.text();
+                                        break;
+                                }
+                            }
+                        });
+                    }
+                });
+
+                return Promise.resolve({
+                    code,
+                    name,
+                    credits,
+                    lectureHours,
+                    labHours,
+                    tutorialHours,
+                    description,
+                    prerequisiteDescription,
+                    prerequisiteCourses,
+                    corequisiteDescription,
+                    corerequsiteCourses,
+                    exclusionsDescription,
+                    exclusionsCourses,
+                    notesDescriptions
+                });
+            })
     }
 
     async courseScrapeMain() {
