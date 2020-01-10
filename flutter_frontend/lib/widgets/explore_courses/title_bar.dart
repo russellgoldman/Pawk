@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/colours.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TitleBar extends StatefulWidget {
   final String title;
@@ -89,11 +90,16 @@ class _TitleBarState extends State<TitleBar> {
                               widget.searchCallback(searchText);
                             }
                           ) : Container()),
-                          Image(
-                            image: AssetImage('assets/images/search.png'),
+                          SvgPicture.asset(
+                            searchTap ? 'assets/images/close.svg' : 'assets/images/search.svg',
                             height: 20,
                             width: 20
-                          ),
+                          ),  
+                          // Image(
+                          //   image: AssetImage('assets/images/search.png'),
+                          //   height: 20,
+                          //   width: 20
+                          // ),
                           SizedBox(height: 40, width: 10),
                         ]
                       )
@@ -112,11 +118,12 @@ class _TitleBarState extends State<TitleBar> {
                         borderRadius: BorderRadius.circular(25),
                         color: grey_button
                       ),
-                      child: Image(
-                        image: AssetImage('assets/images/filter.png'),
+                      child: Center(child:
+                        SvgPicture.asset(
+                        'assets/images/filter.svg',
                         height: 20,
                         width: 20
-                      )
+                      )), 
                     ),
                   ),
                   SizedBox(width: 35)

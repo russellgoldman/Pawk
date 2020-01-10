@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/colours.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CourseInfoTile extends StatelessWidget {
   final String code;
@@ -37,10 +38,10 @@ class CourseInfoTile extends StatelessWidget {
                     )
                   )
                 ),
-                Image(
-                  image: AssetImage('assets/images/rating_star.png'),
-                  height: 20.0,
-                  width: 20.0,
+                SvgPicture.asset(
+                  'assets/images/rating_star.svg',
+                  height: 15.0,
+                  width: 15.0,
                 ),
                 SizedBox(width: 10),
                 Text(

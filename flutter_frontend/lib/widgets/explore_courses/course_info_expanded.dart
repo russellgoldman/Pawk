@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/colours.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CourseInfoExpanded extends StatelessWidget {
   final String code;
@@ -34,23 +36,23 @@ class CourseInfoExpanded extends StatelessWidget {
                   print('favourite $code');
                 },
                 radius: 25,
-                child: Image(
-                  image: AssetImage('assets/images/favourite_course.png'),
-                  height: 40.0,
-                  width: 30.0,
+                child: SvgPicture.asset(
+                  'assets/images/favourite_course.svg',
+                  height: 35.0,
+                  width: 35.0,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 3, left: 5),
+                padding: const EdgeInsets.only(top: 3, left: 10),
                 child: InkResponse(
                   onTap: () {
                     print('add $code');
                   },
                   radius: 25,
-                  child: Image(
-                    image: AssetImage('assets/images/add_course.png'),
-                    height: 40.0,
-                    width: 40.0,
+                  child: SvgPicture.asset(
+                    'assets/images/add_course.svg',
+                    height: 38.0,
+                    width: 38.0,
                   ),
                 ),
               ),
