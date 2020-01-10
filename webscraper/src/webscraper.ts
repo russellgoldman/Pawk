@@ -80,7 +80,9 @@ export default class Webscraper {
                                     if (!foundCourses) foundCourses = true;
                                     root.visitedCourses.push(courseUrl);
                                     // scrape the course here
-                                    await root.scrapeCourse('https://academic-calendar.wlu.ca/course.php?c=52974&cal=1&d=2068&s=932&y=79')
+
+                                    // TODO - implement rate limiter with async / await
+                                    await root.scrapeCourse(courseUrl)
                                         .then((courseData) => {
                                             console.log(courseData);
                                         });
