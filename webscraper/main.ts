@@ -36,13 +36,13 @@ let options: Array<Option> = [
             if (val.includes(`${index + 1}`)) {
                 switch(option.name) {
                     case 'Courses':
-                        webscraper.courseScrape();
+                        webscraper.courseScrapeMain();
                         break;
                     case 'Programs':
-                        webscraper.programScrape();
+                        webscraper.programScrapeMain();
                         break;
                     case 'Course Offerings':
-                        webscraper.courseOfferingScrape();
+                        webscraper.courseOfferingScrapeMain();
                         break;
                 }
 

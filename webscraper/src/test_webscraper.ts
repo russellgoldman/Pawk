@@ -5,4 +5,4 @@ var courseOfferingRoot: string = '';    // TODO
 
 const webscraper = new Webscraper(academicCalendarRoot, courseOfferingRoot);
 
-webscraper.courseScrape();
+webscraper.courseScrapeMain();
