@@ -1,5 +1,8 @@
 const $ = require('cheerio');
 const rp = require('request-promise');
+const delay = require('delay');
+const bluebird = require('bluebird');
+
 import { Course } from './models'
 export default class Webscraper {
     // url roots
@@ -50,7 +53,7 @@ export default class Webscraper {
             })
     }
 
-    async requestAreaOfStudy(areaOfStudy: string) {
+    async requestAreaOfStudy(areaOfStudy: string): Promise<any> {
         const root = this;
 
         const options: Object = {
@@ -66,7 +69,7 @@ export default class Webscraper {
                 return Promise.reject(new Error(`Request to area of study ${areaOfStudy} failed`));
             })
             .then(($) => {
-                let foundCourses = false;
+                let localCourses: Array<string> = [];
                 let foundDepartments = false;
 
                 $('caption').each(function(index, el) {
@@ -77,47 +80,51 @@ export default class Webscraper {
                                 //console.log(courseUrl);
 
                                 if (!root.visitedCourses.includes(courseUrl)) {
-                                    if (!foundCourses) foundCourses = true;
+                                    localCourses.push(courseUrl)
                                     root.visitedCourses.push(courseUrl);
-                                    // scrape the course here
-
-                                    // TODO - implement rate limiter with async / await
-                                    await root.scrapeCourse(courseUrl)
-                                        .then((courseData) => {
-                                            console.log(courseData);
-                                        });
                                 }
                             }
                         })
                     }
                 })
 
-                if (!foundCourses) console.log('\nNo courses found\n');
+                //if (localCourses.length === 0) console.log('\nNo courses found\n');
+                bluebird.mapSeries(localCourses, async function(courseUrl, index, arrayLength) {
+                    // rate limiter before scrape
+                    await delay(1000).then(async() => {
+                        await root.scrapeCourse(courseUrl)
+                            .then((courseData) => {
+                                console.log(courseData);
+                            });
+                    })
 
-                // // see if there are Departments listed
-                // if ($('#facultytable').children().first().text() === 'Departments') {
-                //     $('#facultytable').children().first().next().next().find('a').each(function(index, el) {
-                //         if ($(this).attr('href').startsWith('department')) {
-                //             let departmentUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
-                //             console.log(departmentUrl);
+                });
 
-                //             if (!root.visitedDepartments.includes(departmentUrl)) {
-                //                 if (!foundDepartments) foundDepartments = true;
-                //                 root.visitedDepartments.push(departmentUrl);
-                //                 // call the same function recursively, base case is when no departments AND no courses are present
-                //                 // await root.requestAreaOfStudy(departmentUrl)
-                //             }
-                //         }
-                //     })
-                // }
+                // see if there are Departments listed
+                if ($('#facultytable').children().first().text() === 'Departments') {
+                    $('#facultytable').children().first().next().next().find('a').each(function(index, el) {
+                        if ($(this).attr('href').startsWith('department')) {
+                            let departmentUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
+                            console.log(departmentUrl);
 
-                // if (!foundDepartments) console.log('\nNo departments found\n');
-                // if (!foundCourses && !foundDepartments) Promise.resolve();  // search the next Area of Study
+                            if (!root.visitedDepartments.includes(departmentUrl)) {
+                                if (!foundDepartments) foundDepartments = true;
+                                root.visitedDepartments.push(departmentUrl);
+                                // call the same function recursively, base case is when no departments AND no courses are present
+                                // await root.requestAreaOfStudy(departmentUrl)
+                            }
+                        }
+                    })
+                }
+
+                //if (!foundDepartments) console.log('\nNo departments found\n');
+                //if (localCourses.length === 0 && !foundDepartments) Promise.resolve();  // search the next Area of Study
             })
     }
 
     async scrapeCourse(courseUrl: string): Promise<any> {
         const root = this;
+        await delay(5000);
 
         let code: string | null = null;
         let name: string | null = null;
@@ -216,7 +223,9 @@ export default class Webscraper {
                                             || 
                                             crossListCheck[i] === ',' 
                                             ||
-                                            crossListCheck[i] === ')'   
+                                            crossListCheck[i] === ')'
+                                            ||
+                                            crossListCheck[i] === ')'
                                         )
                                     ) {
                                         end = i;
@@ -325,11 +334,10 @@ export default class Webscraper {
             }
         });
 
-        root.areasOfStudy.forEach(async function(areaOfStudy: string, index: number) {
-            if (index == 5) {
+        bluebird.mapSeries(root.areasOfStudy, async function(areaOfStudy: string, index: number) {
+            await delay(1000).then(async() => {
                 await root.requestAreaOfStudy(areaOfStudy)
-            }
-            return;
+            })
         });
 
         /* 

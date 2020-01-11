@@ -11,6 +11,7 @@
     "bluebird": "^3.7.2",
     "cheerio": "^1.0.0-rc.3",
     "cross-fetch": "^3.0.4",
+    "delay": "^4.3.0",
     "graphql": "^14.5.8",
     "prompts": "^2.2.1",
     "puppeteer": "^1.20.0",
