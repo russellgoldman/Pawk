@@ -18,7 +18,7 @@ export default class Webscraper {
     private areasOfStudy: Array<string> = [];
     private visitedStudies: Array<string> = [];
     private visitedDepartments: Array<string> = [];
-    private visitedCourses: Array<string> = [];
+    private courses: Array<string> = [];
 
     async getAreasOfStudyTable(): Promise<any> {
         const root = this;
@@ -69,7 +69,6 @@ export default class Webscraper {
                 return Promise.reject(new Error(`Request to area of study ${areaOfStudy} failed`));
             })
             .then(($) => {
-                let localCourses: Array<string> = [];
                 let foundDepartments = false;
 
                 $('caption').each(function(index, el) {
@@ -77,11 +76,10 @@ export default class Webscraper {
                         $(this).next().find('a').each(async function(index, el) {
                             if ($(this).attr('href').startsWith('course')) {
                                 let courseUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
-                                //console.log(courseUrl);
+                                console.log(courseUrl);
 
-                                if (!root.visitedCourses.includes(courseUrl)) {
-                                    localCourses.push(courseUrl)
-                                    root.visitedCourses.push(courseUrl);
+                                if (!root.courses.includes(courseUrl)) {
+                                    root.courses.push(courseUrl);
                                 }
                             }
                         })
@@ -89,33 +87,23 @@ export default class Webscraper {
                 })
 
                 //if (localCourses.length === 0) console.log('\nNo courses found\n');
-                bluebird.mapSeries(localCourses, async function(courseUrl, index, arrayLength) {
-                    // rate limiter before scrape
-                    await delay(1000).then(async() => {
-                        await root.scrapeCourse(courseUrl)
-                            .then((courseData) => {
-                                console.log(courseData);
-                            });
-                    })
-
-                });
 
                 // see if there are Departments listed
-                if ($('#facultytable').children().first().text() === 'Departments') {
-                    $('#facultytable').children().first().next().next().find('a').each(function(index, el) {
-                        if ($(this).attr('href').startsWith('department')) {
-                            let departmentUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
-                            console.log(departmentUrl);
+                // if ($('#facultytable').children().first().text() === 'Departments') {
+                //     $('#facultytable').children().first().next().next().find('a').each(function(index, el) {
+                //         if ($(this).attr('href').startsWith('department')) {
+                //             let departmentUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
+                //             console.log(departmentUrl);
 
-                            if (!root.visitedDepartments.includes(departmentUrl)) {
-                                if (!foundDepartments) foundDepartments = true;
-                                root.visitedDepartments.push(departmentUrl);
-                                // call the same function recursively, base case is when no departments AND no courses are present
-                                // await root.requestAreaOfStudy(departmentUrl)
-                            }
-                        }
-                    })
-                }
+                //             if (!root.visitedDepartments.includes(departmentUrl)) {
+                //                 if (!foundDepartments) foundDepartments = true;
+                //                 root.visitedDepartments.push(departmentUrl);
+                //                 // call the same function recursively, base case is when no departments AND no courses are present
+                //                 // await root.requestAreaOfStudy(departmentUrl)
+                //             }
+                //         }
+                //     })
+                // }
 
                 //if (!foundDepartments) console.log('\nNo departments found\n');
                 //if (localCourses.length === 0 && !foundDepartments) Promise.resolve();  // search the next Area of Study
@@ -124,7 +112,6 @@ export default class Webscraper {
 
     async scrapeCourse(courseUrl: string): Promise<any> {
         const root = this;
-        await delay(5000);
 
         let code: string | null = null;
         let name: string | null = null;
@@ -189,14 +176,24 @@ export default class Webscraper {
                 });
 
                 // Description
+                let parent = $('div[style="padding: 0px 20px;"]').children();
                 let cursor = $('div[style="padding: 0px 20px;"]').children().first();
                 
-                // checks if cursor element is a p tag and has text greater than 0
-                while (!cursor.is('p') || cursor.text().length <= 0) {
+                //checks if cursor element is a p tag and has text greater than 0
+                while (!cursor.is('p') || cursor.text().length === 0) {
+                    if (cursor.html() === parent.last().html()) {
+                        // no more siblings to search, no description
+                        break;
+                    }
                     cursor = cursor.next();
                 }
-                description = cursor.text();
 
+                // if no description found, try special case with span as description (e.g. AR252)
+                if (cursor.html() === parent.last().html()) {
+                    description = $('span[style="font-size: 11.1999998092651px;"]').text();
+                } else {
+                    description = cursor.text();
+                }
 
                 // Requisites
                 $('div .heading').each(function(index, el) {
@@ -334,10 +331,23 @@ export default class Webscraper {
             }
         });
 
-        bluebird.mapSeries(root.areasOfStudy, async function(areaOfStudy: string, index: number) {
+        await bluebird.mapSeries(root.areasOfStudy, async function(areaOfStudy: string, index: number) {
             await delay(1000).then(async() => {
+                console.log(`Area of Study ${index}`)
                 await root.requestAreaOfStudy(areaOfStudy)
             })
+        });
+
+        await bluebird.mapSeries(root.courses, async function(courseUrl, index, arrayLength) {
+            // rate limiter before scrape
+            await delay(1000).then(async() => {
+                console.log(`Course ${index}`)
+                await root.scrapeCourse(courseUrl)
+                    .then((courseData) => {
+                        console.log(courseData);
+                    });
+            })
+
         });
 
         /* 
