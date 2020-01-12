@@ -2,6 +2,7 @@ const $ = require('cheerio');
 const rp = require('request-promise');
 const delay = require('delay');
 const bluebird = require('bluebird');
+import { createCourse } from './mutator';
 
 import { Course } from './models'
 export default class Webscraper {
@@ -19,6 +20,8 @@ export default class Webscraper {
     private visitedStudies: Array<string> = [];
     private visitedDepartments: Array<string> = [];
     private courses: Array<string> = [];
+    private visitedCourses: Array<string> = [];     // course code
+    private latestYear: string = '2019/2020';
 
     async getAreasOfStudyTable(): Promise<any> {
         const root = this;
@@ -68,7 +71,7 @@ export default class Webscraper {
         } else {
             console.log(`Area of Study ${index}.${subindex}`)
         }
-        console.log(`total courses: ${root.courses.length}`)
+        console.log(`Running total of courses: ${root.courses.length}`)
 
         return rp(options)
             .catch((err) => {
@@ -83,7 +86,6 @@ export default class Webscraper {
                         $(this).next().find('a').each(async function(index, el) {
                             if ($(this).attr('href').startsWith('course')) {
                                 let courseUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
-                                //console.log(courseUrl);
 
                                 if (!root.courses.includes(courseUrl)) {
                                     root.courses.push(courseUrl);
@@ -98,7 +100,6 @@ export default class Webscraper {
                     $('#facultytable').children().first().next().next().find('a').each(function(index, el) {
                         if ($(this).attr('href').startsWith('department')) {
                             let departmentUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
-                            // console.log(departmentUrl);
 
                             if (!root.visitedDepartments.includes(departmentUrl)) {
                                 localDepartments.push(departmentUrl);
@@ -136,7 +137,7 @@ export default class Webscraper {
         let corerequsiteCourses: Array<string> | null = null;
         let exclusionsDescription: string | null = null;
         let exclusionsCourses: Array<string> | null = null;
-        let notesDescriptions: string | null = null;
+        let notes: string | null = null;
 
         const options: Object = {
             uri: courseUrl,
@@ -150,7 +151,12 @@ export default class Webscraper {
                 // if there is an issue with the rp fetch, reject it now
                 return Promise.reject(new Error(`Request to course page ${courseUrl} failed`));
             })
-            .then(function($) {
+            .then(async function($) {
+                if ($('#deptnav').children().first().find('a').text() !== `Undergraduate Academic Calendar ${root.latestYear}`) {
+                    // reject scraping archived courses
+                    return Promise.reject(`Warning: Archived course, ignore ${courseUrl}`);
+                }
+                
                 let headerInfo = $('div[style="padding: 0px 20px;"]').children().first();
                 let reg = /.+?(?=<br>)/;
                 let arr = reg.exec(headerInfo.html());
@@ -158,6 +164,12 @@ export default class Webscraper {
                 // Code
                 if (arr !== null && arr !== undefined) {
                     code = reg.exec(headerInfo.html())[0] as string;    // e.g. LL201<br>..., LL201 is caught
+                    
+                    if (root.visitedCourses.includes(code)) {
+                        return Promise.reject(`Warning: ${code} has already been scraped during this webscraper run, ignoring ${courseUrl}`);
+                    } else {
+                        root.visitedCourses.push(code);
+                    }
                 }
 
                 // Name and Credits
@@ -174,13 +186,13 @@ export default class Webscraper {
                     let data = $(this).text().split(' ')
                     switch (data[0]) {
                         case 'Lecture/Discussion:':
-                            lectureHours = data[1];
+                            lectureHours = Number(data[1]);
                             break;
                         case 'Lab:':
-                            labHours = data[1];
+                            labHours = Number(data[1]);
                             break;
                         case 'Tutorial/Seminar:':
-                            tutorialHours = data[1];
+                            tutorialHours = Number(data[1]);
                             break;
                     }
                 });
@@ -283,7 +295,7 @@ export default class Webscraper {
                                         exclusionsCourses = requisiteCourses;
                                         break;
                                     case 'Notes':
-                                        notesDescriptions = requisiteData.text();
+                                        notes = requisiteData.text();
                                         break;
                                 }
                             }
@@ -291,7 +303,7 @@ export default class Webscraper {
                     }
                 });
 
-                return Promise.resolve({
+                let course = new Course({
                     code,
                     name,
                     credits,
@@ -305,8 +317,11 @@ export default class Webscraper {
                     corerequsiteCourses,
                     exclusionsDescription,
                     exclusionsCourses,
-                    notesDescriptions
+                    notes,
                 });
+
+                createCourse(course);
+                return Promise.resolve(course);
             })
     }
 
@@ -342,44 +357,25 @@ export default class Webscraper {
         });
 
         await bluebird.mapSeries(root.areasOfStudy, async function(areaOfStudyUrl: string, index: number) {
-            await delay(2000).then(async() => {
-                await root.requestAreaOfStudy(areaOfStudyUrl, index, -1)
+            // rate limit before area of study scrape
+            await delay(1000).then(async() => {
+                await root.requestAreaOfStudy(areaOfStudyUrl, index + 1, -1)
             })
         });
 
         await bluebird.mapSeries(root.courses, async function(courseUrl, index, arrayLength) {
-            // rate limiter before scrape
+            // rate limit before course scrape
             await delay(1000).then(async() => {
                 console.log(`Course ${index + 1}`)
                 await root.scrapeCourse(courseUrl)
+                    .catch((err) => {
+                        console.log(err);
+                    })
                     .then((courseData) => {
                         console.log(courseData);
                     });
             })
-
         });
-
-        /* 
-        - Using this URL (href), fetch the resulting page and check if 'Course Offerings' is listed ...
-            If ( 'Course Offerings' is listed ), then the Area of Study is valid ...
-
-            -> Check if the Area of Study name is stored in visitedStudies
-                -> If it hasn't been visited / stored, scrape the courses listed AND append the area of study name
-                   found at the top of the page in red
-                -> If the page ALSO has 'Departments' listed, then there may be more courses to scrape on the subsequent page,
-                   complete the steps for 'See if Departments is listed' below
-                   e.g. https://academic-calendar.wlu.ca/department.php?cal=1&d=2038&s=931&y=79
-        
-            Else ...
-
-            -> See if 'Departments' is listed
-                -> If so, iterate through all Departments and observe whether they have been visited / stored in visitedDepartments
-                -> If a department hasn't been visited / stored, fetch the resulting page and check if 'Course Offerings' is listed
-                    -> If it is listed, complete the steps above for 'If 'Course Offerings' is listed'
-                    -> If not, go back to 'See if 'Departments' is listed'
-            -> If 'Departments' is NOT listed, iterate to the NEXT area of study on the root url
-        */
-        
     }
 
     programScrapeMain() {
