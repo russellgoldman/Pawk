@@ -71,7 +71,7 @@ export default class Webscraper {
         } else {
             console.log(`Area of Study ${index}.${subindex}`)
         }
-        console.log(`Running total of courses: ${root.courses.length}`)
+        console.log(`Total courses: ${root.courses.length}\n`)
 
         return rp(options)
             .catch((err) => {
