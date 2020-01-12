@@ -53,7 +53,7 @@ export default class Webscraper {
             })
     }
 
-    async requestAreaOfStudy(areaOfStudy: string): Promise<any> {
+    async requestAreaOfStudy(areaOfStudy: string, index: number, subindex: number): Promise<any> {
         const root = this;
 
         const options: Object = {
@@ -63,20 +63,27 @@ export default class Webscraper {
             }
         }
 
-        rp(options)
+        if (subindex === -1) {
+            console.log(`Area of Study ${index}`)
+        } else {
+            console.log(`Area of Study ${index}.${subindex}`)
+        }
+        console.log(`total courses: ${root.courses.length}`)
+
+        return rp(options)
             .catch((err) => {
                 // if there is an issue with the rp fetch, reject it now
                 return Promise.reject(new Error(`Request to area of study ${areaOfStudy} failed`));
             })
-            .then(($) => {
-                let foundDepartments = false;
+            .then(async ($) => {
+                let localDepartments: Array<string> = [];
 
                 $('caption').each(function(index, el) {
                     if ($(this).text() === 'Course Offerings') {
                         $(this).next().find('a').each(async function(index, el) {
                             if ($(this).attr('href').startsWith('course')) {
                                 let courseUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
-                                console.log(courseUrl);
+                                //console.log(courseUrl);
 
                                 if (!root.courses.includes(courseUrl)) {
                                     root.courses.push(courseUrl);
@@ -86,27 +93,30 @@ export default class Webscraper {
                     }
                 })
 
-                //if (localCourses.length === 0) console.log('\nNo courses found\n');
-
                 // see if there are Departments listed
-                // if ($('#facultytable').children().first().text() === 'Departments') {
-                //     $('#facultytable').children().first().next().next().find('a').each(function(index, el) {
-                //         if ($(this).attr('href').startsWith('department')) {
-                //             let departmentUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
-                //             console.log(departmentUrl);
+                if ($('#facultytable').children().first().text() === 'Departments') {
+                    $('#facultytable').children().first().next().next().find('a').each(function(index, el) {
+                        if ($(this).attr('href').startsWith('department')) {
+                            let departmentUrl = 'https://academic-calendar.wlu.ca/' + $(this).attr('href');
+                            // console.log(departmentUrl);
 
-                //             if (!root.visitedDepartments.includes(departmentUrl)) {
-                //                 if (!foundDepartments) foundDepartments = true;
-                //                 root.visitedDepartments.push(departmentUrl);
-                //                 // call the same function recursively, base case is when no departments AND no courses are present
-                //                 // await root.requestAreaOfStudy(departmentUrl)
-                //             }
-                //         }
-                //     })
-                // }
+                            if (!root.visitedDepartments.includes(departmentUrl)) {
+                                localDepartments.push(departmentUrl);
+                                root.visitedDepartments.push(departmentUrl);
+                            }
+                        }
+                    })
+                }
 
-                //if (!foundDepartments) console.log('\nNo departments found\n');
-                //if (localCourses.length === 0 && !foundDepartments) Promise.resolve();  // search the next Area of Study
+                if (localDepartments.length !== 0) {
+                    await bluebird.mapSeries(localDepartments, async function(departmentUrl, i) {
+                        await delay(1000).then(async function() {
+                            await root.requestAreaOfStudy(departmentUrl, index, i + 1)
+                        });
+                    });
+                } else {
+                    return Promise.resolve()
+                }
             })
     }
 
@@ -331,17 +341,16 @@ export default class Webscraper {
             }
         });
 
-        await bluebird.mapSeries(root.areasOfStudy, async function(areaOfStudy: string, index: number) {
-            await delay(1000).then(async() => {
-                console.log(`Area of Study ${index}`)
-                await root.requestAreaOfStudy(areaOfStudy)
+        await bluebird.mapSeries(root.areasOfStudy, async function(areaOfStudyUrl: string, index: number) {
+            await delay(2000).then(async() => {
+                await root.requestAreaOfStudy(areaOfStudyUrl, index, -1)
             })
         });
 
         await bluebird.mapSeries(root.courses, async function(courseUrl, index, arrayLength) {
             // rate limiter before scrape
             await delay(1000).then(async() => {
-                console.log(`Course ${index}`)
+                console.log(`Course ${index + 1}`)
                 await root.scrapeCourse(courseUrl)
                     .then((courseData) => {
                         console.log(courseData);
