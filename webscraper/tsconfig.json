@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "removeComments": true,
         "preserveConstEnums": true,
         "outDir": "./.build/",
+        "sourceMap": true,
     },
     "exclude": [
         "node_modules",
