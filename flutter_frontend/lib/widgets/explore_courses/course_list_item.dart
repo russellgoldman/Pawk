@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/colours.dart';
 import 'package:flutter_frontend/widgets/explore_courses/course_info_tile.dart';
 import 'package:flutter_frontend/widgets/explore_courses/course_info_expanded.dart';
-import 'package:flutter_frontend/widgets/explore_courses/sliding_box.dart';
+import 'package:flutter_frontend/widgets/common/sliding_box.dart';
 
 class CourseListItem extends StatefulWidget {
   final String code;
@@ -106,6 +106,8 @@ class CourseListItemState extends State<CourseListItem> with SingleTickerProvide
             sizeFactor: courseInfoExpandAnimation,
             child: CourseInfoExpanded(
               code: widget.code,
+              name: widget.name,
+              rating: widget.rating,
               description: widget.description,
             )
           ),

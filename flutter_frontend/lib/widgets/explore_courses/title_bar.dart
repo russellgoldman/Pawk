@@ -95,11 +95,6 @@ class _TitleBarState extends State<TitleBar> {
                             height: 20,
                             width: 20
                           ),  
-                          // Image(
-                          //   image: AssetImage('assets/images/search.png'),
-                          //   height: 20,
-                          //   width: 20
-                          // ),
                           SizedBox(height: 40, width: 10),
                         ]
                       )

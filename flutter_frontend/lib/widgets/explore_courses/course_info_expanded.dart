@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/colours.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_frontend/route_models.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CourseInfoExpanded extends StatelessWidget {
   final String code;
+  final String name;
+  final double rating;
   final String description;
-  CourseInfoExpanded({ this.code, this.description });
+  CourseInfoExpanded({ this.code, this.name, this.rating, this.description });
     
   @override
   Widget build(BuildContext context) {
@@ -61,6 +63,12 @@ class CourseInfoExpanded extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
                 onPressed: () {
                   print('learn more about $code');
+                  Navigator.pushNamed(context, CoursePageRoute, arguments: CoursePageArguments(
+                    code: code,
+                    name: name,
+                    rating: rating,
+                    description: description
+                  ));
                 },
                 color: main_purple,
                 textColor: Colors.white,
