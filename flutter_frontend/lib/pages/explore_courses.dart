@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/colours.dart';
 import 'package:flutter_frontend/dummy_data/dummy_courses.dart';
+import 'package:flutter_frontend/route_models.dart';
+import 'package:flutter_frontend/widgets/common/title_bar_container.dart';
 import 'package:flutter_frontend/widgets/explore_courses/course_list_item.dart';
-import 'package:flutter_frontend/widgets/explore_courses/title_bar.dart';
 
 class ExploreCourses extends StatefulWidget {
   @override
@@ -65,7 +66,12 @@ class _ExploreCoursesState extends State<ExploreCourses>  {
         child: SafeArea(
           child: Column(
             children: <Widget>[
-              TitleBar(title: 'Courses', showShadow: showDropShadow, searchCallback: updateCourseListFromSearch),
+              TitleBarContainer(
+                route: ExploreCoursesRoute,
+                title: 'Courses',
+                showShadow: showDropShadow,
+                searchCallback: updateCourseListFromSearch
+              ),
               Expanded(child: ListView.builder(
                 controller: scrollController,
                 itemCount: searchedCourses.length,

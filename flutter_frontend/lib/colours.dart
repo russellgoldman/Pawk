@@ -14,3 +14,8 @@ const Color bolded_grey_header = Color.fromRGBO(80, 80, 80, 1);
 const Color light_grey_description = Color.fromRGBO(131, 131, 131, 1);
 // grey_divider
 const Color grey_divider = Color.fromRGBO(229, 229, 229, 1);
+
+// course_code -> #3A3A3A
+const Color grey_course_name = Color.fromRGBO(58, 58, 58, 1);
+// grey_rating_bar -> #E7E7E7
+const Color grey_rating_bar = Color.fromRGBO(231, 231, 231, 1);
