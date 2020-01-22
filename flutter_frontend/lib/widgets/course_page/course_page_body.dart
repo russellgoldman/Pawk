@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/colours.dart';
+import 'package:flutter_frontend/widgets/course_page/requisite_body.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CoursePageBody extends StatelessWidget {
@@ -14,8 +15,8 @@ class CoursePageBody extends StatelessWidget {
     int maxRating = 5;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: 30),
@@ -29,7 +30,7 @@ class CoursePageBody extends StatelessWidget {
                   code,
                   style: TextStyle(
                     fontFamily: 'Avenir',
-                    color: grey_course_name,
+                    color: dark_grey_header,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   )
@@ -82,7 +83,21 @@ class CoursePageBody extends StatelessWidget {
               height: 1.5,
             ),
           ),
-        )
+        ),
+        Container(
+          margin: EdgeInsets.fromLTRB(40, 30, 40, 0),
+          child: Text(
+            'Currently 90 students registered',
+            textAlign: TextAlign.justify,
+            style: TextStyle(
+              fontFamily: 'Avenir',
+              color: main_purple,
+              fontSize: 14,
+              height: 1.5,
+            ),
+          ),
+        ),
+        RequisiteBody()
       ],
     );
   }
