@@ -10,6 +10,24 @@ class CoursePage extends StatefulWidget {
 }
 
 class _CoursePageState extends State<CoursePage> {
+  // title bar drop shadow
+  bool showDropShadow = false;
+  ScrollController scrollController;
+  double scrollPosition;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    scrollController.addListener(updateDropShadow);
+  }
+
+  void updateDropShadow() {
+    if (!showDropShadow && scrollController.position.pixels > 7) setState(() => showDropShadow = true);
+    else if (showDropShadow && scrollController.position.pixels < 7) setState(() => showDropShadow = false);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final CoursePageArguments args = ModalRoute.of(context).settings.arguments;
@@ -24,13 +42,29 @@ class _CoursePageState extends State<CoursePage> {
               TitleBarContainer(
                 route: CoursePageRoute,
                 title: 'Courses',
-                showShadow: false,
+                showShadow: showDropShadow,
+                code: args.code
               ),
-              CoursePageBody(
-                code: args.code,
-                rating: args.rating,
-                description: args.description
-              )
+              Expanded(child: ListView(
+                controller: scrollController,
+                children: <Widget>[
+                  CoursePageBody(
+                    code: args.code,
+                    rating: args.rating,
+                    description: args.description
+                  ),
+                  CoursePageBody(
+                    code: args.code,
+                    rating: args.rating,
+                    description: args.description
+                  ),
+                  CoursePageBody(
+                    code: args.code,
+                    rating: args.rating,
+                    description: args.description
+                  )
+                ],
+              )),
             ]
           )
         )

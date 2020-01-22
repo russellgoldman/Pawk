@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/colours.dart';
 import 'package:flutter_frontend/widgets/course_page/course_page_title_bar.dart';
 import 'package:flutter_frontend/widgets/explore_courses/explore_courses_title_bar.dart';
 import 'package:flutter_frontend/route_models.dart';
@@ -8,8 +9,15 @@ class TitleBarContainer extends StatefulWidget {
   final String title;
   final bool showShadow;
   final Function searchCallback;
+  final String code;
 
-  TitleBarContainer({ this.route, this.title, this.showShadow, this.searchCallback });
+  TitleBarContainer({
+    this.route,
+    this.title,
+    this.showShadow,
+    this.searchCallback,
+    this.code
+  });
 
   @override
   _TitleBarContainerState createState() => _TitleBarContainerState();
@@ -25,7 +33,11 @@ class _TitleBarContainerState extends State<TitleBarContainer> {
         );
         break;
       case CoursePageRoute:
-        return CoursePageTitleBar();
+        return CoursePageTitleBar(
+          code: widget.code,
+          title: widget.title,
+          titleChange: widget.showShadow,
+        );
         break;
       default:
         return SizedBox();
@@ -37,12 +49,11 @@ class _TitleBarContainerState extends State<TitleBarContainer> {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: <Widget>[
           AnimatedContainer(
-            duration: Duration(milliseconds: 500),
+            duration: Duration(milliseconds: 200),
             height: 0,
             decoration: BoxDecoration(
               boxShadow: [
@@ -50,7 +61,13 @@ class _TitleBarContainerState extends State<TitleBarContainer> {
               ]
             ),
           ),
-          renderContainer()
+          Container(
+            color: light_grey_background,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 12.5),
+              child: renderContainer()
+            )
+          )
         ],
       )
     );
