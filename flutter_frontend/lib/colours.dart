@@ -18,3 +18,5 @@ const Color grey_divider = Color.fromRGBO(229, 229, 229, 1);
 const Color dark_grey_header = Color.fromRGBO(58, 58, 58, 1);
 // grey_rating_bar -> #E7E7E7
 const Color grey_rating_bar = Color.fromRGBO(231, 231, 231, 1);
+// light_grey_card -> #F6F6F6
+const Color light_grey_card = Color.fromRGBO(246, 246, 246, 1);

@@ -33,6 +33,7 @@ class _CoursePageState extends State<CoursePage> {
     final CoursePageArguments args = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: light_grey_background,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -53,16 +54,6 @@ class _CoursePageState extends State<CoursePage> {
                     rating: args.rating,
                     description: args.description
                   ),
-                  CoursePageBody(
-                    code: args.code,
-                    rating: args.rating,
-                    description: args.description
-                  ),
-                  CoursePageBody(
-                    code: args.code,
-                    rating: args.rating,
-                    description: args.description
-                  )
                 ],
               )),
             ]

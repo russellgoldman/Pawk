@@ -17,7 +17,8 @@ class CoursePageTitleBar extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Container(
-            margin: const EdgeInsets.only(left: 31),
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.only(left: 31),
             child: GestureDetector(
               onTap: () {
                 Navigator.pop(context);

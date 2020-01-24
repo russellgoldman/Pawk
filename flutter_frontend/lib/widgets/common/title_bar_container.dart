@@ -57,12 +57,15 @@ class _TitleBarContainerState extends State<TitleBarContainer> {
             height: 0,
             decoration: BoxDecoration(
               boxShadow: [
-                BoxShadow(blurRadius: 10, color: Colors.grey, spreadRadius: widget.showShadow ? 3 : 0)
+                BoxShadow(blurRadius: 10, color: Colors.grey, spreadRadius: widget.showShadow ? 2 : 0)
               ]
             ),
           ),
           Container(
-            color: light_grey_background,
+            decoration: BoxDecoration(
+              color: light_grey_background,
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+            ),
             child: Padding(
               padding: EdgeInsets.only(bottom: 12.5),
               child: renderContainer()
