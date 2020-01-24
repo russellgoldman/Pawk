@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/colours.dart';
+import 'package:flutter_frontend/dummy_data/dummy_courses.dart';
 import 'package:flutter_frontend/widgets/course_page/requisite_body.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -10,8 +11,15 @@ class CoursePageBody extends StatelessWidget {
 
   CoursePageBody({ this.code, this.rating, this.description });
 
+  final List<DummyCourse> courses = DummyCourses().getDummyCourses();
+  // NORMALLY WE WOULD PERFORM A GRAPHQL QUERY
+  // for this example let us use the first dummy course
+
   @override
   Widget build(BuildContext context) {
+    // grab the first dummy course
+    DummyCourse course = courses.first;
+
     int maxRating = 5;
 
     return Column(
@@ -97,7 +105,22 @@ class CoursePageBody extends StatelessWidget {
             ),
           ),
         ),
-        RequisiteBody()
+        RequisiteBody(
+          type: requisiteType.prerequisite,
+          code: course.code,
+          name: course.name,
+          rating: course.rating,
+          requisiteCourses: courses,    // TEMPORARY FOR TESTING PURPOSES
+          requisiteDescription: '',
+        ),
+        RequisiteBody(
+          type: requisiteType.corequisite,
+          code: course.code,
+          name: course.name,
+          rating: course.rating,
+          requisiteCourses: courses,    // TEMPORARY FOR TESTING PURPOSES
+          requisiteDescription: 'My corequisite description',
+        )
       ],
     );
   }
