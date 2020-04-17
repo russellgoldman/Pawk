@@ -1,0 +1,31 @@
+beta_settings:
+  cloud_sql_instances: pawk-274505:us-central1:postgres=tcp:5432
+
+# [START runtime]
+runtime: nodejs
+env: flex
+threadsafe: yes
+
+manual_scaling:
+  instances: 1
+resources:
+  cpu: .5
+  memory_gb: .5
+  disk_size_gb: 10
+
+# [END runtime]
+
+handlers:
+  - url: /(.*)
+    static_files: ./\1
+    upload: ./(.*)
+
+#  settings to keep gcloud from uploading files not required for deployment
+skip_files:
+  - ^node_modules$
+  - ^README\..*
+  - ^package-lock.json
+  - \.gitignore
+  - \.es*
+  - ^\.git$
+  - ^errors\.log

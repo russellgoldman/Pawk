@@ -1,5 +1,3 @@
-\connect postgraphile;
-
 INSERT INTO pawk.courses (
     code,
     name,

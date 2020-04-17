@@ -1,5 +1,3 @@
-\connect postgraphile;
-
 CREATE SCHEMA pawk;
 CREATE TABLE pawk.courses (
     code TEXT UNIQUE NOT NULL PRIMARY KEY,

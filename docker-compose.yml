@@ -3,7 +3,6 @@ services:
   postgres:
     container_name: postgres
     restart: always
-    image: postgres
     build:
       context: ./postgres
     volumes:
