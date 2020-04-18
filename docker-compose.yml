@@ -32,8 +32,6 @@ services:
     container_name: graphql
     restart: always
     image: graphile/postgraphile
-    build:
-      context: ./graphql
     environment:
       DATABASE_URL: postgres://postgres:password@postgres:5432/postgraphile
     depends_on:
@@ -46,8 +44,9 @@ services:
     command: [
       "--connection", "postgres://postgres:password@postgres:5432/postgraphile",
       "--schema", "pawk",
+      "--enhance-graphiql",
+      "--timeout", "200",
       "--port", "5433",
-      "--append-plugins", "postgraphile-plugin-connection-filter"
     ]
 
   # webscraper:

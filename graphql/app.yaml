@@ -1,0 +1,34 @@
+# https://www.graphile.org/postgraphile/deploying-gcp/
+
+beta_settings:
+  cloud_sql_instances: pawk-######:us-central1:[DBNAME]=tcp:5432
+
+# [START runtime]
+runtime: nodejs
+env: flex
+threadsafe: yes
+service: postgraphile
+
+manual_scaling:
+  instances: 1
+resources:
+  cpu: 0.5
+  memory_gb: 0.5
+  disk_size_gb: 10
+
+# [END runtime]
+
+handlers:
+  - url: /(.*)
+    static_files: ./\1
+    upload: ./(.*)
+
+#  settings to keep gcloud from uploading files not required for deployment
+skip_files:
+  - ^node_modules$
+  - ^README\..*
+  - ^package-lock.json
+  - \.gitignore
+  - \.es*
+  - ^\.git$
+  - ^errors\.log

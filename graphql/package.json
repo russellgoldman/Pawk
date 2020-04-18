@@ -1,16 +1,21 @@
 {
-  "name": "database",
+  "name": "gql-json",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
   "scripts": {
-    "start": "node main.js",
+    "start": "npm run postgraphile",
+    "postgraphile": "postgraphile --host 0.0.0.0 --port 8080 --enhance-graphiql --timeout 200 --cors --schema pawk -c postgres://[USER]:[PASS]@172.17.0.1:5432/[DBNAME]",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "^10.15",
+    "npm": "^6.9"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "pg": "^7.12.1"
+    "graphile-build-pg": "^4.5.3",
+    "pg": "^7.18.2",
+    "postgraphile": "^4.6.0"
   }
 }
