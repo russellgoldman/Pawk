@@ -1,7 +1,7 @@
 # https://www.graphile.org/postgraphile/deploying-gcp/
 
 beta_settings:
-  cloud_sql_instances: pawk-######:us-central1:[DBNAME]=tcp:5432
+  cloud_sql_instances: pawk-[CODE]:us-central1:[DBNAME]=tcp:5432
 
 # [START runtime]
 runtime: nodejs
@@ -9,8 +9,9 @@ env: flex
 threadsafe: yes
 service: postgraphile
 
-manual_scaling:
-  instances: 1
+automatic_scaling:
+  min_instances: 0
+  max_concurrent_requests: 50
 resources:
   cpu: 0.5
   memory_gb: 0.5
