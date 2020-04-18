@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "npm i -g postgraphile && npm run postgraphile",
-    "postgraphile": "postgraphile --host --port=8080 --cors --enhance-graphiql --graphql / -n 0.0.0.0 -s pawk -c postgres://[user]:[pass]@[url]/[dbname]",
+    "start": "npm run postgraphile",
+    "postgraphile": "postgraphile --host 0.0.0.0 --port 8080 --enhance-graphiql --timeout 200 --cors --schema pawk -c postgres://[USER]:[PASS]@172.17.0.1:5432/[DBNAME]",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "graphile-build-pg": "^4.5.3",
-    "pg": "^7.18.2"
+    "pg": "^7.18.2",
+    "postgraphile": "^4.6.0"
   }
 }

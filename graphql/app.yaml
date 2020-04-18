@@ -1,16 +1,17 @@
 beta_settings:
-  cloud_sql_instances: pawk-274505:us-central1:postgres=tcp:5432
+  cloud_sql_instances: pawk-######:us-central1:[DBNAME]=tcp:5432
 
 # [START runtime]
 runtime: nodejs
 env: flex
 threadsafe: yes
+service: postgraphile
 
 manual_scaling:
   instances: 1
 resources:
-  cpu: .5
-  memory_gb: .5
+  cpu: 0.5
+  memory_gb: 0.5
   disk_size_gb: 10
 
 # [END runtime]
